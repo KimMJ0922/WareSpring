@@ -1,0 +1,12 @@
+
+//카드 테이블
+CREATE TABLE card (
+	cardset_no int(10) not null,
+	question_no int(10) not null,
+	question varchar(2000) not null,
+	answer varchar(2000) not null,
+	imgFile varchar(1000) not null,
+	
+	FOREIGN KEY (cardset_no)
+	REFERENCES cardset (no) on delete cascade
+);

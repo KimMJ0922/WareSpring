@@ -12,4 +12,3 @@ spring:
     view:
       prefix: /WEB-INF/
       suffix: .jsp
-     
