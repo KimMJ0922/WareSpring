@@ -1,11 +1,9 @@
 server:
-  port: 9000
-  
-
+  port: 9001
 spring:
   datasource:
     jdbc-url: jdbc:mysql://localhost:3306/angel
-    driver-class-name: com.mysql.jdbc.Driver 
+    driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: root
   mvc:

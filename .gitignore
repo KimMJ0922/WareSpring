@@ -13,14 +13,17 @@ build/
 .settings
 .springBeans
 .sts4-cache
-
+*.yml
+application.yml
+.yml
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
+
 out/
-*.yml
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
