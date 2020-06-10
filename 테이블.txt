@@ -10,3 +10,16 @@ CREATE TABLE card (
 	FOREIGN KEY (cardset_no)
 	REFERENCES cardset (no) on delete cascade
 );
+//맴버
+create table member(
+	email varchar(100) primary key,
+	password varchar(100) not null,
+	birth varchar(50) not null,
+	name varchar(100) not null,
+	joinday date not null,
+	emailcheck varchar(20) not null,
+	classnum int(5) not null,
+	profile varchar(100)
+); 
+
+insert into member values('zkxm_0@naver.com','qwe123!@#','19960922','김민재',now(),'y',1,'');

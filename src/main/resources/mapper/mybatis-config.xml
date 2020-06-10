@@ -3,8 +3,10 @@
 <configuration>
     <typeAliases>
          <typeAlias alias="cdto" type="card.dto.CardDTO" />
+         <typeAlias alias="mdto" type="member.dto.MemberDTO" />
     </typeAliases>	
 	<mappers>
 		<mapper resource="mapper/CardSqlMapper.xml" />
+		<mapper resource="mapper/MemberSqlMapper.xml" />
 	</mappers>
 </configuration>
