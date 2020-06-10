@@ -51,6 +51,7 @@ public class CardController {
 			System.out.println(obj.get("answer"));
 			System.out.println(obj.get("img"));
 			System.out.println("---------------------------------");
+			
 		}
 	}
 }
