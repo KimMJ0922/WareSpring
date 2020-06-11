@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="signup" parameterType="mdto">
-		insert into member values(#{email},#{password},#{birth},#{name},now(),'n',1,'')
+		insert into member values(#{email},#{password},#{birth},#{name},now(),'n',0,'','default',0)
 	</insert>
 	
 	<update id="updateEmailCheck" parameterType="String">
@@ -21,4 +21,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="emailCount" parameterType="Map" resultType="int">
 		select count(*) from member where email = #{email} and password = #{password}
 	</select>
+	
+	<select id="socialCount" parameterType="Map" resultType="Integer">
+		select count(*) from member where email = #{email} and provider = #{provider}
+	</select>
+	
+	<insert id="socialSignUp" parameterType="Map">
+		insert into 
+		member(email,name,joinday,emailcheck,admin,profile,provider,point) 
+		values(#{email},#{name},now(),'y',0,#{profile},#{provider},0);
+	</insert>
+	
+	<select id="socialLogin" parameterType="Map" resultType="mdto">
+		select * 
+		from member
+		where email = #{email} and provider = #{provider}
+	</select>
+	
+	<update id="socialUpdate" parameterType="Map">
+		update member set name = #{name} , profile = #{profile} where email = #{email} and provider = #{provider}
+	</update> 
 </mapper>

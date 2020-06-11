@@ -13,4 +13,8 @@ public interface MemberMapper {
 	public void updateEmailCheck(String email);
 	public MemberDTO login(Map<String,Object> map);
 	public int emailCount(Map<String,Object> map);
+	public int socialCount(Map<String,Object> map);
+	public void socialSignUp(Map<String,Object> map);
+	public void socialUpdate(Map<String,Object> map);
+	public MemberDTO socialLogin(Map<String,Object> map);
 }

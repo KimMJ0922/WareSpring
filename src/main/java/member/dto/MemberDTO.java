@@ -15,5 +15,8 @@ public class MemberDTO {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Timestamp joinday;
 	private String emailcheck;
-	private int classnum;
+	private String profile;
+	private int admin;
+	private String provider;
+	private int point;
 }
