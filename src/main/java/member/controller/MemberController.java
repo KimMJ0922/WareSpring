@@ -63,13 +63,22 @@ public class MemberController {
     public Map<String,Object> login(@RequestBody Map<String,Object> loginMap){
     	System.out.println(loginMap);
     	Map<String,Object> map = new HashMap<String, Object>();
-    	MemberDTO dto = memberService.login(loginMap);
-    	if(!dto.getEmailcheck().equals("y")) {
-    		map.put("check", dto.getEmailcheck());
+    	int count = memberService.emailCount(loginMap);
+    	System.out.println(count);
+    	//해당 이메일 계정이 없을 때
+    	if(count == 0) {
+    		map.put("login", "n");
     	}else {
-    		map.put("dto", dto);
+    		MemberDTO dto = memberService.login(loginMap);
+    		//이메일 인증을 안했을 때
+    		if(!dto.getEmailcheck().equals("y")) {
+        		map.put("emailcheck", dto.getEmailcheck());
+        		map.put("login", "y");
+        	}else {
+        		map.put("dto", dto);
+        		map.put("login", "y");
+        	}
     	}
-    	
     	return map;
     }
     
