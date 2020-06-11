@@ -4,9 +4,11 @@
     <typeAliases>
          <typeAlias alias="cdto" type="card.dto.CardDTO" />
          <typeAlias alias="mdto" type="member.dto.MemberDTO" />
+         <typeAlias alias="bdto" type="board.data.BoardDto" />
     </typeAliases>	
 	<mappers>
 		<mapper resource="mapper/CardSqlMapper.xml" />
 		<mapper resource="mapper/MemberSqlMapper.xml" />
+		<mapper resource="mapper/BoardSqlMapper.xml" />
 	</mappers>
 </configuration>

@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Primary;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration 
-@MapperScan(value= {"*.mapper"},sqlSessionFactoryRef="mysqlSqlSessionFactory") 
+@MapperScan(value= {"*.mapper,*.data"},sqlSessionFactoryRef="mysqlSqlSessionFactory") 
 public class DatabaseConfig {
 	@Bean(name = "mysqlDataSource", destroyMethod = "close")
 	@Primary
