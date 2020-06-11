@@ -68,6 +68,7 @@ public class MemberController {
     	//해당 이메일 계정이 없을 때
     	if(count == 0) {
     		map.put("login", "n");
+    		
     	}else {
     		MemberDTO dto = memberService.login(loginMap);
     		//이메일 인증을 안했을 때
