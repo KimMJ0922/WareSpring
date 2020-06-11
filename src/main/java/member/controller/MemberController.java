@@ -64,7 +64,12 @@ public class MemberController {
     	System.out.println(loginMap);
     	Map<String,Object> map = new HashMap<String, Object>();
     	MemberDTO dto = memberService.login(loginMap);
-    	map.put("dto", dto);
+    	if(!dto.getEmailcheck().equals("y")) {
+    		map.put("check", dto.getEmailcheck());
+    	}else {
+    		map.put("dto", dto);
+    	}
+    	
     	return map;
     }
     
