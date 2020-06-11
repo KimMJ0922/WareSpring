@@ -14,4 +14,12 @@ public interface MemberService{
 	public MemberDTO login(Map<String,Object> map);
 	//로그인 하기 전 체크
 	public int emailCount(Map<String,Object> map);
+	//소셜 로그인 해당 아이디가 있는지 확인
+	public int socialCount(Map<String,Object> map);
+	//소셜 해당 계정 등록
+	public void socialSignUp(Map<String,Object> map);
+	//소셜 계정의 정보 업데이트
+	public void socialUpdate(Map<String,Object> map);
+	//소셜 계정 정보 
+	public MemberDTO socialLogin(Map<String,Object> map);
 }

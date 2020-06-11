@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import email.send.MailSendService;
 import member.dto.MemberDTO;
+import member.service.MemberEncryption;
 import member.service.MemberService;
 
 @RestController
@@ -35,11 +36,12 @@ public class MemberController {
 	//회원 가입 버튼 눌렀을 때
     @PostMapping("/signup")
     public void signup(@RequestBody MemberDTO dto) {
-    	System.out.println("회원가입 : "+dto);
+    	MemberEncryption encry = new MemberEncryption();
+    	dto.setPassword(encry.encryption(dto.getPassword()));
+    	System.out.println(dto.getPassword());
     	memberService.signup(dto);
     	mailSendService.sendMail(dto.getEmail(),dto.getName());
-    	
-    	
+  
     }
     
     //메일 인증 눌렀을 때
@@ -57,12 +59,17 @@ public class MemberController {
         return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
     }
     
-    
+    //일반 로그인
     @PostMapping("/login")
     @ResponseBody
     public Map<String,Object> login(@RequestBody Map<String,Object> loginMap){
-    	System.out.println(loginMap);
     	Map<String,Object> map = new HashMap<String, Object>();
+    	
+    	String password = (String)loginMap.get("password");
+    	MemberEncryption encry = new MemberEncryption();
+    	
+    	password = encry.encryption(password);
+    	loginMap.put("password",password);
     	int count = memberService.emailCount(loginMap);
     	System.out.println(count);
     	//해당 이메일 계정이 없을 때
@@ -79,6 +86,37 @@ public class MemberController {
         		map.put("login", "y");
         	}
     	}
+    	return map;
+    }
+    
+    //소셜 로그인
+    @PostMapping("/sociallogin")
+    @ResponseBody
+    public Map<String,Object> socialLogin(@RequestBody Map<String,Object> socialLoginMap){
+    	System.out.println(socialLoginMap);
+    	Map<String,Object> map = new HashMap<String, Object>();
+    	
+    	//카카오 아이디는 int형
+    	//update시 테이블 타입 string과 int형이 맞지 않아 못찾는다함.
+    	String email = socialLoginMap.get("email").toString();
+    	socialLoginMap.put("email",email);
+    	
+    	//소셜 아이디가 있는지 검사
+    	int cnt = memberService.socialCount(socialLoginMap);
+    	System.out.println("cnt = "+cnt);
+    	//없는 경우
+    	if(cnt == 0) {
+    		System.out.println("1번");
+    		memberService.socialSignUp(socialLoginMap);
+    	}
+    	//있는 경우
+    	else {
+    		System.out.println("2번");
+    		memberService.socialUpdate(socialLoginMap);
+    	}
+    	
+    	MemberDTO dto = memberService.socialLogin(socialLoginMap);
+    	map.put("dto", dto);
     	return map;
     }
     

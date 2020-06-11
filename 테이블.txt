@@ -17,13 +17,15 @@ CREATE TABLE card (
 //맴버
 create table member(
 	email varchar(100) primary key,
-	password varchar(100) not null,
-	birth varchar(50) not null,
+	password varchar(100),
+	birth varchar(50),
 	name varchar(100) not null,
 	joinday date not null,
-	emailcheck varchar(20) not null,
-	classnum int(5) not null,
-	profile varchar(100)
-); 
+	emailcheck varchar(20) ,
+	admin int(5) not null default 0,
+	profile varchar(500),
+	provider varchar(50),
+	point int(10) default 0
+);
 
 insert into member values('zkxm_0@naver.com','qwe123!@#','19960922','김민재',now(),'y',1,'');

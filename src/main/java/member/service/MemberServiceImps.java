@@ -38,4 +38,29 @@ public class MemberServiceImps implements MemberService{
 		System.out.println(map);
 		return memberMapper.emailCount(map);
 	}
+	
+	@Override
+	public int socialCount(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return memberMapper.socialCount(map);
+	}
+	
+	@Override
+	public void socialSignUp(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		memberMapper.socialSignUp(map);
+	}
+	
+	@Override
+	public void socialUpdate(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		System.out.println("3번");
+		memberMapper.socialUpdate(map);
+	}
+	
+	@Override
+	public MemberDTO socialLogin(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return memberMapper.socialLogin(map);
+	}
 }
