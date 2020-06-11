@@ -3,7 +3,6 @@ package member.mapper;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Repository;
 
 import member.dto.MemberDTO;
 
@@ -13,4 +12,5 @@ public interface MemberMapper {
 	public void signup(MemberDTO dto);
 	public void updateEmailCheck(String email);
 	public MemberDTO login(Map<String,Object> map);
+	public int emailCount(Map<String,Object> map);
 }

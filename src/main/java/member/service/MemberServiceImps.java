@@ -31,4 +31,11 @@ public class MemberServiceImps implements MemberService{
 		// TODO Auto-generated method stub
 		return memberMapper.login(map);
 	}
+	
+	@Override
+	public int emailCount(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		System.out.println(map);
+		return memberMapper.emailCount(map);
+	}
 }
