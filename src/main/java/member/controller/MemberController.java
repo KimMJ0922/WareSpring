@@ -41,7 +41,6 @@ public class MemberController {
     	System.out.println(dto.getPassword());
     	memberService.signup(dto);
     	mailSendService.sendMail(dto.getEmail(),dto.getName());
-  
     }
     
     //메일 인증 눌렀을 때
