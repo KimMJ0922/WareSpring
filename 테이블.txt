@@ -1,3 +1,7 @@
+카드 세트 테이블
+CREATE TABLE cardset (
+	no 
+);
 
 //카드 테이블
 CREATE TABLE card (

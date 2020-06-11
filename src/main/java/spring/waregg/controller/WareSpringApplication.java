@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan({"card.controller","card.mapper","database.config"})
+@ComponentScan({"*.controller","*.service","database.config","email.send"})
 public class WareSpringApplication {
 
 	public static void main(String[] args) {
