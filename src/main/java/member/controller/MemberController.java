@@ -1,7 +1,9 @@
 package member.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +35,25 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
+	
+	@PostMapping("/emailoverlap")
+	@ResponseBody
+	public Map<String,Object> emailOverlapCheck(@RequestBody String email) {
+		//이메일 뒤에 =가 붙는다. 왜지?
+		email = email.substring(0,email.length()-1);
+		String emailFormat = "";
+		try {
+			emailFormat = URLDecoder.decode(email, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		boolean check = memberService.emailOverlapCheck(emailFormat);
+		map.put("check",check);
+		return map;
+	}
 	//회원 가입 버튼 눌렀을 때
     @PostMapping("/signup")
     public void signup(@RequestBody MemberDTO dto) {

@@ -40,5 +40,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<update id="socialUpdate" parameterType="Map">
 		update member set name = #{name} , profile = #{profile} where email = #{email} and provider = #{provider}
-	</update> 
+	</update>
+	
+	<select id="emailOverlapCheck" parameterType="String" resultType="int">
+		select count(*) from member where email = #{email}
+	</select>
 </mapper>

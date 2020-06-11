@@ -22,4 +22,6 @@ public interface MemberService{
 	public void socialUpdate(Map<String,Object> map);
 	//소셜 계정 정보 
 	public MemberDTO socialLogin(Map<String,Object> map);
+	//이메일 중복 체크
+	public boolean emailOverlapCheck(String email);
 }

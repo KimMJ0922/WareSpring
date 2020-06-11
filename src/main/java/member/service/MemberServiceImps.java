@@ -54,7 +54,6 @@ public class MemberServiceImps implements MemberService{
 	@Override
 	public void socialUpdate(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		System.out.println("3번");
 		memberMapper.socialUpdate(map);
 	}
 	
@@ -62,5 +61,11 @@ public class MemberServiceImps implements MemberService{
 	public MemberDTO socialLogin(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return memberMapper.socialLogin(map);
+	}
+	
+	@Override
+	public boolean emailOverlapCheck(String email) {
+		// TODO Auto-generated method stub
+		return memberMapper.emailOverlapCheck(email) == 1 ? true:false;
 	}
 }
