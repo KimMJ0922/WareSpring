@@ -15,21 +15,21 @@ import org.springframework.context.annotation.Primary;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration 
-@MapperScan(value="card.*",sqlSessionFactoryRef="oracleSqlSessionFactory") 
+@MapperScan(value= {"*.mapper"},sqlSessionFactoryRef="mysqlSqlSessionFactory") 
 public class DatabaseConfig {
-	@Bean(name = "oracleDataSource", destroyMethod = "close")
+	@Bean(name = "mysqlDataSource", destroyMethod = "close")
 	@Primary
 	@ConfigurationProperties(prefix = "spring.datasource")
-	public DataSource oracleDataSource() 
+	public DataSource mysqlDataSource() 
 	{ 
 		return DataSourceBuilder.create().type(HikariDataSource.class).build();
 	} 
-	@Bean(name = "oracleSqlSessionFactory") 
-	@Primary public SqlSessionFactory oracleSqlSessionFactory(@Qualifier("oracleDataSource") DataSource 
-			   oracleDataSource, ApplicationContext applicationContext) throws Exception 
+	@Bean(name = "mysqlSqlSessionFactory") 
+	@Primary public SqlSessionFactory mysqlSqlSessionFactory(@Qualifier("mysqlDataSource") DataSource 
+			   mysqlDataSource, ApplicationContext applicationContext) throws Exception 
 	{ 
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-		sqlSessionFactoryBean.setDataSource(oracleDataSource);
+		sqlSessionFactoryBean.setDataSource(mysqlDataSource);
 		//mapper config 파일 지정
 		sqlSessionFactoryBean.setConfigLocation(applicationContext.getResource("classpath:mapper/mybatis-config.xml"));
 		
@@ -38,11 +38,11 @@ public class DatabaseConfig {
 
 		return sqlSessionFactoryBean.getObject();
 		} 
-	@Bean(name = "oracleSqlSessionTemplate") 
+	@Bean(name = "mysqlSqlSessionTemplate") 
 	@Primary 
-	public SqlSessionTemplate oracleSqlSessionTemplate(SqlSessionFactory oracleSqlSessionFactory) throws Exception 
+	public SqlSessionTemplate mysqlSqlSessionTemplate(SqlSessionFactory mysqlSqlSessionFactory) throws Exception 
 	{ 
-		return new SqlSessionTemplate(oracleSqlSessionFactory);
+		return new SqlSessionTemplate(mysqlSqlSessionFactory);
 	} 
 
 }

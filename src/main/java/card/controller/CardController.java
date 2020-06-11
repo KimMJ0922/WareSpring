@@ -19,7 +19,7 @@ import card.mapper.CardMapper;
 public class CardController {
 	
 	@Autowired
-	CardMapper map;
+	private CardMapper map;
 	
 	@PostMapping("/insert")
 	public void insert(@RequestBody HashMap<String,Object> cardMap) {
@@ -51,6 +51,7 @@ public class CardController {
 			System.out.println(obj.get("answer"));
 			System.out.println(obj.get("img"));
 			System.out.println("---------------------------------");
+			
 		}
 	}
 }
