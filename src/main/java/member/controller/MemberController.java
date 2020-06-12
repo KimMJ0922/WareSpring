@@ -9,6 +9,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -56,11 +58,27 @@ public class MemberController {
 	}
 	//회원 가입 버튼 눌렀을 때
     @PostMapping("/signup")
-    public void signup(@RequestBody MemberDTO dto) {
+    public void signup(@RequestBody Map<String, Object> userInfoMap) {
+    	//JSON Object로 변환
+		JSONObject jsonObject = new JSONObject(userInfoMap);
+		//JSON 형태의 string 으로 변환
+		String userInfoString = jsonObject.toJSONString();
+		//string으로 변환한 것을 다시 JSONObject로 변환
+		//제일 처음에 변환 한 것을 직접 JSONArray로 변환하면 
+		//변환 오류가 생긴다. 이유는 모름
+		JSONObject obj2 = (JSONObject)JSONValue.parse(userInfoString);
+		JSONObject obj3 = (JSONObject)obj2.get("userInfo");
+		
+		MemberDTO dto = new MemberDTO();
     	MemberEncryption encry = new MemberEncryption();
-    	dto.setPassword(encry.encryption(dto.getPassword()));
-    	System.out.println(dto.getPassword());
+    	//object에서 꺼낸 값을 dto에 저장
+    	dto.setEmail(obj3.get("email").toString());
+    	dto.setPassword(encry.encryption(obj3.get("password").toString()));
+    	dto.setName(obj3.get("name").toString());
+    	dto.setBirth(obj3.get("birth").toString());
+    	//테이블 값 넣기
     	memberService.signup(dto);
+    	//회원가입한 이메일에 메일 보내기
     	mailSendService.sendMail(dto.getEmail(),dto.getName());
     }
     
@@ -137,6 +155,18 @@ public class MemberController {
     	
     	MemberDTO dto = memberService.socialLogin(socialLoginMap);
     	map.put("dto", dto);
+    	return map;
+    }
+    
+    
+    //이름 중복 체크
+    @PostMapping("/nameoverlap")
+    @ResponseBody
+    public Map<String,Object> nameOverlapCheck(@RequestBody Map<String,Object> nameMap) {
+    	String name = (String)nameMap.get("name");
+    	Map<String,Object> map = new HashMap<String, Object>();
+    	boolean check = memberService.nameOverlapCheck(name);
+    	map.put("check", check);
     	return map;
     }
     

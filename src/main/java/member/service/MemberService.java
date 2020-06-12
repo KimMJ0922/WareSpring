@@ -24,4 +24,6 @@ public interface MemberService{
 	public MemberDTO socialLogin(Map<String,Object> map);
 	//이메일 중복 체크
 	public boolean emailOverlapCheck(String email);
+	//이름 중복 체크
+	public boolean nameOverlapCheck(String name);
 }

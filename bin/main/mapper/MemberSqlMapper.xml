@@ -45,4 +45,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="emailOverlapCheck" parameterType="String" resultType="int">
 		select count(*) from member where email = #{email}
 	</select>
+	
+	<select id="nameOverlapCheck" parameterType="String" resultType="int">
+		select count(*) from member where name = #{name} and provider = 'default'
+	</select>
 </mapper>
