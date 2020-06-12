@@ -10,6 +10,7 @@ CREATE TABLE card (
 	question varchar(2000) not null,
 	answer varchar(2000) not null,
 	imgFile varchar(1000) not null,
+	category varchar(1000) not null,
 	
 	FOREIGN KEY (cardset_no)
 	REFERENCES cardset (no) on delete cascade
@@ -29,3 +30,27 @@ create table member(
 );
 
 insert into member values('zkxm_0@naver.com','qwe123!@#','19960922','김민재',now(),'y',1,'');
+
+CREATE TABLE board
+(
+    `board_no`      INT(10)          AUTO_INCREMENT NOT NULL, 
+    `writer`        varchar(200)     NOT NULL, 
+    `subject`       varchar(200)     NOT NULL, 
+    `requirepoint`  int(10)          NOT NULL, 
+    `content`       varchar(2000)    NOT NULL, 
+    `writeday`      DATETIME         NOT NULL,
+    `readcount`     int(10)          NOT NULL DEFAULT 0,
+    PRIMARY KEY (board_no)
+);
+
+CREATE TABLE card (
+	cardset_no int(10) not null,
+	question_no int(10) not null,
+	question varchar(2000) not null,
+	answer varchar(2000) not null,
+	imgFile varchar(1000) not null,
+	category varchar(1000) not null,
+	
+	FOREIGN KEY (cardset_no)
+	REFERENCES board (board_no) on delete cascade
+);

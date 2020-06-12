@@ -11,4 +11,5 @@ import card.dto.CardDTO;
 public interface CardMapper {
 	public List<CardDTO> list();
 	public int count();
+	public void CardInsert(CardDTO cdto);
 }
