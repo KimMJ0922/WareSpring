@@ -19,4 +19,6 @@ public interface MemberMapper {
 	public MemberDTO socialLogin(Map<String,Object> map);
 	public int emailOverlapCheck(String email);
 	public int nameOverlapCheck(String name);
+	public int emailFound(String email);
+	public void passwordUpdate(Map<String,String> map);
 }

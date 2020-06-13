@@ -26,4 +26,8 @@ public interface MemberService{
 	public boolean emailOverlapCheck(String email);
 	//이름 중복 체크
 	public boolean nameOverlapCheck(String name);
+	//이메일 여부 확인
+	public boolean emailFound(String email);
+	//비밀번호 업데이트
+	public void passwordUpdate(Map<String,String> map);
 }

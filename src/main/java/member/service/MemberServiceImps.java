@@ -74,4 +74,16 @@ public class MemberServiceImps implements MemberService{
 		// TODO Auto-generated method stub
 		return memberMapper.nameOverlapCheck(name) == 1 ? true:false;
 	}
+	
+	@Override
+	public boolean emailFound(String email) {
+		// TODO Auto-generated method stub
+		return memberMapper.emailFound(email) == 1 ? true : false ;
+	}
+	
+	@Override
+	public void passwordUpdate(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		memberMapper.passwordUpdate(map);
+	}
 }

@@ -39,14 +39,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<update id="socialUpdate" parameterType="Map">
-		update member set name = #{name} , profile = #{profile} where email = #{email} and provider = #{provider}
+		update member
+		set name = #{name} , profile = #{profile}
+		where email = #{email} and provider = #{provider}
 	</update>
 	
 	<select id="emailOverlapCheck" parameterType="String" resultType="int">
-		select count(*) from member where email = #{email}
+		select count(*)
+		from member
+		where email = #{email}
 	</select>
 	
-	<select id="nameOverlapCheck" parameterType="String" resultType="int">
-		select count(*) from member where name = #{name} and provider = 'default'
+	<select id="emailFound" parameterType="String" resultType="int">
+		select count(*)
+		from member where 
+		email = #{email}
 	</select>
+	
+	<update id="passwordUpdate" parameterType="Map">
+		update member
+		set password = #{password}
+		where email = #{email}
+	</update>
+	
 </mapper>

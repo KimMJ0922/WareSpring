@@ -144,12 +144,10 @@ public class MemberController {
     	System.out.println("cnt = "+cnt);
     	//없는 경우
     	if(cnt == 0) {
-    		System.out.println("1번");
     		memberService.socialSignUp(socialLoginMap);
     	}
     	//있는 경우
     	else {
-    		System.out.println("2번");
     		memberService.socialUpdate(socialLoginMap);
     	}
     	
@@ -170,4 +168,27 @@ public class MemberController {
     	return map;
     }
     
+    @PostMapping("/forgotten")
+    public Map<String,Object> tempPassword(@RequestBody Map<String,Object> emailMap) {
+    	Map<String,Object> returnMap = new HashMap<String, Object>();
+    	String email = emailMap.get("email").toString();
+    	MemberEncryption encryption = new MemberEncryption();
+    	Map<String, String> map = encryption.createTempPassword();
+    	
+    	//입력한 이메일이 있는지 검색
+    	boolean check = memberService.emailFound(email);
+    	//이메일이 없으면 없다고 보냄
+    	if(!check) {
+    		returnMap.put("check", false);
+    		return returnMap;
+    	}
+    	
+    	//임시 비밀번호 메일로 보내기
+    	mailSendService.sendPassword(email,map.get("tempPassword").toString());
+    	//db업데이트
+    	map.put("email", email);
+    	memberService.passwordUpdate(map);
+    	returnMap.put("check", true);
+    	return returnMap;
+    }
 }
