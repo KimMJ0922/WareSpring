@@ -3,8 +3,8 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board.data.BoardMapper">
-	<select id="list" resultType="bdto">
-		select * from board order by board_no desc limit 1,6
+	<select id="list" resultType="bdto" parameterType="HashMap">
+		select * from board order by board_no desc limit #{startNum},#{amount}
 	</select>
 	
 	<select id="count" resultType="int">

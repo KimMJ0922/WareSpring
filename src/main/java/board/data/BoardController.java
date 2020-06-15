@@ -2,17 +2,16 @@ package board.data;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import card.dto.CardDTO;
@@ -27,7 +26,7 @@ public class BoardController {
 	private CardMapper cmapper;
 	
 	@PostMapping("/board/insert")
-	public void insert(@RequestBody HashMap<String,Object> cardMap) {
+	public String insert(@RequestBody HashMap<String,Object> cardMap) {
 //		System.out.println(cardMap);
 
 		JSONObject jsonObject = new JSONObject(cardMap);
@@ -67,11 +66,24 @@ public class BoardController {
 //			System.out.println(obj.get("answer"));
 //			System.out.println(obj.get("img"));
 		}
+		return "redirect:board";
 	}
 	
 	@GetMapping("/board/list")
-	public List<BoardDto> list(){
-		return bmapper.list();
+	public List<BoardDto> list(@RequestParam int pageNum){
+		System.out.println("pageNum:"+pageNum);
+		HashMap<String, Integer> map = new HashMap<String, Integer>();
+		int startNum = 0;
+		int amount = 6;//한페이지에 보여줄 게시물 수 
+		System.out.println("1startNum:"+startNum);
+		if(pageNum!=1 && pageNum !=0) {
+			startNum=(pageNum-1)*amount;
+		}
+		System.out.println("2startNum:"+startNum);
+		map.put("startNum", startNum);
+		map.put("amount", amount);
+		
+		return bmapper.list(map);
 	}
 	
 	@GetMapping("/board/count")
