@@ -16,7 +16,6 @@ public class MemberServiceImps implements MemberService{
 	@Override
 	public void signup(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		System.out.println(dto.getEmail());
 		memberMapper.signup(dto);
 	}
 	
@@ -27,8 +26,20 @@ public class MemberServiceImps implements MemberService{
 	}
 	
 	@Override
+	public String emailAuth(String email) {
+		// TODO Auto-generated method stub
+		return memberMapper.emailAuth(email);
+	}
+	
+	@Override
 	public MemberDTO login(Map<String, Object> map) {
 		// TODO Auto-generated method stub
+		String email = map.get("email").toString();
+		int cnt = memberMapper.attendanceCheck(email);
+		if(cnt == 0) {
+			memberMapper.attendanceInsert(email);
+			memberMapper.updateMemberPoint(email);
+		}
 		return memberMapper.login(map);
 	}
 	
@@ -60,6 +71,12 @@ public class MemberServiceImps implements MemberService{
 	@Override
 	public MemberDTO socialLogin(Map<String, Object> map) {
 		// TODO Auto-generated method stub
+		String email = map.get("email").toString();
+		int cnt = memberMapper.attendanceCheck(email);
+		if(cnt == 0) {
+			memberMapper.attendanceInsert(email);
+			memberMapper.updateMemberPoint(email);
+		}
 		return memberMapper.socialLogin(map);
 	}
 	

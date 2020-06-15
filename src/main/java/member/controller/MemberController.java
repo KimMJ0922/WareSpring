@@ -56,6 +56,7 @@ public class MemberController {
 		map.put("check",check);
 		return map;
 	}
+	
 	//회원 가입 버튼 눌렀을 때
     @PostMapping("/signup")
     public void signup(@RequestBody Map<String, Object> userInfoMap) {
@@ -102,24 +103,29 @@ public class MemberController {
     @ResponseBody
     public Map<String,Object> login(@RequestBody Map<String,Object> loginMap){
     	Map<String,Object> map = new HashMap<String, Object>();
-    	
+    	System.out.println(loginMap.get("password"));
     	String password = (String)loginMap.get("password");
     	MemberEncryption encry = new MemberEncryption();
     	
     	password = encry.encryption(password);
     	loginMap.put("password",password);
     	int count = memberService.emailCount(loginMap);
-    	System.out.println(count);
+
     	//해당 이메일 계정이 없을 때
     	if(count == 0) {
     		map.put("login", "n");
     	}else {
-    		MemberDTO dto = memberService.login(loginMap);
+    		//이메일 인증 여부 확인
+    		String emailCheck = memberService.emailAuth(loginMap.get("email").toString());
+    		
     		//이메일 인증을 안했을 때
-    		if(!dto.getEmailcheck().equals("y")) {
-        		map.put("emailcheck", dto.getEmailcheck());
+    		if(!emailCheck.equals("y")) {
+        		map.put("emailcheck", emailCheck);
         		map.put("login", "y");
-        	}else {
+        	}
+    		//이메일 인증을 했을 때
+    		else{
+        		MemberDTO dto = memberService.login(loginMap);
         		map.put("dto", dto);
         		map.put("login", "y");
         	}
@@ -146,11 +152,7 @@ public class MemberController {
     	if(cnt == 0) {
     		memberService.socialSignUp(socialLoginMap);
     	}
-    	//있는 경우
-    	else {
-    		memberService.socialUpdate(socialLoginMap);
-    	}
-    	
+    	    	
     	MemberDTO dto = memberService.socialLogin(socialLoginMap);
     	map.put("dto", dto);
     	return map;
@@ -168,6 +170,7 @@ public class MemberController {
     	return map;
     }
     
+    //비밀번호 재설정
     @PostMapping("/forgotten")
     public Map<String,Object> tempPassword(@RequestBody Map<String,Object> emailMap) {
     	Map<String,Object> returnMap = new HashMap<String, Object>();
@@ -187,6 +190,7 @@ public class MemberController {
     	mailSendService.sendPassword(email,map.get("tempPassword").toString());
     	//db업데이트
     	map.put("email", email);
+    	map.put("password", map.get("formatPassword").toString());
     	memberService.passwordUpdate(map);
     	returnMap.put("check", true);
     	return returnMap;

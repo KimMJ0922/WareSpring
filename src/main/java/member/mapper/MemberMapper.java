@@ -12,6 +12,7 @@ public interface MemberMapper {
 	public void signup(MemberDTO dto);
 	public void updateEmailCheck(String email);
 	public MemberDTO login(Map<String,Object> map);
+	public String emailAuth(String email);
 	public int emailCount(Map<String,Object> map);
 	public int socialCount(Map<String,Object> map);
 	public void socialSignUp(Map<String,Object> map);
@@ -21,4 +22,10 @@ public interface MemberMapper {
 	public int nameOverlapCheck(String name);
 	public int emailFound(String email);
 	public void passwordUpdate(Map<String,String> map);
+	//출석 체크 확인
+	public int attendanceCheck(String email);
+	//출석 체크 넣기
+	public void attendanceInsert(String email);
+	//맴버 테이블 업데이트 
+	public void updateMemberPoint(String email);
 }

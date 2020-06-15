@@ -19,9 +19,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<select id="emailCount" parameterType="Map" resultType="int">
-		select count(*) from member where email = #{email} and password = #{password}
+		select count(*) 
+		from member 
+		where email = #{email} and 
+			  password = #{password}
 	</select>
 	
+	<select id="emailAuth" parameterType="String" resultType="String">
+		select emailcheck 
+		from member
+		where email = #{email}
+	</select>
 	<select id="socialCount" parameterType="Map" resultType="Integer">
 		select count(*) from member where email = #{email} and provider = #{provider}
 	</select>
@@ -37,13 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from member
 		where email = #{email} and provider = #{provider}
 	</select>
-	
-	<update id="socialUpdate" parameterType="Map">
-		update member
-		set name = #{name} , profile = #{profile}
-		where email = #{email} and provider = #{provider}
-	</update>
-	
+		
 	<select id="emailOverlapCheck" parameterType="String" resultType="int">
 		select count(*)
 		from member
@@ -62,4 +64,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where email = #{email}
 	</update>
 	
+	<!-- attendance -->
+	<select id="attendanceCheck" parameterType="String" resultType="Integer">
+		select count(*) 
+		from attendance
+		where email = #{email} and attday = curdate() 
+	</select>
+	
+	<insert id="attendanceInsert" parameterType="String">
+		insert into attendance
+		values(#{email}, now())
+	</insert>
+	
+	<update id="updateMemberPoint" parameterType="String">
+		update member 
+		set point = point + 100 
+		where email = #{email}
+	</update>
 </mapper>

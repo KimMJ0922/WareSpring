@@ -28,4 +28,11 @@ create table member(
 	point int(10) default 0
 );
 
-insert into member values('zkxm_0@naver.com','qwe123!@#','19960922','김민재',now(),'y',1,'');
+//출첵
+create table attendance(
+	email varchar(100),
+	attday date,
+	
+	FOREIGN KEY (email)
+	REFERENCES member(email) on delete cascade
+);
