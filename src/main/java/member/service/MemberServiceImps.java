@@ -1,5 +1,6 @@
 package member.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,6 @@ public class MemberServiceImps implements MemberService{
 	@Override
 	public void signup(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		System.out.println(dto.getEmail());
 		memberMapper.signup(dto);
 	}
 	
@@ -27,15 +27,26 @@ public class MemberServiceImps implements MemberService{
 	}
 	
 	@Override
+	public String emailAuth(String email) {
+		// TODO Auto-generated method stub
+		return memberMapper.emailAuth(email);
+	}
+	
+	@Override
 	public MemberDTO login(Map<String, Object> map) {
 		// TODO Auto-generated method stub
+		String email = map.get("email").toString();
+		int cnt = memberMapper.attendanceCheck(email);
+		if(cnt == 0) {
+			memberMapper.attendanceInsert(email);
+			memberMapper.updateMemberPoint(email);
+		}
 		return memberMapper.login(map);
 	}
 	
 	@Override
 	public int emailCount(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		System.out.println(map);
 		return memberMapper.emailCount(map);
 	}
 	
@@ -54,13 +65,54 @@ public class MemberServiceImps implements MemberService{
 	@Override
 	public void socialUpdate(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		System.out.println("3번");
 		memberMapper.socialUpdate(map);
 	}
 	
 	@Override
 	public MemberDTO socialLogin(Map<String, Object> map) {
 		// TODO Auto-generated method stub
+		String email = map.get("email").toString();
+		int cnt = memberMapper.attendanceCheck(email);
+		if(cnt == 0) {
+			memberMapper.attendanceInsert(email);
+			memberMapper.updateMemberPoint(email);
+		}
 		return memberMapper.socialLogin(map);
+	}
+	
+	@Override
+	public boolean emailOverlapCheck(String email) {
+		// TODO Auto-generated method stub
+		return memberMapper.emailOverlapCheck(email) == 1 ? true:false;
+	}
+	
+	@Override
+	public boolean nameOverlapCheck(String name) {
+		// TODO Auto-generated method stub
+		return memberMapper.nameOverlapCheck(name) == 1 ? true:false;
+	}
+	
+	@Override
+	public boolean emailFound(String email) {
+		// TODO Auto-generated method stub
+		return memberMapper.emailFound(email) == 1 ? true : false ;
+	}
+	
+	@Override
+	public void passwordUpdate(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		memberMapper.passwordUpdate(map);
+	}
+	
+	@Override
+	public void profileImgUpdate(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		memberMapper.profileImgUpdate(map);
+	}
+	
+	@Override
+	public int memberNo(String email) {
+		// TODO Auto-generated method stub
+		return memberMapper.memberNo(email);
 	}
 }

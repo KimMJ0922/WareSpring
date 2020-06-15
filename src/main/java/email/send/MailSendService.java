@@ -21,7 +21,6 @@ public class MailSendService {
 		String link = "<a href='http://localhost:9000/updatemailcheck?email="+email+"' target='_blenk'>메일 인증</a>";
 		MimeMessage mail = javaMailSender.createMimeMessage();
 // 		simpleMessage.setFrom("보낸사람@naver.com"); // NAVER, DAUM, NATE일 경우 넣어줘야 함
-		System.out.println(link);
 		try {
 			mail.setSubject("Ware.gg 이메일 인증 메일입니다.");
 			mail.setText(
@@ -38,4 +37,27 @@ public class MailSendService {
 		}
 		javaMailSender.send(mail);
 	}
+	
+	//임시 비밀번호 
+	@Async
+	public void sendPassword(String email,String tempPassword) {
+		String link = "<a href='http://localhost:9000/updatemailcheck?email="+email+"' target='_blenk'>메일 인증</a>";
+		MimeMessage mail = javaMailSender.createMimeMessage();
+// 		simpleMessage.setFrom("보낸사람@naver.com"); // NAVER, DAUM, NATE일 경우 넣어줘야 함
+		try {
+			mail.setSubject("Ware.gg 임비 비밀번호 발급 메일입니다.");
+			mail.setText(
+				new StringBuffer().append("<h1>임시 비밀번호</h1>")
+				.append("<p>발급 임시 비밀번호 : "+tempPassword.toString()+"입니다. </p>")
+				.toString(),"utf-8","html"
+			);
+			//받을 메일
+			mail.addRecipient(RecipientType.TO, new InternetAddress(email));
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		javaMailSender.send(mail);
+	}
+	
 }

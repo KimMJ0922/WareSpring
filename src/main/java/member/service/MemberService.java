@@ -10,6 +10,8 @@ public interface MemberService{
 	public void signup(MemberDTO dto);
 	//이메일 인증
 	public void updateEmailCheck(String email);
+	//이메일 인증 여부 확인
+	public String emailAuth(String email);
 	//로그인 
 	public MemberDTO login(Map<String,Object> map);
 	//로그인 하기 전 체크
@@ -22,4 +24,17 @@ public interface MemberService{
 	public void socialUpdate(Map<String,Object> map);
 	//소셜 계정 정보 
 	public MemberDTO socialLogin(Map<String,Object> map);
+	//이메일 중복 체크
+	public boolean emailOverlapCheck(String email);
+	//이름 중복 체크
+	public boolean nameOverlapCheck(String name);
+	//이메일 여부 확인
+	public boolean emailFound(String email);
+	//비밀번호 업데이트
+	public void passwordUpdate(Map<String,String> map);
+	//프로필 이미지 업로드
+	public void profileImgUpdate(Map<String, String> map);
+	
+	public int memberNo(String email);
+	
 }
