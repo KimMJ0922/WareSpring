@@ -1,18 +1,24 @@
 package member.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLDecoder;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,11 +37,15 @@ import email.send.MailSendService;
 import member.dto.MemberDTO;
 import member.service.MemberEncryption;
 import member.service.MemberService;
+import spring.waregg.controller.LocalIPAddress;
+import upload.util.SearchFile;
 import upload.util.SpringFileWrite;
 
 @RestController
 @CrossOrigin
 public class MemberController {
+	LocalIPAddress lipa = new LocalIPAddress();
+	final String ROOTPATH = "http://"+lipa.getLocalIpAddress()+":9000/";
 	@Resource(name = "mailSendService")
 	private MailSendService mailSendService;
 	@Autowired
@@ -210,20 +220,37 @@ public class MemberController {
     		MultipartHttpServletRequest request,
     		@RequestParam String email
     ) {
-//    	String path = request.getSession().getServletContext().getRealPath("/");
-    	String path = "C:/spring0114/Ware_gg/WareSpring/src/main/resources/static/profile";
+    	String path = request.getSession().getServletContext().getRealPath("/profile");
+    	System.out.println(path);
+    	//String path = "C:/spring0114/Ware_gg/WareSpring/src/main/resources/static/profile";
     	int no = memberService.memberNo(email);
+    	System.out.println(no);
 		SpringFileWrite sf = new SpringFileWrite();
 		String fileName = sf.writeFile(uploadFile, path, ""+no);
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("email", email);
-		map.put("fileName", fileName);
+		map.put("fileName", ROOTPATH+"/profile/"+fileName);
 		
 		//프로필 이미지 업로드
 		memberService.profileImgUpdate(map);
 		
 		
-		return "http://192.168.0.91:9000/profile/"+fileName;
+		return ROOTPATH+"profile/"+fileName;
+    }
+    
+    @PostMapping("/defaultProfileImg")
+    @ResponseBody
+    public List<String> getDefaultProfileImg(HttpServletRequest request){
+    	List<String> list = new ArrayList<String>();
+    	SearchFile sf = new SearchFile();
+    	list = sf.defaultProfile(request,ROOTPATH);
+    	return list;
+    }
+    
+    //프로필 이미지 선택시
+    @PostMapping("/updateProfileImg")
+    public void updateProfileImg(@RequestBody Map<String, Object> map) {    	
+    	memberService.updateProfileImg(map);
     }
 }

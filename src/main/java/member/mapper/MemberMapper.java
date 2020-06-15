@@ -35,4 +35,6 @@ public interface MemberMapper {
 	public void profileImgUpdate(Map<String, String> map);
 	
 	public int memberNo(String email);
+	
+	public void updateProfileImg(Map<String, Object> map);
 }

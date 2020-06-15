@@ -115,4 +115,10 @@ public class MemberServiceImps implements MemberService{
 		// TODO Auto-generated method stub
 		return memberMapper.memberNo(email);
 	}
+	
+	@Override
+	public void updateProfileImg(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		memberMapper.updateProfileImg(map);
+	}
 }

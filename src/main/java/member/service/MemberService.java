@@ -37,4 +37,7 @@ public interface MemberService{
 	
 	public int memberNo(String email);
 	
+	//선택한 프로필 이미지 업데이트
+	public void updateProfileImg(Map<String, Object> map);
+	
 }
