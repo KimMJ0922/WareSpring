@@ -223,6 +223,7 @@ public class MemberController {
 		//프로필 이미지 업로드
 		memberService.profileImgUpdate(map);
 		
+		
 		return "http://192.168.0.91:9000/profile/"+fileName;
     }
 }
