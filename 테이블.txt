@@ -17,7 +17,7 @@ CREATE TABLE card (
 );
 //맴버
 create table member(
-	no int(10) auto_increment primary key
+	no int(10) auto_increment primary key,
 	email varchar(100),
 	password varchar(100),
 	birth varchar(50),

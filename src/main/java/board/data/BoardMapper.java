@@ -11,4 +11,5 @@ public interface BoardMapper {
 	public int getInsertNum(String writer);
 	public List<BoardDto> list(HashMap<String, Integer> map);
 	public int count();
+	public List<BoardDto> getData(String board_no);
 }
