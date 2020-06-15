@@ -3,8 +3,8 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board.data.BoardMapper">
-	<select id="list" resultType="cdto">
-		select * from board
+	<select id="list" resultType="bdto" parameterType="HashMap">
+		select * from board order by board_no desc limit #{startNum},#{amount}
 	</select>
 	
 	<select id="count" resultType="int">
@@ -14,4 +14,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="BoardInsert" parameterType="bdto">
 		insert into board(writer, subject, requirepoint, content, writeday) values(#{writer}, #{subject}, #{requirepoint}, #{content}, now())
 	</insert>
+	
+	<select id="getInsertNum" resultType="int" parameterType="String">
+		select max(board_no) from board where writer=#{writer}
+	</select>
 </mapper>
