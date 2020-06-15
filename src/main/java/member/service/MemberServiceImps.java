@@ -1,5 +1,6 @@
 package member.service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,6 @@ public class MemberServiceImps implements MemberService{
 	@Override
 	public int emailCount(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		System.out.println(map);
 		return memberMapper.emailCount(map);
 	}
 	
@@ -102,5 +102,17 @@ public class MemberServiceImps implements MemberService{
 	public void passwordUpdate(Map<String, String> map) {
 		// TODO Auto-generated method stub
 		memberMapper.passwordUpdate(map);
+	}
+	
+	@Override
+	public void profileImgUpdate(Map<String, String> map) {
+		// TODO Auto-generated method stub
+		memberMapper.profileImgUpdate(map);
+	}
+	
+	@Override
+	public int memberNo(String email) {
+		// TODO Auto-generated method stub
+		return memberMapper.memberNo(email);
 	}
 }

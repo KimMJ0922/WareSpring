@@ -24,8 +24,15 @@ public interface MemberMapper {
 	public void passwordUpdate(Map<String,String> map);
 	//출석 체크 확인
 	public int attendanceCheck(String email);
+	//번호 찾기
+	public int attendanceMemberNo(String email);
 	//출석 체크 넣기
 	public void attendanceInsert(String email);
 	//맴버 테이블 업데이트 
 	public void updateMemberPoint(String email);
+	
+	//프로필 이미지 업로드
+	public void profileImgUpdate(Map<String, String> map);
+	
+	public int memberNo(String email);
 }

@@ -20,14 +20,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import email.send.MailSendService;
 import member.dto.MemberDTO;
 import member.service.MemberEncryption;
 import member.service.MemberService;
+import upload.util.SpringFileWrite;
 
 @RestController
 @CrossOrigin
@@ -194,5 +198,31 @@ public class MemberController {
     	memberService.passwordUpdate(map);
     	returnMap.put("check", true);
     	return returnMap;
+    }
+    
+    
+    //프로필 이미지
+    @RequestMapping(value = "/uploadProfileImg", 
+			consumes = {"multipart/form-data"}, 
+			method = RequestMethod.POST)
+    public String uploadProfileImg(
+    		@RequestParam MultipartFile uploadFile,
+    		MultipartHttpServletRequest request,
+    		@RequestParam String email
+    ) {
+//    	String path = request.getSession().getServletContext().getRealPath("/");
+    	String path = "C:/spring0114/Ware_gg/WareSpring/src/main/resources/static/profile";
+    	int no = memberService.memberNo(email);
+		SpringFileWrite sf = new SpringFileWrite();
+		String fileName = sf.writeFile(uploadFile, path, ""+no);
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("email", email);
+		map.put("fileName", fileName);
+		
+		//프로필 이미지 업로드
+		memberService.profileImgUpdate(map);
+		
+		return "http://192.168.0.91:9000/profile/"+fileName;
     }
 }

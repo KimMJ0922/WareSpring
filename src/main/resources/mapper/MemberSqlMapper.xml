@@ -3,13 +3,20 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member.mapper.MemberMapper">
+	<!-- signup -->
+	<select id="nameOverlapCheck" parameterType="String" resultType="Integer">
+		select count(*)
+		from member
+		where name = #{name}
+	</select>
 	<!-- login -->
 	<select id="login" parameterType="Map" resultType="mdto">
 		select * from member where email = #{email} and password = #{password}
 	</select>
 	
 	<insert id="signup" parameterType="mdto">
-		insert into member values(#{email},#{password},#{birth},#{name},now(),'n',0,'','default',0)
+		insert into member(email,password,birth,name,joinday,emailcheck,admin,profile,provider,point)
+		values(#{email},#{password},#{birth},#{name},now(),'n',0,'','default',0)
 	</insert>
 	
 	<update id="updateEmailCheck" parameterType="String">
@@ -30,6 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from member
 		where email = #{email}
 	</select>
+	
 	<select id="socialCount" parameterType="Map" resultType="Integer">
 		select count(*) from member where email = #{email} and provider = #{provider}
 	</select>
@@ -66,7 +74,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- attendance -->
 	<select id="attendanceCheck" parameterType="String" resultType="Integer">
-		select count(*) 
+		select count(*)
 		from attendance
 		where email = #{email} and attday = curdate() 
 	</select>
@@ -81,4 +89,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		set point = point + 100 
 		where email = #{email}
 	</update>
+	
+	<update id="profileImgUpdate" parameterType="Map">
+		update member
+		set profile = #{fileName}
+		where email = #{email}
+	</update>
+	
+	<select id="memberNo" parameterType="String" resultType="Integer">
+		select no 
+		from member
+		where email = #{email}
+	</select>
 </mapper>

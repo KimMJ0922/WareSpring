@@ -32,4 +32,9 @@ public interface MemberService{
 	public boolean emailFound(String email);
 	//비밀번호 업데이트
 	public void passwordUpdate(Map<String,String> map);
+	//프로필 이미지 업로드
+	public void profileImgUpdate(Map<String, String> map);
+	
+	public int memberNo(String email);
+	
 }

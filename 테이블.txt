@@ -16,7 +16,8 @@ CREATE TABLE card (
 );
 //맴버
 create table member(
-	email varchar(100) primary key,
+	no int(10) auto_increment primary key
+	email varchar(100),
 	password varchar(100),
 	birth varchar(50),
 	name varchar(100) not null,
@@ -31,8 +32,5 @@ create table member(
 //출첵
 create table attendance(
 	email varchar(100),
-	attday date,
-	
-	FOREIGN KEY (email)
-	REFERENCES member(email) on delete cascade
+	attday date
 );
