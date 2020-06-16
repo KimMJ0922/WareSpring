@@ -117,7 +117,7 @@ public class MemberController {
     @ResponseBody
     public Map<String,Object> login(@RequestBody Map<String,Object> loginMap){
     	Map<String,Object> map = new HashMap<String, Object>();
-    	System.out.println(loginMap.get("password"));
+
     	String password = (String)loginMap.get("password");
     	MemberEncryption encry = new MemberEncryption();
     	
@@ -140,6 +140,16 @@ public class MemberController {
     		//이메일 인증을 했을 때
     		else{
         		MemberDTO dto = memberService.login(loginMap);
+        		//이미지 가져오기
+        		String fileName = dto.getProfile();
+        		fileName = fileName.substring(0,fileName.lastIndexOf("."));
+        		if(fileName.equals(""+dto.getNo())) {
+        			dto.setProfile(ROOTPATH+"profile/users/"+dto.getProfile());
+        		}else {
+        			dto.setProfile(ROOTPATH+"profile/default/"+dto.getProfile());
+        		}
+
+            	
         		map.put("dto", dto);
         		map.put("login", "y");
         	}
@@ -151,7 +161,6 @@ public class MemberController {
     @PostMapping("/sociallogin")
     @ResponseBody
     public Map<String,Object> socialLogin(@RequestBody Map<String,Object> socialLoginMap){
-    	System.out.println(socialLoginMap);
     	Map<String,Object> map = new HashMap<String, Object>();
     	
     	//카카오 아이디는 int형
@@ -161,13 +170,23 @@ public class MemberController {
     	
     	//소셜 아이디가 있는지 검사
     	int cnt = memberService.socialCount(socialLoginMap);
-    	System.out.println("cnt = "+cnt);
+
     	//없는 경우
     	if(cnt == 0) {
     		memberService.socialSignUp(socialLoginMap);
     	}
     	    	
     	MemberDTO dto = memberService.socialLogin(socialLoginMap);
+    	if(dto.getProfile().indexOf("kakao") == -1 && dto.getProfile().indexOf("google") == -1) {
+    		String fileName = dto.getProfile();
+    		fileName = fileName.substring(0,fileName.lastIndexOf("."));
+    		if(fileName.equals(""+dto.getNo())) {
+    			dto.setProfile(ROOTPATH+"profile/users/"+dto.getProfile());
+    		}else {
+    			dto.setProfile(ROOTPATH+"profile/default/"+dto.getProfile());
+    		}
+
+    	}
     	map.put("dto", dto);
     	return map;
     }
@@ -177,10 +196,16 @@ public class MemberController {
     @PostMapping("/nameoverlap")
     @ResponseBody
     public Map<String,Object> nameOverlapCheck(@RequestBody Map<String,Object> nameMap) {
-    	String name = (String)nameMap.get("name");
     	Map<String,Object> map = new HashMap<String, Object>();
-    	boolean check = memberService.nameOverlapCheck(name);
-    	map.put("check", check);
+    	String name = (String)nameMap.get("name");
+    	String provider = (String)nameMap.get("provider");
+    	if(provider == null || provider == "") {
+    		nameMap.put("provider", "default");
+    		boolean check = memberService.nameOverlapCheck(nameMap);
+        	map.put("check", check);
+    	}else {
+    		map.put("check", false);
+    	}
     	return map;
     }
     
@@ -218,39 +243,88 @@ public class MemberController {
     public String uploadProfileImg(
     		@RequestParam MultipartFile uploadFile,
     		MultipartHttpServletRequest request,
-    		@RequestParam String email
+    		@RequestParam String email,
+    		@RequestParam String no
     ) {
-    	String path = request.getSession().getServletContext().getRealPath("/profile");
-    	System.out.println(path);
-    	//String path = "C:/spring0114/Ware_gg/WareSpring/src/main/resources/static/profile";
-    	int no = memberService.memberNo(email);
-    	System.out.println(no);
-		SpringFileWrite sf = new SpringFileWrite();
-		String fileName = sf.writeFile(uploadFile, path, ""+no);
+    	//기존 프로필 파일 지우기
+    	Map<String, Object> nomap = new HashMap<String, Object>();
+    	nomap.put("no", no);
+    	String profile = memberService.getProfileName(nomap);
+    	SearchFile sf = new SearchFile();
+    	sf.userProfileDelete(request, profile);
+    	
+    	
+    	String path = request.getSession().getServletContext().getRealPath("/profile/users/");
+    	    	
+    	SpringFileWrite sfw = new SpringFileWrite();
+    	
+		String fileName = sfw.writeFile(uploadFile, path, no);
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("email", email);
-		map.put("fileName", ROOTPATH+"/profile/"+fileName);
+		map.put("fileName", fileName);
 		
 		//프로필 이미지 업로드
 		memberService.profileImgUpdate(map);
 		
 		
-		return ROOTPATH+"profile/"+fileName;
+		return ROOTPATH+"profile/users/"+fileName;
     }
     
     @PostMapping("/defaultProfileImg")
     @ResponseBody
-    public List<String> getDefaultProfileImg(HttpServletRequest request){
+    public List<String> getDefaultProfileImg(
+    		HttpServletRequest request,
+    		@RequestBody Map<String,Object> map
+    ){
+    	String no = map.get("no").toString();
     	List<String> list = new ArrayList<String>();
     	SearchFile sf = new SearchFile();
-    	list = sf.defaultProfile(request,ROOTPATH);
+    	//유저가 직접 올린 파일 가져오기
+    	list = sf.userProfile(request, ROOTPATH, list, no);
+    	//기본 이미지 가져오기
+    	list = sf.defaultProfile(request, ROOTPATH, list);
     	return list;
     }
     
     //프로필 이미지 선택시
     @PostMapping("/updateProfileImg")
-    public void updateProfileImg(@RequestBody Map<String, Object> map) {    	
+    public void updateProfileImg(@RequestBody Map<String, Object> map) {
+    	String fileName = map.get("profile").toString();
+    	fileName = fileName.substring(fileName.lastIndexOf("/")+1,fileName.length());
+    	map.put("profile",fileName);
     	memberService.updateProfileImg(map);
+    }
+    
+    //소셜에서 가져온 이미지 선택시
+    @PostMapping("/updatesocialprofileimg")
+    public void updateSocialProfileImg(@RequestBody Map<String, Object> map) {
+    	memberService.updateProfileImg(map);
+    }
+    //이름 변경
+    @PostMapping("/nameupdate")
+    public void updateName(@RequestBody Map<String, Object> map) {
+    	memberService.updateName(map);
+    }
+    
+    //비밀번호 변경
+    @PostMapping("/passwordupdate")
+    public void updatePassword(@RequestBody Map<String, Object> map) {
+    	String password = map.get("password").toString();
+    	MemberEncryption encry = new MemberEncryption();
+    	map.put("password", encry.encryption(password));
+    	memberService.updatePassword(map);
+    }
+    
+    //회원 탈퇴
+    @PostMapping("/deletemember")
+    public void deleteMember(HttpServletRequest request,@RequestBody Map<String, Object> map) {
+    	//기존에 사용한 프로필 파일명 가져오기
+    	String profile = memberService.getProfileName(map);
+    	//프로필 사진 지우기
+    	SearchFile sf = new SearchFile();
+    	sf.userProfileDelete(request, profile);
+    	//테이블 레코드 지우기
+    	memberService.deleteMember(map);
     }
 }

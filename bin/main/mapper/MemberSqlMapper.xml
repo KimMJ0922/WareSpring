@@ -4,10 +4,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member.mapper.MemberMapper">
 	<!-- signup -->
-	<select id="nameOverlapCheck" parameterType="String" resultType="Integer">
+	<select id="nameOverlapCheck" parameterType="Map" resultType="Integer">
 		select count(*)
 		from member
-		where name = #{name}
+		where name = #{name} and provider = #{provider}
 	</select>
 	<!-- login -->
 	<select id="login" parameterType="Map" resultType="mdto">
@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="signup" parameterType="mdto">
 		insert into member(email,password,birth,name,joinday,emailcheck,admin,profile,provider,point)
-		values(#{email},#{password},#{birth},#{name},now(),'n',0,'','default',0)
+		values(#{email},#{password},#{birth},#{name},now(),'n',0,'사자.png','default',0)
 	</insert>
 	
 	<update id="updateEmailCheck" parameterType="String">
@@ -73,21 +73,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<!-- attendance -->
+	<select id="attendanceMemberNo" parameterType="String" resultType="Integer">
+		select no
+		from member
+		where email = #{email}
+	</select>
 	<select id="attendanceCheck" parameterType="String" resultType="Integer">
 		select count(*)
 		from attendance
 		where email = #{email} and attday = curdate() 
 	</select>
 	
-	<insert id="attendanceInsert" parameterType="String">
+	<insert id="attendanceInsert" parameterType="Map">
 		insert into attendance
-		values(#{email}, now())
+		values(#{no},#{email}, now())
 	</insert>
 	
-	<update id="updateMemberPoint" parameterType="String">
+	<update id="updateMemberPoint" parameterType="Map">
 		update member 
 		set point = point + 100 
-		where email = #{email}
+		where no = #{no}
 	</update>
 	
 	<update id="profileImgUpdate" parameterType="Map">
@@ -96,15 +101,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where email = #{email}
 	</update>
 	
-	<select id="memberNo" parameterType="String" resultType="Integer">
-		select no 
-		from member
-		where email = #{email}
-	</select>
-	
 	<update id="updateProfileImg" parameterType="Map">
 		update member
 		set profile = #{profile}
 		where email = #{email}
 	</update>
+	
+	<update id="updateName" parameterType="Map">
+		update member
+		set name = #{name}
+		where no = #{no}
+	</update>
+	
+	<update id="updatePassword" parameterType="Map">
+		update member
+		set password = #{password}
+		where no = #{no}
+	</update>
+	
+	<select id="getProfileName" parameterType="Map" resultType="String">
+		select profile
+		from member
+		where no = #{no}
+	</select>
+	
+	<delete id="deleteMember" parameterType="Map">
+		delete from member
+		where no = #{no}
+	</delete>
 </mapper>

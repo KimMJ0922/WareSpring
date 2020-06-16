@@ -33,7 +33,6 @@ public class SpringFileWrite {
 	}
 	
 	public String writeFile(MultipartFile file, String path, String no) {
-		System.out.println("왔냐");
 		String fName = "";
 		if(file.getOriginalFilename()==null||file.getOriginalFilename().equals("")) {
 		}else {

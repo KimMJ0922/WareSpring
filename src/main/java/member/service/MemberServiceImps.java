@@ -38,8 +38,10 @@ public class MemberServiceImps implements MemberService{
 		String email = map.get("email").toString();
 		int cnt = memberMapper.attendanceCheck(email);
 		if(cnt == 0) {
-			memberMapper.attendanceInsert(email);
-			memberMapper.updateMemberPoint(email);
+			int no = memberMapper.attendanceMemberNo(email);
+			map.put("no", no);
+			memberMapper.attendanceInsert(map);
+			memberMapper.updateMemberPoint(map);
 		}
 		return memberMapper.login(map);
 	}
@@ -74,8 +76,10 @@ public class MemberServiceImps implements MemberService{
 		String email = map.get("email").toString();
 		int cnt = memberMapper.attendanceCheck(email);
 		if(cnt == 0) {
-			memberMapper.attendanceInsert(email);
-			memberMapper.updateMemberPoint(email);
+			int no = memberMapper.attendanceMemberNo(email);
+			map.put("no", no);
+			memberMapper.attendanceInsert(map);
+			memberMapper.updateMemberPoint(map);
 		}
 		return memberMapper.socialLogin(map);
 	}
@@ -87,9 +91,9 @@ public class MemberServiceImps implements MemberService{
 	}
 	
 	@Override
-	public boolean nameOverlapCheck(String name) {
+	public boolean nameOverlapCheck(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return memberMapper.nameOverlapCheck(name) == 1 ? true:false;
+		return memberMapper.nameOverlapCheck(map) == 1 ? true:false;
 	}
 	
 	@Override
@@ -111,14 +115,32 @@ public class MemberServiceImps implements MemberService{
 	}
 	
 	@Override
-	public int memberNo(String email) {
-		// TODO Auto-generated method stub
-		return memberMapper.memberNo(email);
-	}
-	
-	@Override
 	public void updateProfileImg(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		memberMapper.updateProfileImg(map);
+	}
+	
+	@Override
+	public void updateName(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		memberMapper.updateName(map);
+	}
+	
+	@Override
+	public void updatePassword(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		memberMapper.updatePassword(map);
+	}
+	
+	@Override
+	public String getProfileName(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return memberMapper.getProfileName(map);
+	}
+	
+	@Override
+	public void deleteMember(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		memberMapper.deleteMember(map);
 	}
 }
