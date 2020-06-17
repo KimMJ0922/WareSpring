@@ -90,4 +90,10 @@ public class BoardController {
 	public int BoardCount() { 
 		return bmapper.count();
 	}
+	
+	@GetMapping("/board/getdata")
+	public List<BoardDto> getData(@RequestParam String board_no){
+		System.out.println(board_no);
+		return bmapper.getData(board_no); 
+	}
 }
