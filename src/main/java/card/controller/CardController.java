@@ -52,6 +52,7 @@ public class CardController {
 			System.out.println(obj.get("img"));
 			System.out.println("---------------------------------");
 			
+			
 		}
 	}
 	
