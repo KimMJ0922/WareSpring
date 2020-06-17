@@ -74,7 +74,7 @@ public class BoardController {
 		System.out.println("pageNum:"+pageNum);
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		int startNum = 0;
-		int amount = 6;//한페이지에 보여줄 게시물 수 
+		int amount = 9;//한페이지에 보여줄 게시물 수 
 		System.out.println("1startNum:"+startNum);
 		if(pageNum!=1 && pageNum !=0) {
 			startNum=(pageNum-1)*amount;
