@@ -28,6 +28,18 @@ CREATE TABLE card (
 	FOREIGN KEY (cardset_no)
 	REFERENCES board (board_no) on delete cascade
 );
+
+CREATE TABLE board_card (
+	cardset_no int(10) not null,
+	question_no int(10) not null,
+	question varchar(2000) not null,
+	answer varchar(2000) not null,
+	imgFile varchar(1000) not null,
+	
+	FOREIGN KEY (cardset_no)
+	REFERENCES board (board_no) on delete cascade
+);
+
 //출첵
 create table attendance(
 	no int(10),
