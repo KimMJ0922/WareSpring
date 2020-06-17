@@ -1,5 +1,7 @@
 package card.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,11 @@ public class CardServiceImps implements CardService{
 	public void insertCard(CardDTO dto) {
 		// TODO Auto-generated method stub
 		cardMapper.insertCard(dto);
+	}
+	
+	@Override
+	public List<String> searchImgFile(String search) {
+		// TODO Auto-generated method stub
+		return cardMapper.searchImgFile(search);
 	}
 }

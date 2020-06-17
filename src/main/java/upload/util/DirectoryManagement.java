@@ -14,8 +14,8 @@ public class DirectoryManagement {
 	}
 	
 	//폴더 삭제
-	public void deleteTempFolder(HttpServletRequest request, String no, String path) {
-		File file = new File(path+"/"+no);       
+	public void deleteTempFolder(HttpServletRequest request, int no, String path) {
+		File file = new File(path+"card/temp/"+no);       
 		if(file.exists()) {
 			file.delete();
 		}
