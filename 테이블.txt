@@ -3,18 +3,6 @@ CREATE TABLE cardset (
 	no 
 );
 
-//카드 테이블
-CREATE TABLE card (
-	cardset_no int(10) not null,
-	question_no int(10) not null,
-	question varchar(2000) not null,
-	answer varchar(2000) not null,
-	imgFile varchar(1000) not null,
-	category varchar(1000) not null,
-	
-	FOREIGN KEY (cardset_no)
-	REFERENCES cardset (no) on delete cascade
-);
 
 CREATE TABLE board
 (
@@ -62,4 +50,31 @@ create table member(
 	profile varchar(500),
 	provider varchar(50),
 	point int(10) default 0
+);
+//카드세트
+create table cardset(
+	no int(10) auto_increment primary key,
+	member_no int(10) not null,
+	subject varchar(200) not null,
+	comment varchar(500),
+	open_scope varchar(100) not null,
+	open_password varchar(500),
+	update_scope varchar(100) not null,
+	update_password varchar(500),
+	createday datetime,
+	FOREIGN KEY (member_no)
+	REFERENCES member(no) on delete cascade
+);
+
+//카드 테이블
+CREATE TABLE card (
+	cardset_no int(10) not null,
+	question_no int(10) not null,
+	question varchar(2000) not null,
+	answer varchar(2000) not null,
+	imgFile varchar(1000) not null,
+	category varchar(1000) not null,
+	
+	FOREIGN KEY (cardset_no)
+	REFERENCES cardset (no) on delete cascade
 );
