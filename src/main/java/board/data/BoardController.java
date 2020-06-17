@@ -1,5 +1,6 @@
 package board.data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import card.dto.CardDTO;
 import card.mapper.CardMapper;
+import spring.waregg.controller.LocalIPAddress;
 
 @RestController
 @CrossOrigin
@@ -33,19 +35,19 @@ public class BoardController {
 		String card = jsonObject.toJSONString();
 		JSONObject obj2 = (JSONObject)JSONValue.parse(card);
 		
-//		System.out.println(" writer : "+obj2.get("email"));
-//		System.out.println(" title : "+obj2.get("title"));
-//		System.out.println(" comment : "+obj2.get("comment"));
-//		System.out.println(" point : "+obj2.get("point"));
+		System.out.println(" no : "+obj2.get("no"));
+		System.out.println(" title : "+obj2.get("title"));
+		System.out.println(" comment : "+obj2.get("comment"));
+		System.out.println(" point : "+obj2.get("point"));
 		
 		BoardDto bdto = new BoardDto();
-		bdto.setWriter(obj2.get("email").toString());
+		bdto.setNo(obj2.get("no").toString());
 		bdto.setSubject(obj2.get("title").toString());
 		bdto.setContent(obj2.get("comment").toString());
 		bdto.setRequirepoint(Integer.parseInt(obj2.get("point").toString()));		
 		
 		bmapper.BoardInsert(bdto);
-		int board_no = bmapper.getInsertNum(obj2.get("email").toString());
+		int board_no = bmapper.getInsertNum(obj2.get("no").toString());
 		
 		JSONArray arr = (JSONArray) obj2.get("rows");
 //		System.out.println(arr);
@@ -69,20 +71,23 @@ public class BoardController {
 		return "redirect:board";
 	}
 	
+	@GetMapping("board/getIp")
+	public String getIp() {
+		LocalIPAddress lipa = new LocalIPAddress();
+		String ROOTPATH = "http://"+lipa.getLocalIpAddress()+":9000/";
+		return ROOTPATH;
+	}
 	@GetMapping("/board/list")
-	public List<BoardDto> list(@RequestParam int pageNum){
-		System.out.println("pageNum:"+pageNum);
+	public List<BoardDto> list(@RequestParam int pageNum) {
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		int startNum = 0;
 		int amount = 9;//한페이지에 보여줄 게시물 수 
-		System.out.println("1startNum:"+startNum);
 		if(pageNum!=1 && pageNum !=0) {
 			startNum=(pageNum-1)*amount;
 		}
-		System.out.println("2startNum:"+startNum);
 		map.put("startNum", startNum);
 		map.put("amount", amount);
-		
+		System.out.println(bmapper.list(map));
 		return bmapper.list(map);
 	}
 	

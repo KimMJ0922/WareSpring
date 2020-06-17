@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface BoardMapper {
 	public void BoardInsert(BoardDto dto);
-	public int getInsertNum(String writer);
+	public int getInsertNum(String no);
 	public List<BoardDto> list(HashMap<String, Integer> map);
 	public int count();
 	public List<BoardDto> getData(String board_no);

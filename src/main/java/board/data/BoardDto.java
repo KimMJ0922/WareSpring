@@ -9,11 +9,23 @@ import lombok.Data;
 @Data
 public class BoardDto {
 	private int board_no;
-	private String writer;
+	private String no;
 	private String subject;
 	private int requirepoint;
 	private String content;
 	private int readcount;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Timestamp writeday;
+	private String email;
+	private String password;
+	private String birth;
+	private String name;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+	private Timestamp joinday;
+	private String emailcheck;
+	private String profile;
+	private int admin;
+	private String provider;
+	private int point;
+	private String ip;
 }
