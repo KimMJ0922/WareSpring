@@ -19,12 +19,13 @@ CREATE TABLE card (
 CREATE TABLE board
 (
     `board_no`      INT(10)          AUTO_INCREMENT NOT NULL, 
-    `writer`        varchar(200)     NOT NULL, 
+    `no`        varchar(200)     NOT NULL, 
     `subject`       varchar(200)     NOT NULL, 
     `requirepoint`  int(10)          NOT NULL, 
     `content`       varchar(2000)    NOT NULL, 
     `writeday`      DATETIME         NOT NULL,
     `readcount`     int(10)          NOT NULL DEFAULT 0,
+    
     PRIMARY KEY (board_no)
 );
 
