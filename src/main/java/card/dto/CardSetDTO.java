@@ -13,7 +13,7 @@ import lombok.ToString;
 public class CardSetDTO {
 	private int no;
 	private int member_no;
-	private String subject;
+	private String title;
 	private String comment;
 	private String open_scope;
 	private String update_scope;

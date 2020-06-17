@@ -12,4 +12,6 @@ public interface CardMapper {
 	public List<CardDTO> list();
 	public int count();
 	public void CardInsert(CardDTO cdto);
+	//카드 테이블에 넣기
+	public void insertCard(CardDTO dto);
 }

@@ -15,4 +15,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="CardInsert" parameterType="cdto">
 		insert into card(cardset_no, question_no, question, answer, imgFile, category) values(#{cardset_no}, #{question_no}, #{question}, #{answer}, #{imgFile}, #{category})
 	</insert>
+	
+	<insert id="insertCard" parameterType="cdto">
+		insert into card(cardset_no, question_no, question, answer, imgFile) 
+		values (#{cardset_no},#{question_no},#{question},#{answer},#{imgFile})
+	</insert>
 </mapper>

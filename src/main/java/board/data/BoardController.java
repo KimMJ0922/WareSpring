@@ -61,7 +61,6 @@ public class BoardController {
 			cdto.setQuestion(obj.get("question").toString());
 			cdto.setAnswer(obj.get("answer").toString());
 			cdto.setImgFile(obj.get("img").toString());
-			cdto.setCategory("board");
 			cmapper.CardInsert(cdto);
 //			System.out.println(obj.get("id"));
 //			System.out.println(obj.get("question"));
