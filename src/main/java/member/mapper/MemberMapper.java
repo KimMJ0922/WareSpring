@@ -19,7 +19,7 @@ public interface MemberMapper {
 	public void socialUpdate(Map<String,Object> map);
 	public MemberDTO socialLogin(Map<String,Object> map);
 	public int emailOverlapCheck(String email);
-	public int nameOverlapCheck(String name);
+	public int nameOverlapCheck(Map<String, Object> map);
 	public int emailFound(String email);
 	public void passwordUpdate(Map<String,String> map);
 	//출석 체크 확인
@@ -27,12 +27,21 @@ public interface MemberMapper {
 	//번호 찾기
 	public int attendanceMemberNo(String email);
 	//출석 체크 넣기
-	public void attendanceInsert(String email);
+	public void attendanceInsert(Map<String, Object> map);
 	//맴버 테이블 업데이트 
-	public void updateMemberPoint(String email);
+	public void updateMemberPoint(Map<String, Object> map);
 	
 	//프로필 이미지 업로드
 	public void profileImgUpdate(Map<String, String> map);
 	
-	public int memberNo(String email);
+	public void updateProfileImg(Map<String, Object> map);
+	//이름 업데이트
+	public void updateName(Map<String, Object> map);
+	
+	//비밀번호 업데이트
+	public void updatePassword(Map<String, Object> map);
+	
+	public String getProfileName(Map<String, Object> map);
+	
+	public void deleteMember(Map<String, Object> map);
 }

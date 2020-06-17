@@ -27,14 +27,21 @@ public interface MemberService{
 	//이메일 중복 체크
 	public boolean emailOverlapCheck(String email);
 	//이름 중복 체크
-	public boolean nameOverlapCheck(String name);
+	public boolean nameOverlapCheck(Map<String, Object> map);
 	//이메일 여부 확인
 	public boolean emailFound(String email);
 	//비밀번호 업데이트
 	public void passwordUpdate(Map<String,String> map);
 	//프로필 이미지 업로드
-	public void profileImgUpdate(Map<String, String> map);
-	
-	public int memberNo(String email);
-	
+	public void profileImgUpdate(Map<String, String> map);	
+	//선택한 프로필 이미지 업데이트
+	public void updateProfileImg(Map<String, Object> map);
+	//이름 업데이트
+	public void updateName(Map<String, Object> map);
+	//비밀번호 업데이트
+	public void updatePassword(Map<String, Object> map);
+	//프로필 파일명 가져오기
+	public String getProfileName(Map<String, Object> map);
+	//정보 지우기
+	public void deleteMember(Map<String, Object> map);
 }
