@@ -260,6 +260,13 @@ public class MemberController {
     	
 		String fileName = sfw.writeFile(uploadFile, path, no);
 		
+		try {
+			fileName = URLDecoder.decode(fileName, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("email", email);
 		map.put("fileName", fileName);
@@ -291,6 +298,12 @@ public class MemberController {
     @PostMapping("/updateProfileImg")
     public void updateProfileImg(@RequestBody Map<String, Object> map) {
     	String fileName = map.get("profile").toString();
+    	try {
+			fileName = URLDecoder.decode(fileName, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	fileName = fileName.substring(fileName.lastIndexOf("/")+1,fileName.length());
     	map.put("profile",fileName);
     	memberService.updateProfileImg(map);
