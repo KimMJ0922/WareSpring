@@ -27,11 +27,11 @@ public class CardController {
 	//이미지 검색
 	@PostMapping("/searchimg")
 	@ResponseBody
-	public List<String> searchImg(@RequestBody Map<String, Object> map){
+	public Map<String, Object> searchImg(@RequestBody Map<String, Object> map){
 		List<String> list = new ArrayList<String>();
 		String search = map.get("search").toString();
 		list = cs.searchImgFile(search);
-		
+		System.out.println(list.size());
 		if(list.size() != 0) {
 			for(int i=0; i<list.size();i++) {
 				String img = list.get(i);
@@ -39,6 +39,7 @@ public class CardController {
 				list.set(i, img);
 			}
 		}
-		return list;
+		map.put("list",list);
+		return map;
 	}
 }
