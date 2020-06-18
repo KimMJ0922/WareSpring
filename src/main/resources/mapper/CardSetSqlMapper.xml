@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="card.mapper.CardSetMapper">
+	<insert id="insertCardSet" parameterType="csdto">
+		insert into cardset(member_no,title,comment,open_scope,open_password,update_scope,update_password,createday) 
+		values(#{no},#{title},#{comment},#{open_scope},#{open_password},#{update_scope},#{update_password},now())
+	</insert>
+	
+	<select id="getCardSetNo" parameterType="Integer" resultType="Integer">
+		select max(no) 
+		from cardset
+		where member_no = #{no} 
+	</select> 
+	
+	<select id="getCardSetList" parameterType="Integer" resultType="csdto">
+		select *
+		from cardset
+		where member_no = #{no}
+		order by createday desc
+	</select>
+</mapper>

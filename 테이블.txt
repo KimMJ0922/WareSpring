@@ -68,13 +68,13 @@ create table member(
 create table cardset(
 	no int(10) auto_increment primary key,
 	member_no int(10) not null,
-	subject varchar(200) not null,
+	title varchar(200) not null,
 	comment varchar(500),
 	open_scope varchar(100) not null,
 	open_password varchar(500),
 	update_scope varchar(100) not null,
 	update_password varchar(500),
-	createday datetime,
+	createday date,
 	FOREIGN KEY (member_no)
 	REFERENCES member(no) on delete cascade
 );
@@ -86,7 +86,6 @@ CREATE TABLE card (
 	question varchar(2000) not null,
 	answer varchar(2000) not null,
 	imgFile varchar(1000) not null,
-	category varchar(1000) not null,
 	
 	FOREIGN KEY (cardset_no)
 	REFERENCES cardset (no) on delete cascade

@@ -32,6 +32,45 @@ public class SpringFileWrite {
 		}
 	}
 	
+	public String fileUpload(MultipartFile file, String path) {
+		//파일명
+		String fileName = file.getOriginalFilename();
+		String fileNameExtension = fileName.substring(fileName.lastIndexOf("."),fileName.length());
+		
+		fileName = "";
+		int cnt = 0;
+		while(true) {
+			if(cnt == 15) {
+				break;
+			}
+			double ranNum = Math.random()*123;
+			int ran = (int)ranNum;
+			if(ran>=97 && ran<=122) {
+				fileName += (char)ranNum;
+				cnt++;
+			}
+		}
+		
+		fileName += fileNameExtension;
+		try {
+			byte[] fileData = file.getBytes();
+			fos = new FileOutputStream(path+"\\"+fileName);
+			fos.write(fileData);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			try {
+				fos.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return fileName;
+	}
+	
 	public String writeFile(MultipartFile file, String path, String no) {
 		String fName = "";
 		if(file.getOriginalFilename()==null||file.getOriginalFilename().equals("")) {

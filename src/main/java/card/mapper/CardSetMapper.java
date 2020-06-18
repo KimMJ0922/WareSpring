@@ -1,16 +1,17 @@
-package card.service;
+package card.mapper;
 
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import card.dto.CardDTO;
 import card.dto.CardSetDTO;
 
-public interface CardSetService {
-	//카드세트에 값 넣기
+@Mapper
+public interface CardSetMapper {
 	public void insertCardSet(CardSetDTO dto);
-	//해당 카드세트 번호 가져오기
 	public int getCardSetNo(int no);
-	//카드 세트 목록 가져오기
+	public void insertCard(CardDTO dto);
 	public List<CardSetDTO> getCardSetList(int no);
 }
