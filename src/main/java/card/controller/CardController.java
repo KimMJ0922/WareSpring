@@ -1,8 +1,11 @@
 package card.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import card.service.CardService;
 import spring.waregg.controller.LocalIPAddress;
+import upload.util.DirectoryManagement;
 
 @RestController
 @CrossOrigin
@@ -31,7 +35,6 @@ public class CardController {
 		List<String> list = new ArrayList<String>();
 		String search = map.get("search").toString();
 		list = cs.searchImgFile(search);
-		System.out.println(list.size());
 		if(list.size() != 0) {
 			for(int i=0; i<list.size();i++) {
 				String img = list.get(i);
@@ -41,5 +44,22 @@ public class CardController {
 		}
 		map.put("list",list);
 		return map;
+	}
+	
+	//이미지 검색한 것 선택시
+	@PostMapping("/searchimgclick")
+	public Map<String,String> searchImgMove(@RequestBody Map<String, Object> map, HttpServletRequest request) {
+		Map<String,String> returnMap = new HashMap<String, String>();
+		
+		String no = map.get("no").toString();
+		String src = map.get("src").toString();
+		src = src.substring(src.lastIndexOf("/")+1,src.length());
+		//파일 복사
+		DirectoryManagement dm = new DirectoryManagement();
+		String fileName = dm.moveImgToTempFolder(request, no, src);
+		
+		returnMap.put("imgSrc", ROOTPATH+"card/temp/"+no+"/"+fileName);
+		returnMap.put("img", fileName);
+		return returnMap;
 	}
 }
