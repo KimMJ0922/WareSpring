@@ -111,6 +111,7 @@ public class DirectoryManagement {
 	public void deleteFile(HttpServletRequest request, int no) {
 		String path = request.getSession().getServletContext().getRealPath("/card/temp/"+no);
 		File file = new File(path);
+		
 		if(file.exists()) {
 			File[] fileList = file.listFiles();
 			System.out.println(fileList.length);
