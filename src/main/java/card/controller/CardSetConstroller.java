@@ -138,6 +138,7 @@ public class CardSetConstroller {
 		return map;
     }
 	
+	//세트 페이지 리스트 출력
 	@PostMapping("/getcardsetlist")
 	@ResponseBody
 	public List<CardSetDTO> getCardSetList(@RequestBody Map<String,Object> map){
@@ -145,6 +146,16 @@ public class CardSetConstroller {
 		int no = Integer.parseInt(map.get("no").toString());
 		list = cardSetService.getCardSetList(no);
 		System.out.println(list);
+		
 		return list;
 	}
+	
+	
+	//메뉴에 세트 갯수 출력
+	@PostMapping("/getsetcount")
+	@ResponseBody
+	public int getSetCount(@RequestBody Map<String,Object> map) {
+		return cardSetService.getSetCount(map);
+	}
+	
 }

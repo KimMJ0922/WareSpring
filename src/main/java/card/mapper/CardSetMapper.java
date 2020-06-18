@@ -14,4 +14,5 @@ public interface CardSetMapper {
 	public int getCardSetNo(int no);
 	public void insertCard(CardDTO dto);
 	public List<CardSetDTO> getCardSetList(int no);
+	public int getSetCount(Map<String,Object> map);
 }
