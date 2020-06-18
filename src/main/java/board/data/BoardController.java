@@ -25,10 +25,10 @@ public class BoardController {
 	@Autowired
 	private BoardMapper bmapper;
 	@Autowired
-	private CardMapper cmapper;
+	private BoardCardService bcservice;
 	
 	@PostMapping("/board/insert")
-	public String insert(@RequestBody HashMap<String,Object> cardMap) {
+	public void insert(@RequestBody HashMap<String,Object> cardMap) {
 //		System.out.println(cardMap);
 
 		JSONObject jsonObject = new JSONObject(cardMap);
@@ -54,21 +54,19 @@ public class BoardController {
 //		System.out.println(arr.size());
 		
 		for(int i=0; i<arr.size(); i++){
-			CardDTO cdto = new CardDTO();
+			BoardCardDto bcdto = new BoardCardDto();
 			JSONObject obj = (JSONObject)arr.get(i);
-			cdto.setCardset_no(board_no);
-			cdto.setQuestion_no(Integer.parseInt(obj.get("id").toString()));
-			cdto.setQuestion(obj.get("question").toString());
-			cdto.setAnswer(obj.get("answer").toString());
-			cdto.setImgFile(obj.get("img").toString());
-			cdto.setCategory("board");
-			cmapper.CardInsert(cdto);
-//			System.out.println(obj.get("id"));
-//			System.out.println(obj.get("question"));
-//			System.out.println(obj.get("answer"));
-//			System.out.println(obj.get("img"));
+			bcdto.setCardset_no(board_no);
+			bcdto.setQuestion_no(Integer.parseInt(obj.get("id").toString()));
+			bcdto.setQuestion(obj.get("question").toString());
+			bcdto.setAnswer(obj.get("answer").toString());
+			bcdto.setImgFile(obj.get("img").toString());
+			bcservice.BoardCardInsert(bcdto);
+			System.out.println(obj.get("id"));
+			System.out.println(obj.get("question"));
+			System.out.println(obj.get("answer"));
+			System.out.println(obj.get("img"));
 		}
-		return "redirect:board";
 	}
 	
 	@GetMapping("board/getIp")

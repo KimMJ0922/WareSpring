@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board.data.BoardCardMapper">
+	<insert id="BoardCardInsert" parameterType="bcdto">
+		insert into board_card(cardset_no, question_no, question, answer, imgFile) values(#{cardset_no}, #{question_no}, #{question}, #{answer}, #{imgFile})
+	</insert>
+</mapper>
