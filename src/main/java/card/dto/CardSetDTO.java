@@ -19,6 +19,6 @@ public class CardSetDTO {
 	private String update_scope;
 	private String open_password;
 	private String update_password;
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern = "yy-MM-dd")
 	private Timestamp createday;
 }

@@ -1,5 +1,6 @@
 package card.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,11 @@ public class CardSetServiceImps implements CardSetService{
 	public int getCardSetNo(int no) {
 		// TODO Auto-generated method stub
 		return cardSetMapper.getCardSetNo(no);
+	}
+	
+	@Override
+	public List<CardSetDTO> getCardSetList(int no) {
+		// TODO Auto-generated method stub
+		return cardSetMapper.getCardSetList(no);
 	}
 }

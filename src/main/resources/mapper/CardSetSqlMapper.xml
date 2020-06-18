@@ -13,4 +13,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from cardset
 		where member_no = #{no} 
 	</select> 
+	
+	<select id="getCardSetList" parameterType="Integer" resultType="csdto">
+		select *
+		from cardset
+		where member_no = #{no}
+		order by createday desc
+	</select>
 </mapper>

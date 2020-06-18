@@ -62,7 +62,7 @@ create table cardset(
 	open_password varchar(500),
 	update_scope varchar(100) not null,
 	update_password varchar(500),
-	createday datetime,
+	createday date,
 	FOREIGN KEY (member_no)
 	REFERENCES member(no) on delete cascade
 );

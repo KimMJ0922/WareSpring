@@ -138,5 +138,13 @@ public class CardSetConstroller {
 		return map;
     }
 	
-	
+	@PostMapping("/getcardsetlist")
+	@ResponseBody
+	public List<CardSetDTO> getCardSetList(@RequestBody Map<String,Object> map){
+		List<CardSetDTO> list = new ArrayList<CardSetDTO>();
+		int no = Integer.parseInt(map.get("no").toString());
+		list = cardSetService.getCardSetList(no);
+		System.out.println(list);
+		return list;
+	}
 }
