@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			answer,
 			if(
 				imgFile != '', 
-				concat('http:localhost:9000/card/img/',imgFile),
+				concat('http://localhost:9000/card/img/',imgFile),
 				''
 			) as imgFile
 		from card

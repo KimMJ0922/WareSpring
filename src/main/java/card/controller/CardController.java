@@ -77,20 +77,20 @@ public class CardController {
 	@PostMapping("/getcardlist")
 	@ResponseBody
 	public Map<String,Object> getCardList(@RequestBody Map<String, Object> map){
-		System.out.println("1");
+
 		//카드 리스트
 		List<CardDTO> cList = cs.getCardList(map);
-		System.out.println("2");
+
 		//카드 세트의 정보
 		CardSetDTO csdto = css.getCardSet(map);
-		System.out.println("3");
+
 		//카드 세트 만든 계정의 정보
 		MemberDTO mdto = ms.getMember(csdto.getMember_no());
-		System.out.println("4");
+
 		map.put("mdto", mdto);
 		map.put("csdto", csdto);
 		map.put("cList", cList);
-		System.out.println("5");
+
 		return map;
 	}
 }

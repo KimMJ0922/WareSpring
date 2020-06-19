@@ -3,7 +3,6 @@ package card.service;
 import java.util.List;
 import java.util.Map;
 
-import card.dto.CardAllDTO;
 import card.dto.CardDTO;
 
 public interface CardService {

@@ -131,7 +131,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<select id="getMember" parameterType="Integer" resultType="mdto">
-		select *
+		select no,
+			   email,
+			   provider,
+			   name,
+			   if(
+			   		INSTR(profile,'google')>0,
+			   		profile,
+			   		if(
+			   			INSTR(profile,'kakao')>0,
+			   			profile,
+			   			if(
+			   				INSTR(profile,no)>0,
+			   				concat('http://localhost:9000/profile/users/',profile),
+			   				concat('http://localhost:9000/profile/default/',profile)
+			   			)
+			   		)
+			   	) as profile
 		from member
 		where no = #{no}
 	</select>
