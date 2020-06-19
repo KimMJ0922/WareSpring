@@ -1,6 +1,5 @@
 package board.data;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,15 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import card.dto.CardDTO;
-import card.mapper.CardMapper;
 import spring.waregg.controller.LocalIPAddress;
 
 @RestController
 @CrossOrigin
 public class BoardController {
 	@Autowired
-	private BoardMapper bmapper;
+	private BoardService bservice;
 	@Autowired
 	private BoardCardService bcservice;
 	
@@ -46,8 +43,8 @@ public class BoardController {
 		bdto.setContent(obj2.get("comment").toString());
 		bdto.setRequirepoint(Integer.parseInt(obj2.get("point").toString()));		
 		
-		bmapper.BoardInsert(bdto);
-		int board_no = bmapper.getInsertNum(obj2.get("no").toString());
+		bservice.BoardInsert(bdto);
+		int board_no = bservice.getInsertNum(obj2.get("no").toString());
 		
 		JSONArray arr = (JSONArray) obj2.get("rows");
 //		System.out.println(arr);
@@ -85,18 +82,23 @@ public class BoardController {
 		}
 		map.put("startNum", startNum);
 		map.put("amount", amount);
-		System.out.println(bmapper.list(map));
-		return bmapper.list(map);
+		System.out.println(bservice.list(map));
+		return bservice.list(map);
 	}
 	
 	@GetMapping("/board/count")
 	public int BoardCount() { 
-		return bmapper.count();
+		return bservice.count();
 	}
 	
 	@GetMapping("/board/getdata")
 	public List<BoardDto> getData(@RequestParam String board_no){
 		System.out.println(board_no);
-		return bmapper.getData(board_no); 
+		return bservice.getData(board_no); 
+	}
+	
+	@GetMapping("board/updateReadcount")
+	public void updateReadcount(@RequestParam String board_no) {
+		bservice.updateReadcount(board_no);
 	}
 }
