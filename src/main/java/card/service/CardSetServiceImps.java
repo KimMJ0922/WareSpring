@@ -38,4 +38,10 @@ public class CardSetServiceImps implements CardSetService{
 		// TODO Auto-generated method stub
 		return cardSetMapper.getSetCount(map);
 	}
+	
+	@Override
+	public CardSetDTO getCardSet(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return cardSetMapper.getCardSet(map);
+	}
 }

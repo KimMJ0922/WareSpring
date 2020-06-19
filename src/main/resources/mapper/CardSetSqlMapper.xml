@@ -19,6 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from cardset cs, card c
 		where cs.member_no = #{no} and cs.no = c.cardset_no
 		group by c.cardset_no
+		order by createday desc
 	</select>
 	
 	<select id="getSetCount" parameterType="Map" resultType="Integer">
@@ -26,4 +27,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from cardset
 		where member_no = #{no}
 	</select>
+	
+	<select id="getCardSet" parameterType="Map" resultType="csdto">
+		select *
+		from cardset
+		where no = #{no}
+	</select> 
+	
 </mapper>

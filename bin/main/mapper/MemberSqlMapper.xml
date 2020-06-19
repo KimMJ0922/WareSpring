@@ -129,4 +129,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from member
 		where no = #{no}
 	</delete>
+	
+	<select id="getMember" parameterType="Integer" resultType="mdto">
+		select *
+		from member
+		where no = #{no}
+	</select>
 </mapper>

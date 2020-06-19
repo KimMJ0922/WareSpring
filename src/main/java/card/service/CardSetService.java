@@ -15,4 +15,6 @@ public interface CardSetService {
 	public List<CardSetDTO> getCardSetList(int no);
 	//메뉴쪽에 카드 세트 갯수 출력
 	public int getSetCount(Map<String,Object> map);
+	//카드세트의 정보
+	public CardSetDTO getCardSet(Map<String,Object> map);
 }

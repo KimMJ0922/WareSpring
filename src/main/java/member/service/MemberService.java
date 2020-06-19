@@ -44,4 +44,6 @@ public interface MemberService{
 	public String getProfileName(Map<String, Object> map);
 	//정보 지우기
 	public void deleteMember(Map<String, Object> map);
+	//회원 정보 가져오기
+	public MemberDTO getMember(int no);
 }
