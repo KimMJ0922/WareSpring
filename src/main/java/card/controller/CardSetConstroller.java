@@ -158,4 +158,14 @@ public class CardSetConstroller {
 		return cardSetService.getSetCount(map);
 	}
 	
+	//카드세트 비밀번호 확인
+	@PostMapping("/cardsetpasscheck")
+	public boolean passCheck(@RequestBody Map<String,Object> map) {
+		String pass = map.get("open_password").toString();
+		MemberEncryption encry = new MemberEncryption();
+		pass = encry.encryption(pass);
+		map.put("open_password", pass);
+		return cardSetService.passCheck(map);
+	}
+	
 }

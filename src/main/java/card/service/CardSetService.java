@@ -17,4 +17,6 @@ public interface CardSetService {
 	public int getSetCount(Map<String,Object> map);
 	//카드세트의 정보
 	public CardSetDTO getCardSet(Map<String,Object> map);
+	//카드 비밀번호 확인
+	public boolean passCheck(Map<String,Object> map);
 }

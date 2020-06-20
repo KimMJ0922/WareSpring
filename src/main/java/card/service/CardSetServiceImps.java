@@ -44,4 +44,10 @@ public class CardSetServiceImps implements CardSetService{
 		// TODO Auto-generated method stub
 		return cardSetMapper.getCardSet(map);
 	}
+	
+	@Override
+	public boolean passCheck(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return cardSetMapper.passCheck(map) == 1 ? true : false;
+	}
 }
