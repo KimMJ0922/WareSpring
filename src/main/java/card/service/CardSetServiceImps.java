@@ -28,9 +28,9 @@ public class CardSetServiceImps implements CardSetService{
 	}
 	
 	@Override
-	public List<CardSetDTO> getCardSetList(int no) {
+	public List<CardSetDTO> getCardSetList(Map<String,Object> map) {
 		// TODO Auto-generated method stub
-		return cardSetMapper.getCardSetList(no);
+		return cardSetMapper.getCardSetList(map);
 	}
 	
 	@Override
@@ -49,5 +49,11 @@ public class CardSetServiceImps implements CardSetService{
 	public boolean passCheck(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return cardSetMapper.passCheck(map) == 1 ? true : false;
+	}
+	
+	@Override
+	public void deleteCardSet(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		cardSetMapper.deleteCardSet(map);
 	}
 }

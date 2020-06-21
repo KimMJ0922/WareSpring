@@ -46,8 +46,6 @@ public class CardSetConstroller {
 	private CardService cardService;
 	@PostMapping("/insert")
 	public void insert(@RequestBody HashMap<String,Object> cardMap,HttpServletRequest request) {
-		System.out.println(cardMap);
-
 		//JSON Object로 변환
 		JSONObject jsonObject = new JSONObject(cardMap);
 		
@@ -142,11 +140,10 @@ public class CardSetConstroller {
 	@PostMapping("/getcardsetlist")
 	@ResponseBody
 	public List<CardSetDTO> getCardSetList(@RequestBody Map<String,Object> map){
+		System.out.println(map.get("start"));
+		System.out.println(map.get("end"));
 		List<CardSetDTO> list = new ArrayList<CardSetDTO>();
-		int no = Integer.parseInt(map.get("no").toString());
-		list = cardSetService.getCardSetList(no);
-		System.out.println(list);
-		
+		list = cardSetService.getCardSetList(map);
 		return list;
 	}
 	
@@ -168,4 +165,8 @@ public class CardSetConstroller {
 		return cardSetService.passCheck(map);
 	}
 	
+	@PostMapping("/deletecardset")
+	public void deleteCardSet(@RequestBody Map<String,Object> map) {
+		cardSetService.deleteCardSet(map);
+	}
 }

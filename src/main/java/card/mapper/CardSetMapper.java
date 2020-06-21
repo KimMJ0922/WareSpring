@@ -13,8 +13,10 @@ public interface CardSetMapper {
 	public void insertCardSet(CardSetDTO dto);
 	public int getCardSetNo(int no);
 	public void insertCard(CardDTO dto);
-	public List<CardSetDTO> getCardSetList(int no);
+	public List<CardSetDTO> getCardSetList(Map<String,Object> map);
 	public int getSetCount(Map<String,Object> map);
 	public CardSetDTO getCardSet(Map<String,Object> map);
 	public int passCheck(Map<String,Object> map);
+	public List<CardDTO> getCardList(Map<String, Object> map);
+	public void deleteCardSet(Map<String,Object> map);
 }

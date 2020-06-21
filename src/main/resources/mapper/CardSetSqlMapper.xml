@@ -14,12 +14,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where member_no = #{no} 
 	</select> 
 	
-	<select id="getCardSetList" parameterType="Integer" resultType="csdto">
-		select cs.*, count(c.cardset_no) as cnt
+	<select id="getCardSetList" parameterType="Map" resultType="csdto">
+		select cs.no,
+		   cs.member_no,
+		   cs.title,
+		   cs.comment,
+		   cs.open_scope,
+		   cs.update_scope,
+		   count(c.cardset_no) as cnt, 
+		   date_add(cs.createday, INTERVAL 1 DAY) as createday
 		from cardset cs, card c
 		where cs.member_no = #{no} and cs.no = c.cardset_no
 		group by c.cardset_no
 		order by createday desc
+		limit #{start}, 5
 	</select>
 	
 	<select id="getSetCount" parameterType="Map" resultType="Integer">
@@ -39,4 +47,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from cardset
 		where no = #{no} and open_password = #{open_password}
 	</select>
+	
+	<delete id="deleteCardSet" parameterType="Map">
+		delete from cardset where no = #{no}
+	</delete>
 </mapper>
