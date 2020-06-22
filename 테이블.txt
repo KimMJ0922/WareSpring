@@ -3,7 +3,6 @@ CREATE TABLE cardset (
 	no 
 );
 
-
 CREATE TABLE board
 (
     `board_no`      INT(10)          AUTO_INCREMENT NOT NULL, 
