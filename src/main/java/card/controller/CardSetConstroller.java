@@ -148,6 +148,7 @@ public class CardSetConstroller {
 		return cardSetService.passCheck(map);
 	}
 	
+	//카드 삭제
 	@PostMapping("/deletecardset")
 	public void deleteCardSet(@RequestBody Map<String,Object> map) {
 		cardSetService.deleteCardSet(map);

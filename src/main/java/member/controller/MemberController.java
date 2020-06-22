@@ -248,9 +248,11 @@ public class MemberController {
     	Map<String, Object> nomap = new HashMap<String, Object>();
     	nomap.put("no", no);
     	String profile = memberService.getProfileName(nomap);
-    	SearchFile sf = new SearchFile();
-    	sf.userProfileDelete(request, profile);
-    	
+    	System.out.println(profile);
+    	if(profile.indexOf("google") == -1 && profile.indexOf("kakao") == -1) {
+    		SearchFile sf = new SearchFile();
+        	sf.userProfileDelete(request, profile);
+    	}
     	
     	String path = request.getSession().getServletContext().getRealPath("/profile/users/");
     	    	
