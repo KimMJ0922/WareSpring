@@ -143,4 +143,10 @@ public class MemberServiceImps implements MemberService{
 		// TODO Auto-generated method stub
 		memberMapper.deleteMember(map);
 	}
+	
+	@Override
+	public MemberDTO getMember(int no) {
+		// TODO Auto-generated method stub
+		return memberMapper.getMember(no);
+	}
 }

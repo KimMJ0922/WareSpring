@@ -46,8 +46,6 @@ public class CardSetConstroller {
 	private CardService cardService;
 	@PostMapping("/insert")
 	public void insert(@RequestBody HashMap<String,Object> cardMap,HttpServletRequest request) {
-		System.out.println(cardMap);
-
 		//JSON Object로 변환
 		JSONObject jsonObject = new JSONObject(cardMap);
 		
@@ -65,22 +63,11 @@ public class CardSetConstroller {
 		dto.setNo(Integer.parseInt(obj2.get("no").toString()));
 		dto.setTitle(obj2.get("title").toString());
 		dto.setComment(obj2.get("comment").toString());
-		
-		//비밀번호 변환
-		MemberEncryption mec = new MemberEncryption();
-				
-		String openPassword = obj2.get("openPassword").toString();
-		String updatePassword = obj2.get("updatePassword").toString();
-		if(openPassword != null) {
-			openPassword = mec.encryption(openPassword);
-		}
-		dto.setOpen_password(openPassword);
-		if(updatePassword != null) {
-			updatePassword = mec.encryption(openPassword);
-		}
-		dto.setUpdate_password(updatePassword);
+		dto.setOpen_password(obj2.get("openPassword").toString());
+		dto.setUpdate_password(obj2.get("updatePassword").toString());
 		dto.setOpen_scope(obj2.get("openScope").toString());
 		dto.setUpdate_scope(obj2.get("updateScope").toString());
+		
 		//cardset에 넣기
 		cardSetService.insertCardSet(dto);
 		int cardSetNo = cardSetService.getCardSetNo(dto.getNo());
@@ -138,13 +125,49 @@ public class CardSetConstroller {
 		return map;
     }
 	
+	//세트 페이지 리스트 출력
 	@PostMapping("/getcardsetlist")
 	@ResponseBody
 	public List<CardSetDTO> getCardSetList(@RequestBody Map<String,Object> map){
 		List<CardSetDTO> list = new ArrayList<CardSetDTO>();
-		int no = Integer.parseInt(map.get("no").toString());
-		list = cardSetService.getCardSetList(no);
-		System.out.println(list);
+		list = cardSetService.getCardSetList(map);
 		return list;
 	}
+	
+	
+	//메뉴에 세트 갯수 출력
+	@PostMapping("/getsetcount")
+	@ResponseBody
+	public int getSetCount(@RequestBody Map<String,Object> map) {
+		return cardSetService.getSetCount(map);
+	}
+	
+	//카드세트 비밀번호 확인
+	@PostMapping("/cardsetpasscheck")
+	public boolean passCheck(@RequestBody Map<String,Object> map) {
+		return cardSetService.passCheck(map);
+	}
+	
+	@PostMapping("/deletecardset")
+	public void deleteCardSet(@RequestBody Map<String,Object> map) {
+		cardSetService.deleteCardSet(map);
+	}
+	
+	
+	//업데이트 비밀번호 확인
+	@PostMapping("/updatepasscheck")
+	public boolean updatePassCheck(@RequestBody Map<String,Object> map) {
+		return cardSetService.updatePassCheck(map);
+	}
+	
+	//카드 세트 수정할 정보 가져오기
+	@PostMapping("/getcardset")
+	public Map<String,Object> getCardSet(@RequestBody Map<String,Object> map){
+		CardSetDTO csdto = cardSetService.getCardSet(map);
+		List<CardDTO> list = cardService.getCardList(map);
+		map.put("csdto", csdto);
+		map.put("list", list);
+		return map;
+	}
+	
 }

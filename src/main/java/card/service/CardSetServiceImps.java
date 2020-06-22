@@ -28,8 +28,38 @@ public class CardSetServiceImps implements CardSetService{
 	}
 	
 	@Override
-	public List<CardSetDTO> getCardSetList(int no) {
+	public List<CardSetDTO> getCardSetList(Map<String,Object> map) {
 		// TODO Auto-generated method stub
-		return cardSetMapper.getCardSetList(no);
+		return cardSetMapper.getCardSetList(map);
+	}
+	
+	@Override
+	public int getSetCount(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return cardSetMapper.getSetCount(map);
+	}
+	
+	@Override
+	public CardSetDTO getCardSet(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return cardSetMapper.getCardSet(map);
+	}
+	
+	@Override
+	public boolean passCheck(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return cardSetMapper.passCheck(map) == 1 ? true : false;
+	}
+	
+	@Override
+	public void deleteCardSet(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		cardSetMapper.deleteCardSet(map);
+	}
+	
+	@Override
+	public boolean updatePassCheck(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return cardSetMapper.updatePassCheck(map) == 1 ? true : false;
 	}
 }

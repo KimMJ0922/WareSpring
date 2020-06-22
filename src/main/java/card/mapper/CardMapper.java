@@ -1,6 +1,7 @@
 package card.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -16,4 +17,6 @@ public interface CardMapper {
 	public void insertCard(CardDTO dto);
 	
 	public List<String> searchImgFile(String search);
+	
+	public List<CardDTO> getCardList(Map<String, Object> map);
 }

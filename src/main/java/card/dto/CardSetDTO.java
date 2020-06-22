@@ -21,4 +21,5 @@ public class CardSetDTO {
 	private String update_password;
 	@JsonFormat(pattern = "yy-MM-dd")
 	private Timestamp createday;
+	private int cnt;
 }

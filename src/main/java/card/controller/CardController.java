@@ -14,7 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import card.dto.CardDTO;
+import card.dto.CardSetDTO;
 import card.service.CardService;
+import card.service.CardSetService;
+import member.dto.MemberDTO;
+import member.service.MemberService;
 import spring.waregg.controller.LocalIPAddress;
 import upload.util.DirectoryManagement;
 
@@ -24,6 +29,11 @@ public class CardController {
 	
 	@Autowired
 	private CardService cs;
+	@Autowired
+	private CardSetService css;
+	@Autowired
+	private MemberService ms;
+	
 	
 	LocalIPAddress lipa = new LocalIPAddress();
 	final String ROOTPATH = "http://"+lipa.getLocalIpAddress()+":9000/";
@@ -61,5 +71,26 @@ public class CardController {
 		returnMap.put("imgSrc", ROOTPATH+"card/temp/"+no+"/"+fileName);
 		returnMap.put("img", fileName);
 		return returnMap;
+	}
+	
+	//학습 페이지 카드 목록 가져오기
+	@PostMapping("/getcardlist")
+	@ResponseBody
+	public Map<String,Object> getCardList(@RequestBody Map<String, Object> map){
+
+		//카드 리스트
+		List<CardDTO> cList = cs.getCardList(map);
+
+		//카드 세트의 정보
+		CardSetDTO csdto = css.getCardSet(map);
+
+		//카드 세트 만든 계정의 정보
+		MemberDTO mdto = ms.getMember(csdto.getMember_no());
+
+		map.put("mdto", mdto);
+		map.put("csdto", csdto);
+		map.put("cList", cList);
+
+		return map;
 	}
 }

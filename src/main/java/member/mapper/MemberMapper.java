@@ -44,4 +44,6 @@ public interface MemberMapper {
 	public String getProfileName(Map<String, Object> map);
 	
 	public void deleteMember(Map<String, Object> map);
+	
+	public MemberDTO getMember(int no);
 }
