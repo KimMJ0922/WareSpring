@@ -19,4 +19,5 @@ public interface CardSetMapper {
 	public int passCheck(Map<String,Object> map);
 	public List<CardDTO> getCardList(Map<String, Object> map);
 	public void deleteCardSet(Map<String,Object> map);
+	public int updatePassCheck(Map<String,Object> map);
 }

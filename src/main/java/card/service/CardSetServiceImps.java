@@ -56,4 +56,10 @@ public class CardSetServiceImps implements CardSetService{
 		// TODO Auto-generated method stub
 		cardSetMapper.deleteCardSet(map);
 	}
+	
+	@Override
+	public boolean updatePassCheck(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return cardSetMapper.updatePassCheck(map) == 1 ? true : false;
+	}
 }

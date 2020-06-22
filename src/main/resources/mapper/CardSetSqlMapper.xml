@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from cardset cs, card c
 		where cs.member_no = #{no} and cs.no = c.cardset_no
 		group by c.cardset_no
-		order by createday desc
+		order by no desc
 		limit #{start}, 5
 	</select>
 	
@@ -51,4 +51,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteCardSet" parameterType="Map">
 		delete from cardset where no = #{no}
 	</delete>
+	
+	<select id="updatePassCheck" parameterType="Map" resultType="Integer">
+		select count(*)
+		from cardset
+		where no = #{no} and update_password = #{update_password}
+	</select>
 </mapper>

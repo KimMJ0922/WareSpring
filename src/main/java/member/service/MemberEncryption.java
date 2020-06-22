@@ -35,5 +35,5 @@ public class MemberEncryption {
 		map.put("formatPassword", formatPassword);
 		
 		return map;
-	} 
+	}
 }

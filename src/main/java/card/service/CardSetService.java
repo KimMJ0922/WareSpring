@@ -21,4 +21,6 @@ public interface CardSetService {
 	public boolean passCheck(Map<String,Object> map);
 	//카드 세트 지우기
 	public void deleteCardSet(Map<String,Object> map);
+	//카드 세트 업데이트 비밀번호 확인
+	public boolean updatePassCheck(Map<String,Object> map);
 }
