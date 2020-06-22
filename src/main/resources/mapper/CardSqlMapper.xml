@@ -32,11 +32,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			question_no, 
 			question, 
 			answer,
+			imgFile,
 			if(
 				imgFile != '', 
 				concat('http://localhost:9000/card/img/',imgFile),
 				''
-			) as imgFile
+			) as imgSrc
 		from card
 		where cardset_no = #{no}
 	</select>
@@ -46,4 +47,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from cardset
 		where member_no = #{no}
 	</select>
+	
+	<select id="getImgList" parameterType="Integer" resultType="String">
+		select imgFile
+		from card
+		where cardset_no = #{no}
+	</select>
+	
+	<delete id="deleteCard" parameterType="Integer">
+		delete
+		from card
+		where cardset_no = #{no}
+	</delete>
 </mapper>

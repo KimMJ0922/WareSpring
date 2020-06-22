@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,7 +19,8 @@ public class DirectoryManagement {
 	}
 	
 	//폴더 삭제
-	public void deleteTempFolder(HttpServletRequest request, int no, String path) {
+	public void deleteTempFolder(HttpServletRequest request, int no) {
+		String path = request.getSession().getServletContext().getRealPath("/");
 		File file = new File(path+"card/temp/"+no);       
 		if(file.exists()) {
 			file.delete();
@@ -122,4 +124,19 @@ public class DirectoryManagement {
 			}
 		}
 	}
+	
+	//img폴더 안에 원본 사진 지우기
+	public void deleteImgFile(HttpServletRequest request, List<String> list) {
+		String path = request.getSession().getServletContext().getRealPath("/card/img/");
+		File file = new File(path);
+		File[] fileList = file.listFiles();
+		
+		for(String s : list) {
+			for(File f : fileList) {
+				if(s.equals(f.getName())) {
+					f.delete();
+				}
+			}
+		}
+	} 
 }

@@ -98,7 +98,7 @@ public class CardSetConstroller {
 		}
 		
 		dm.deleteFile(request, dto.getNo());
-		dm.deleteTempFolder(request, dto.getNo(), path);
+		dm.deleteTempFolder(request, dto.getNo());
 	}
 	
 	//문제 이미지 추가
@@ -162,13 +162,93 @@ public class CardSetConstroller {
 	
 	//카드 세트 수정할 정보 가져오기
 	@PostMapping("/getcardset")
-	public Map<String,Object> getCardSet(@RequestBody Map<String,Object> map){
+	public Map<String,Object> getCardSet(@RequestBody Map<String,Object> map, HttpServletRequest request){
 		CardSetDTO csdto = cardSetService.getCardSet(map);
 		List<CardDTO> list = cardService.getCardList(map);
+		DirectoryManagement dm = new DirectoryManagement();
+		//문제 사진이 있을 경우 temp폴더로 복사 후 list안에 사진 파일명 변경
+		for(int i =0;i<list.size();i++) {
+			CardDTO dto = list.get(i);
+			String fileName = dto.getImgFile();
+			if(fileName == null || fileName == "") 
+				continue;
+			String rootPath = ROOTPATH+"card/temp/"+map.get("member_no").toString()+"/";
+			fileName = fileName.substring(fileName.lastIndexOf("/")+1, fileName.length());
+			fileName = dm.moveImgToTempFolder(request, map.get("member_no").toString(), fileName);
+			dto.setImgFile(fileName);
+			dto.setImgSrc(rootPath+fileName);
+			list.set(i, dto);
+		}
 		map.put("csdto", csdto);
 		map.put("list", list);
 		
 		return map;
 	}
 	
+	
+	//카드 세트 수정
+	@PostMapping("/updatecardset")
+	public void updateCardSet(@RequestBody Map<String,Object> cardMap,HttpServletRequest request) {
+		//JSON Object로 변환
+		JSONObject jsonObject = new JSONObject(cardMap);
+		
+		//JSON 형태의 string 으로 변환
+		String card = jsonObject.toJSONString();
+		
+		//string으로 변환한 것을 다시 JSONObject로 변환
+		//제일 처음에 변환 한 것을 직접 JSONArray로 변환하면 
+		//변환 오류가 생긴다. 이유는 모름
+		JSONObject obj2 = (JSONObject)JSONValue.parse(card);
+
+		//cardset 테이블에 넣을 map
+		CardSetDTO dto = new CardSetDTO();
+		
+		dto.setNo(Integer.parseInt(obj2.get("no").toString()));
+		dto.setMember_no(Integer.parseInt(obj2.get("member_no").toString()));
+		dto.setTitle(obj2.get("title").toString());
+		dto.setComment(obj2.get("comment").toString());
+		dto.setOpen_password(obj2.get("openPassword").toString());
+		dto.setUpdate_password(obj2.get("updatePassword").toString());
+		dto.setOpen_scope(obj2.get("openScope").toString());
+		dto.setUpdate_scope(obj2.get("updateScope").toString());
+		
+		cardSetService.updateCardSet(dto);
+		
+		//기존에 있는 사진 목록 가져오기
+		List<String> imgList = cardService.getImgList(dto.getNo());
+		
+		//기존에 있는 이미지 목록 지우기
+		DirectoryManagement dm = new DirectoryManagement();
+		dm.deleteImgFile(request, imgList);
+		
+		//테이블 레코드 지우기
+		cardService.deleteCard(dto.getNo());
+		
+		//이미지 바꾸기
+		JSONArray arr = (JSONArray) obj2.get("rows");
+		//JSONArray로 변환 한 것을 하나씩 꺼내기
+		for(int i=0; i<arr.size(); i++){
+			CardDTO cdto = new CardDTO();
+			JSONObject obj = (JSONObject)arr.get(i);
+			cdto.setQuestion_no(i+1);
+			cdto.setCardset_no(dto.getNo());
+			cdto.setQuestion(obj.get("question").toString());
+			cdto.setAnswer(obj.get("answer").toString());
+			String img = obj.get("img").toString();
+			System.out.println(img);
+			if(img == null || img.equals("")) {
+				img = "";
+				cdto.setImgFile(img);
+			}else {
+				//이미지 파일 옮기면서 파일명 바꾸기
+				String imgFileName = dm.moveTempToImgFolder(request, dto.getMember_no(), dto.getNo(), i+1, img);
+				
+				cdto.setImgFile(imgFileName);
+			}			
+			cardService.insertCard(cdto);
+		}
+		
+		dm.deleteFile(request, dto.getMember_no());
+		dm.deleteTempFolder(request, dto.getMember_no());
+	}
 }

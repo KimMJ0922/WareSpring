@@ -57,4 +57,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from cardset
 		where no = #{no} and update_password = #{update_password}
 	</select>
+	
+	<update id="updateCardSet" parameterType="csdto">
+		update cardset
+		set	title = #{title}, comment = #{comment},
+			open_scope = #{open_scope}, open_password = #{open_password},
+			update_scope = #{update_scope}, update_password = #{update_password}
+		where no = #{no}
+	</update>
 </mapper>
