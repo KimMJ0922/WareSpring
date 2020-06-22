@@ -167,6 +167,7 @@ public class CardSetConstroller {
 		List<CardDTO> list = cardService.getCardList(map);
 		map.put("csdto", csdto);
 		map.put("list", list);
+		
 		return map;
 	}
 	
