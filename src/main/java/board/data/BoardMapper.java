@@ -13,4 +13,5 @@ public interface BoardMapper {
 	public int count(String search);
 	public List<BoardDto> getData(String board_no);
 	public void updateReadcount(String board_no);
+	public void deleteBoard(String board_no);
 }

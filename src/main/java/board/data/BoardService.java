@@ -46,5 +46,11 @@ public class BoardService implements BoardServiceInter{
 		// TODO Auto-generated method stub
 		bmapper.updateReadcount(board_no);
 	}
+
+	@Override
+	public void deleteBoard(String board_no) {
+		// TODO Auto-generated method stub
+		bmapper.deleteBoard(board_no);
+	}
 	
 }

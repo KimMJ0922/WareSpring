@@ -86,19 +86,16 @@ public class BoardController {
 	public String getIp() {
 		return ROOTPATH;
 	}
-	@GetMapping("/board/list")
-	public List<BoardDto> list(@RequestParam int pageNum,@RequestParam String search, @RequestParam String select) {
-		System.out.println(select);
-		HashMap<String, Object> map = new HashMap<String, Object>();
+	@PostMapping("/board/list")
+	public List<BoardDto> list(@RequestBody HashMap<String, Object> map) {
 		int startNum = 0;
-		int amount = 9;//한페이지에 보여줄 게시물 수 
+		int amount = 9;//한페이지에 보여줄 게시물 수
+		int pageNum=Integer.parseInt(map.get("pageNum").toString());
 		if(pageNum!=1 && pageNum !=0) {
 			startNum=(pageNum-1)*amount;
 		}
 		map.put("startNum", startNum);
 		map.put("amount", amount);
-		map.put("search", search);
-		map.put("select", select);
 		return bservice.list(map);
 	}
 	
@@ -139,4 +136,11 @@ public class BoardController {
 		map.put("imgSrc", ROOTPATH+"bcard/temp/"+no+"/"+fileName);
 		return map;
     }
+	
+	@GetMapping("board/delete")
+	public void deleteBoard(HttpServletRequest request, @RequestParam String board_no) {
+		BoardDirectoryManagement dm = new BoardDirectoryManagement();
+		dm.deleteImgFile(request, board_no);
+		bservice.deleteBoard(board_no);
+	}
 }
