@@ -37,7 +37,7 @@ public class BoardController {
 	private BoardCardService bcservice;
 	
 	@PostMapping("/board/insert")
-	public void insert(@RequestBody HashMap<String,Object> cardMap,HttpServletRequest request) {
+	public int insert(@RequestBody HashMap<String,Object> cardMap,HttpServletRequest request) {
 //		System.out.println(cardMap);
 
 		JSONObject jsonObject = new JSONObject(cardMap);
@@ -79,6 +79,7 @@ public class BoardController {
 		}
 		dm.deleteFile(request, Integer.parseInt(bdto.getNo()));
 		dm.deleteTempFolder(request, Integer.parseInt(bdto.getNo()), path);
+		return board_no;
 	}
 	
 	@GetMapping("board/getIp")

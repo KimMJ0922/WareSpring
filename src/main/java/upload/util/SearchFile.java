@@ -39,7 +39,7 @@ public class SearchFile {
 	
 	public void userProfileDelete(HttpServletRequest request, String profile) {
 		String path = request.getSession().getServletContext().getRealPath("/profile/users/"+profile);
-		File file = new File(path);       
+		File file = new File(path);
 		if(file.exists()) {
 			file.delete();
 		}
