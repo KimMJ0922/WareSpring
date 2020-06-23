@@ -87,8 +87,9 @@ public class BoardController {
 		return ROOTPATH;
 	}
 	@GetMapping("/board/list")
-	public List<BoardDto> list(@RequestParam int pageNum) {
-		HashMap<String, Integer> map = new HashMap<String, Integer>();
+	public List<BoardDto> list(@RequestParam int pageNum,@RequestParam String search, @RequestParam String select) {
+		System.out.println(select);
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		int startNum = 0;
 		int amount = 9;//한페이지에 보여줄 게시물 수 
 		if(pageNum!=1 && pageNum !=0) {
@@ -96,12 +97,14 @@ public class BoardController {
 		}
 		map.put("startNum", startNum);
 		map.put("amount", amount);
+		map.put("search", search);
+		map.put("select", select);
 		return bservice.list(map);
 	}
 	
 	@GetMapping("/board/count")
-	public int BoardCount() { 
-		return bservice.count();
+	public int BoardCount(@RequestParam String search) { 
+		return bservice.count(search);
 	}
 	
 	@GetMapping("/board/getdata")
