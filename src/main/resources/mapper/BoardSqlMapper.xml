@@ -4,11 +4,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="board.data.BoardMapper">
 	<select id="list" resultType="bdto" parameterType="HashMap">
-		select b.*,m.* from board b, member m where b.no=m.no order by board_no desc limit #{startNum},#{amount};
+		select b.*,m.* from board b, member m where b.no=m.no and subject like concat('%',#{search},'%') order by
+		<choose>
+	        <when test="select == '최신순'">board_no desc</when>
+	        <when test="select == '조회순'">readcount desc</when>
+	        <when test="select == '낮은가격순'">requirepoint asc</when>
+	        <when test="select == '높은가격순'">requirepoint desc</when>
+	        <otherwise>board_no desc</otherwise>
+    	</choose>
+		limit #{startNum},#{amount};
 	</select>
-	
-	<select id="count" resultType="int">
-		select count(*) from board
+
+	<select id="count" resultType="int" parameterType="String">
+		select count(*) from board where subject like concat('%',#{search},'%');
 	</select>
 	
 	<insert id="BoardInsert" parameterType="bdto">

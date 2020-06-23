@@ -24,15 +24,15 @@ public class BoardService implements BoardServiceInter{
 	}
 
 	@Override
-	public List<BoardDto> list(HashMap<String, Integer> map) {
+	public List<BoardDto> list(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		return bmapper.list(map);
 	}
 
 	@Override
-	public int count() {
+	public int count(String search) {
 		// TODO Auto-generated method stub
-		return bmapper.count();
+		return bmapper.count(search);
 	}
 
 	@Override
