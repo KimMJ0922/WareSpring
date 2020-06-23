@@ -88,3 +88,23 @@ CREATE TABLE card (
 	FOREIGN KEY (cardset_no)
 	REFERENCES cardset (no) on delete cascade
 );
+
+create table log(
+	no int(10) primary key auto_increment,
+	member_no int(10),
+	cardset_no int(10),
+	action varchar(50),
+	
+	FOREIGN KEY (member_no)
+	REFERENCES member(no) on delete cascade,
+	FOREIGN KEY (cardset_no)
+	REFERENCES cardset (no) on delete cascade
+);
+
+create table record(
+	no int(10) primary key auto_increment,
+	cardset_no int(10),
+	question_no int(10),
+	method varchar(50),
+	
+);
