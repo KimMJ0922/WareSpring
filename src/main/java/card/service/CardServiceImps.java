@@ -49,4 +49,10 @@ public class CardServiceImps implements CardService{
 		// TODO Auto-generated method stub
 		return cardMapper.getCardSetCount(map);
 	}
+	
+	@Override
+	public List<CardDTO> getTestCardList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return cardMapper.getTestCardList(map);
+	}
 }

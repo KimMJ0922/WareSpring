@@ -25,4 +25,6 @@ public interface CardMapper {
 	public void deleteCard(int no);
 	
 	public int getCardSetCount(Map<String, Object> map);
+	
+	public List<CardDTO> getTestCardList(Map<String, Object> map);
 }

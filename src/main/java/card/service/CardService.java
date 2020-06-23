@@ -18,4 +18,7 @@ public interface CardService {
 	public void deleteCard(int no);
 	//카드 세트의 카드 갯수 가져오기
 	public int getCardSetCount(Map<String, Object> map);
+	//테스트 카드 세트 가져오기
+	public List<CardDTO> getTestCardList(Map<String, Object> map);
+	
 }
