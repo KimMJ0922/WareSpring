@@ -59,4 +59,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from card
 		where cardset_no = #{no}
 	</delete>
+	
+	<select id="getCardSetCount" parameterType="Map" resultType="Integer">
+		select count(*)
+		from card
+		where cardset_no = #{no}
+	</select>
 </mapper>

@@ -38,6 +38,7 @@ public class SearchFile {
 	}
 	
 	public void userProfileDelete(HttpServletRequest request, String profile) {
+		System.out.println("왔냐");
 		String path = request.getSession().getServletContext().getRealPath("/profile/users/"+profile);
 		File file = new File(path);
 		if(file.exists()) {

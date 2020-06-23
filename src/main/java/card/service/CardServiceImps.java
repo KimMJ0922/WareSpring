@@ -43,4 +43,10 @@ public class CardServiceImps implements CardService{
 		// TODO Auto-generated method stub
 		cardMapper.deleteCard(no);
 	}
+	
+	@Override
+	public int getCardSetCount(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return cardMapper.getCardSetCount(map);
+	}
 }

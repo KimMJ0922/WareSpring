@@ -159,4 +159,10 @@ public class CardController {
 		
 		return map;
 	}
+	
+	@PostMapping("/getcardsetcount")
+	@ResponseBody
+	public int getCardSetCount(@RequestBody Map<String,Object> map) {
+		return cs.getCardSetCount(map);
+	}
 }

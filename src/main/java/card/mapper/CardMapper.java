@@ -23,4 +23,6 @@ public interface CardMapper {
 	public List<String> getImgList(int no);
 	
 	public void deleteCard(int no);
+	
+	public int getCardSetCount(Map<String, Object> map);
 }
