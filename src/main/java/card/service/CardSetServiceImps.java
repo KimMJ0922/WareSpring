@@ -62,4 +62,10 @@ public class CardSetServiceImps implements CardSetService{
 		// TODO Auto-generated method stub
 		return cardSetMapper.updatePassCheck(map) == 1 ? true : false;
 	}
+	
+	@Override
+	public void updateCardSet(CardSetDTO dto) {
+		// TODO Auto-generated method stub
+		cardSetMapper.updateCardSet(dto);
+	}
 }

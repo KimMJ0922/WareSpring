@@ -12,5 +12,9 @@ public interface CardService {
 	public List<String> searchImgFile(String search);
 	//세트 번호에 있는 카드 목록 가져오기
 	public List<CardDTO> getCardList(Map<String, Object> map);
+	//이미지 리스트 가져오기
+	public List<String> getImgList(int no);
+	//카드 지우기
+	public void deleteCard(int no);
 	
 }

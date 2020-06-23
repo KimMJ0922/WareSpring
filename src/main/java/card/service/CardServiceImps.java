@@ -32,5 +32,15 @@ public class CardServiceImps implements CardService{
 		// TODO Auto-generated method stub
 		return cardMapper.getCardList(map);
 	}
+	@Override
+	public List<String> getImgList(int no) {
+		// TODO Auto-generated method stub
+		return cardMapper.getImgList(no);
+	}
 	
+	@Override
+	public void deleteCard(int no) {
+		// TODO Auto-generated method stub
+		cardMapper.deleteCard(no);
+	}
 }

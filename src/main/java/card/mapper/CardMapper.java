@@ -19,4 +19,8 @@ public interface CardMapper {
 	public List<String> searchImgFile(String search);
 	
 	public List<CardDTO> getCardList(Map<String, Object> map);
+	
+	public List<String> getImgList(int no);
+	
+	public void deleteCard(int no);
 }
