@@ -38,11 +38,18 @@ public class SearchFile {
 	}
 	
 	public void userProfileDelete(HttpServletRequest request, String profile) {
-		System.out.println("왔냐");
-		String path = request.getSession().getServletContext().getRealPath("/profile/users/"+profile);
+		String path = request.getSession().getServletContext().getRealPath("/profile/users/");
+		profile = profile.substring(0, profile.lastIndexOf("."));
+		
 		File file = new File(path);
-		if(file.exists()) {
-			file.delete();
+		File[] fileList = file.listFiles();
+		for(File f : fileList) {
+			String fileName = f.getName();
+			fileName = fileName.substring(0, fileName.lastIndexOf("."));
+			if(profile.equals(fileName)) {
+				f.delete();
+			}
 		}
+		
 	}
 }
