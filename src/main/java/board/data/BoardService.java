@@ -54,15 +54,15 @@ public class BoardService implements BoardServiceInter{
 	}
 
 	@Override
-	public void buyBoard(String board_no, String member_no) {
+	public void buyBoard(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
-		bmapper.buyBoard(board_no, member_no);
+		bmapper.buyBoard(map);
 	}
 
 	@Override
-	public void pointHistoryOfBoard(int requirepoint) {
+	public void pointHistoryOfBoard(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
-		bmapper.pointHistoryOfBoard(requirepoint);
+		bmapper.pointHistoryOfBoard(map);
 	}
 
 	@Override
@@ -75,6 +75,12 @@ public class BoardService implements BoardServiceInter{
 	public int currentPoint(String member_no) {
 		// TODO Auto-generated method stub
 		return bmapper.currentPoint(member_no);
+	}
+
+	@Override
+	public int buyedcheck(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		return bmapper.buyedcheck(map);
 	}
 	
 }

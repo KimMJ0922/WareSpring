@@ -7,6 +7,7 @@
          <typeAlias alias="bdto" type="board.data.BoardDto" />
          <typeAlias alias="csdto" type="card.dto.CardSetDTO" />
          <typeAlias alias="bcdto" type="board.data.BoardCardDto" />
+         <typeAlias alias="pdto" type="point.dto.PointDto" />
     </typeAliases>	
 	<mappers>
 		<mapper resource="mapper/CardSqlMapper.xml" />

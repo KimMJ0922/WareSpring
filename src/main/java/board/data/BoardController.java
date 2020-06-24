@@ -157,12 +157,29 @@ public class BoardController {
 		int requirepoint = Integer.parseInt(map.get("requirepoint").toString());
 		
 		HashMap<String, Object> map2 = new HashMap<String, Object>();
-		map2.put("requirepoint", requirepoint);
+		map2.put("board_no", board_no);
 		map2.put("member_no", member_no);
 		
-		bservice.buyBoard(board_no, member_no);
-		bservice.updateMemberPoint(map2);
-		bservice.pointHistoryOfBoard(requirepoint);
+		HashMap<String, Object> map3 = new HashMap<String, Object>();
+		map3.put("requirepoint", requirepoint);
+		map3.put("member_no", member_no);
 		
+		bservice.buyBoard(map2);
+		bservice.updateMemberPoint(map3);
+		bservice.pointHistoryOfBoard(map3);
+		
+	}
+	
+	@PostMapping("board/buyedcheck")
+	public int buyedcheck(@RequestBody HashMap<String, Object> map) {
+		String board_no = map.get("board_no").toString();
+		String member_no = map.get("member_no").toString();
+		
+		HashMap<String, Object> map2 = new HashMap<String, Object>();
+		
+		map2.put("board_no", board_no);
+		map2.put("member_no", member_no);
+		
+		return bservice.buyedcheck(map2);
 	}
 }

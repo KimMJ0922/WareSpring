@@ -107,5 +107,27 @@ create table record(
 	question_no int(10),
 	method varchar(50),
 	
-
 );
+
+create table point_history(
+	point_no int(10) auto_increment primary key,
+	history_mno int(10) not null,
+	point_amount int(10) not null,
+	category varchar(10) not null,
+	history_day date
+)
+
+create table buy(
+	no int(10) auto_increment,
+	buy_bno int(10),
+	buy_mno int(10),
+	buy_day date not null,
+	
+	FOREIGN KEY (buy_bno)
+	REFERENCES board (board_no) on delete cascade,
+	FOREIGN KEY (buy_mno)
+	REFERENCES member (no) on delete cascade,
+)
+
+
+
