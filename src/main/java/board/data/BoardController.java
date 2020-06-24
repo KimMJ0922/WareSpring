@@ -143,4 +143,26 @@ public class BoardController {
 		dm.deleteImgFile(request, board_no);
 		bservice.deleteBoard(board_no);
 	}
+	
+	@GetMapping("board/currentPoint")
+	public int currentPoint(@RequestParam String member_no) {
+		return bservice.currentPoint(member_no);
+	}
+	
+	@PostMapping("board/buy")
+	public void buy(@RequestBody HashMap<String, Object> map) {
+		System.out.println(map);
+		String board_no = map.get("board_no").toString();
+		String member_no = map.get("member_no").toString();
+		int requirepoint = Integer.parseInt(map.get("requirepoint").toString());
+		
+		HashMap<String, Object> map2 = new HashMap<String, Object>();
+		map2.put("requirepoint", requirepoint);
+		map2.put("member_no", member_no);
+		
+		bservice.buyBoard(board_no, member_no);
+		bservice.updateMemberPoint(map2);
+		bservice.pointHistoryOfBoard(requirepoint);
+		
+	}
 }
