@@ -12,6 +12,5 @@ public class CardDTO {
 	private String question;
 	private String answer;
 	private String imgFile;
-	private String imgSrc;
-	
+	private String imgSrc;	
 }
