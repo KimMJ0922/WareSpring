@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<insert id="signup" parameterType="mdto">
 		insert into member(email,password,birth,name,joinday,emailcheck,admin,profile,provider,point)
-		values(#{email},#{password},#{birth},#{name},now(),'n',0,'사자.png','default',0)
+		values(#{email},#{password},#{birth},#{name},now(),'n',0,'사자.png','default',500)
 	</insert>
 	
 	<update id="updateEmailCheck" parameterType="String">

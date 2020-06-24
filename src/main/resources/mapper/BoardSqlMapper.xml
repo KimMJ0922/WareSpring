@@ -34,4 +34,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateReadcount" parameterType="String">
 		update board set readcount=readcount+1 where board_no = #{board_no}
 	</update>
+	
+	<delete id="deleteBoard" parameterType="String">
+		delete from board where board_no=#{board_no}
+	</delete>
+	
+	<insert id="buyBoard" parameterType="String">
+		insert into buy values(#{board_no}, #{member_no}, now())
+	</insert>
+	<insert id="pointHistoryOfBoard" parameterType="int">
+		insert into point_history values(#{requirepoint}, "-", now())
+	</insert>
+	<update id="updateMemberPoint" parameterType="HashMap">
+		update member set point=point-#{requirepoint} where no=#{member_no}
+	</update>
+	<select id="currentPoint" parameterType="String" resultType="int">
+		select point from member where no=#{member_no}
+	</select>
 </mapper>
