@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="record.mapper.RecordMapper">
+	<insert id="insertRecord" parameterType="rdto">
+		insert into record(member_no, cardset_no, category, rightcnt, wrongcnt, method, recordday)
+		values(#{member_no}, #{cardset_no}, #{category}, #{rightcnt}, #{wrongcnt}, #{method},now())
+	</insert>
+	
+	<select id="getMaxNo" parameterType="rdto" resultType="Integer">
+		select max(no)
+		from record
+		where member_no = #{member_no}
+	</select>
+	
+	<insert id="insertDetailRecord" parameterType="ddto">
+		insert into detailrecord
+		values(#{record_no}, #{question_no}, #{question}, #{answer}, #{useranswer}, #{type}, #{result})
+	</insert>
+</mapper>

@@ -50,6 +50,5 @@ public class SearchFile {
 				f.delete();
 			}
 		}
-		
 	}
 }

@@ -100,12 +100,43 @@ create table log(
 	FOREIGN KEY (cardset_no)
 	REFERENCES cardset (no) on delete cascade
 );
+//학습
+create table study(
+	no int(10) primary key auto_increment,
+	member_no int(10),
+	cardset_no int(10),
+	studyday datetime,
+	category varchar(50),
+	
+	FOREIGN KEY (member_no)
+	REFERENCES member(no) on delete cascade
+);
 
+//객관 주관 테스트 
 create table record(
 	no int(10) primary key auto_increment,
+	member_no int(10),
 	cardset_no int(10),
-	question_no int(10),
+	category varchar(50),
+	rightcnt int(10),
+	wrongcnt int(10),
 	method varchar(50),
+	recordday datetime,
 	
-
+	FOREIGN KEY (member_no)
+	REFERENCES member(no) on delete cascade
 );
+
+
+//객관 주관 테스트 결과
+create table detailrecord(
+	record_no int(10),
+	question_no int(10),
+	question varchar(3000),
+	answer varchar(3000),
+	useranswer varchar(3000),
+	result varchar(50),
+	
+	FOREIGN KEY (record_no)
+	REFERENCES record(no) on delete cascade
+)

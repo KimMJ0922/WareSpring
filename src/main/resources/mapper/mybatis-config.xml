@@ -7,6 +7,8 @@
          <typeAlias alias="bdto" type="board.data.BoardDto" />
          <typeAlias alias="csdto" type="card.dto.CardSetDTO" />
          <typeAlias alias="bcdto" type="board.data.BoardCardDto" />
+         <typeAlias alias="rdto" type="record.dto.RecordDTO" />
+         <typeAlias alias="ddto" type="record.dto.DetailRecordDTO" />
     </typeAliases>	
 	<mappers>
 		<mapper resource="mapper/CardSqlMapper.xml" />
@@ -14,5 +16,6 @@
 		<mapper resource="mapper/BoardSqlMapper.xml" />
 		<mapper resource="mapper/CardSetSqlMapper.xml" />
 		<mapper resource="mapper/BoardCardSqlMapper.xml" />
+		<mapper resource="mapper/RecordSqlMapper.xml" />
 	</mappers>
 </configuration>
