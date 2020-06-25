@@ -17,4 +17,7 @@ public interface RecordMapper {
 	public List<RecordDTO> getList(Map<String, Object> map);
 	public List<RecordDTO> getLastList(Map<String, Object> map);
 	public List<RecordDTO> getChartList(Map<String, Object> map);
+	public List<RecordDTO> getDiagram(Map<String, Object> map);
+	public List<RecordDTO> getLast(Map<String, Object> map);
+	public List<RecordDTO> getChart(Map<String, Object> map);
 }

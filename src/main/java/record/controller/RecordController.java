@@ -95,4 +95,21 @@ public class RecordController {
 		map.put("chartList",chartList);
 		return map;
 	}
+	
+	@PostMapping("/getdiagram")
+	@ResponseBody
+	public Map<String,Object> getDiagram(@RequestBody Map<String, Object> map){
+		List<RecordDTO> diagram = rs.getDiagram(map);
+		List<RecordDTO> last = rs.getLast(map);
+		List<RecordDTO> chart = rs.getChart(map);
+		System.out.println(diagram);
+		System.out.println(last);
+		System.out.println(chart);
+		
+		map.put("last",last);
+		map.put("diagram",diagram);
+		map.put("chart",chart);
+		return map;
+	}
+	
 }

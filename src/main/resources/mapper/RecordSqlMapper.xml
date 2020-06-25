@@ -78,4 +78,57 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 												group by cardset_no)
 		order by cardset_no asc, method desc, recordday asc
 	</select>
+	
+	<select id="getDiagram" parameterType="Map" resultType="rdto">
+		select r.*
+		from (
+				select r.*,c.title, c.comment, m.name, 
+						if(
+					   		INSTR(profile,'google')>0,
+					   		m.profile,
+					   		if(
+					   			INSTR(m.profile,'kakao')>0,
+					   			m.profile,
+					   			if(
+					   				INSTR(m.profile,m.no)>0,
+					   				concat('http://localhost:9000/profile/users/',m.profile),
+					   				concat('http://localhost:9000/profile/default/',m.profile)
+					   			)
+					   		)
+					   	) as profile
+				from record r,cardset c, member m 
+				where r.member_no = #{member_no} and r.cardset_no = #{cardset_no} and r.cardset_no = c.no and c.member_no = m.no
+				order by recordday desc) as r
+		group by r.cardset_no, r.method
+	</select>
+	
+	<select id="getLast" parameterType="Map" resultType="rdto">
+		select r.*
+		from (
+				select r.*,c.title, c.comment, m.name, 
+						if(
+					   		INSTR(profile,'google')>0,
+					   		m.profile,
+					   		if(
+					   			INSTR(m.profile,'kakao')>0,
+					   			m.profile,
+					   			if(
+					   				INSTR(m.profile,m.no)>0,
+					   				concat('http://localhost:9000/profile/users/',m.profile),
+					   				concat('http://localhost:9000/profile/default/',m.profile)
+					   			)
+					   		)
+					   	) as profile
+				from record r,cardset c, member m 
+				where r.member_no = #{member_no} and r.cardset_no = #{cardset_no} and r.cardset_no = c.no and c.member_no = m.no
+				order by recordday desc) as r
+		group by r.cardset_no
+	</select>
+	
+	<select id="getChart" parameterType="Map" resultType="rdto">
+		select *
+		from record
+		where member_no = #{member_no} and cardset_no in (#{cardset_no})
+		order by cardset_no asc, method desc, recordday asc
+	</select>
 </mapper>
