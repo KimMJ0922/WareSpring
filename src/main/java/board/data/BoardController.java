@@ -280,7 +280,7 @@ public class BoardController {
 				//이미지 파일 옮기면서 파일명 바꾸기
 				//String imgFileName = dm.moveTempToImgFolder(request, dto.getMember_no(), dto.getNo(), i+1, img);
 				
-				cdto.setImgFile(imgFileName);
+				//cdto.setImgFile(imgFileName);
 			}			
 			//bcservice.insertCard(cdto);
 		}
