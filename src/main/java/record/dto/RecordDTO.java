@@ -17,4 +17,8 @@ public class RecordDTO {
 	private String method;
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
 	private Timestamp recordday;
+	private String title;
+	private String comment;
+	private String name;
+	private String profile;
 }

@@ -1,5 +1,6 @@
 package record.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.json.simple.JSONArray;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import record.dto.DetailRecordDTO;
@@ -21,6 +23,7 @@ public class RecordController {
 	@Autowired
 	private RecordService rs;
 	
+	//객관, 주관, 테스트 결과 저장
 	@PostMapping("/setrecord")
 	public void setRecord(@RequestBody Map<String, Object> map) {
 		RecordDTO rdto = new RecordDTO();
@@ -72,5 +75,22 @@ public class RecordController {
 			
 			rs.insertDetailRecord(ddto);
 		}
+	}
+	
+	//학습 저장
+	@PostMapping("/setstudy")
+	public void setStudy(@RequestBody Map<String, Object> map) {
+		rs.insertStudy(map);
+	}
+	
+	@PostMapping("/getdiagramlist")
+	@ResponseBody
+	public Map<String,Object> getDiagramList(@RequestBody Map<String, Object> map){
+		List<RecordDTO> rlist = rs.getList(map);
+		List<RecordDTO> lastList = rs.getLastList(map);
+		
+		map.put("lastList",lastList);
+		map.put("rlist",rlist);
+		return map;
 	}
 }

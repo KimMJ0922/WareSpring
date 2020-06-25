@@ -135,6 +135,7 @@ create table detailrecord(
 	question varchar(3000),
 	answer varchar(3000),
 	useranswer varchar(3000),
+	type varchar(100),
 	result varchar(50),
 	
 	FOREIGN KEY (record_no)
