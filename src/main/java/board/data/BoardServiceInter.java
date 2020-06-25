@@ -14,6 +14,8 @@ public interface BoardServiceInter {
 	public void buyBoard(HashMap<String, Object> map);
 	public void pointHistoryOfBoard(HashMap<String, Object> map);
 	public void updateMemberPoint(HashMap<String, Object> map);
+	public void updatePlusMemberPoint(HashMap<String, Object> map);
 	public int currentPoint(String member_no);
 	public int buyedcheck(HashMap<String, Object> map);
+	public int getHistoryNum();
 }	

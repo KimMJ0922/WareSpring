@@ -96,6 +96,7 @@ public class BoardController {
 		}
 		map.put("startNum", startNum);
 		map.put("amount", amount);
+		System.out.println(bservice.list(map));
 		return bservice.list(map);
 	}
 	
@@ -144,7 +145,7 @@ public class BoardController {
 		bservice.deleteBoard(board_no);
 	}
 	
-	@GetMapping("board/currentPoint")
+	@GetMapping("/currentPoint")
 	public int currentPoint(@RequestParam String member_no) {
 		return bservice.currentPoint(member_no);
 	}
@@ -154,20 +155,38 @@ public class BoardController {
 		System.out.println(map);
 		String board_no = map.get("board_no").toString();
 		String member_no = map.get("member_no").toString();
+		String no = map.get("no").toString();
 		int requirepoint = Integer.parseInt(map.get("requirepoint").toString());
 		
+		HashMap<String, Object> map1 = new HashMap<String, Object>();
+		map1.put("requirepoint", requirepoint);
+		map1.put("member_no", member_no);
+		bservice.updateMemberPoint(map1);
+		
 		HashMap<String, Object> map2 = new HashMap<String, Object>();
-		map2.put("board_no", board_no);
+		map2.put("requirepoint", requirepoint);
 		map2.put("member_no", member_no);
+		map2.put("category", "-");
+		bservice.pointHistoryOfBoard(map2);
+		
+		int insert_no=bservice.getHistoryNum();
+		
+		HashMap<String, Object> map5 = new HashMap<String, Object>();
+		map5.put("no", insert_no);
+		map5.put("board_no", board_no);
+		map5.put("member_no", member_no);
+		bservice.buyBoard(map5);
 		
 		HashMap<String, Object> map3 = new HashMap<String, Object>();
 		map3.put("requirepoint", requirepoint);
-		map3.put("member_no", member_no);
+		map3.put("no", no);
+		bservice.updatePlusMemberPoint(map3);
 		
-		bservice.buyBoard(map2);
-		bservice.updateMemberPoint(map3);
-		bservice.pointHistoryOfBoard(map3);
-		
+		HashMap<String, Object> map4 = new HashMap<String, Object>();
+		map4.put("requirepoint", requirepoint);
+		map4.put("member_no", no);
+		map4.put("category", "+");
+		bservice.pointHistoryOfBoard(map4);		
 	}
 	
 	@PostMapping("board/buyedcheck")

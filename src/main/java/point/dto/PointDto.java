@@ -11,6 +11,6 @@ public class PointDto {
 	private int point_no;
 	private int point_amount;
 	private String category;
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
 	private Timestamp history_day;
 }

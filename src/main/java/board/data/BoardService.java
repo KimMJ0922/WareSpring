@@ -82,5 +82,17 @@ public class BoardService implements BoardServiceInter{
 		// TODO Auto-generated method stub
 		return bmapper.buyedcheck(map);
 	}
+
+	@Override
+	public int getHistoryNum() {
+		// TODO Auto-generated method stub
+		return bmapper.getHistoryNum();
+	}
+
+	@Override
+	public void updatePlusMemberPoint(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		bmapper.updatePlusMemberPoint(map);
+	}
 	
 }

@@ -114,19 +114,19 @@ create table point_history(
 	history_mno int(10) not null,
 	point_amount int(10) not null,
 	category varchar(10) not null,
-	history_day date
+	history_day datetime not null
 )
 
 create table buy(
-	no int(10) auto_increment,
+	no int(10),
 	buy_bno int(10),
 	buy_mno int(10),
-	buy_day date not null,
+	buy_day datetime not null,
 	
 	FOREIGN KEY (buy_bno)
 	REFERENCES board (board_no) on delete cascade,
 	FOREIGN KEY (buy_mno)
-	REFERENCES member (no) on delete cascade,
+	REFERENCES member (no) on delete cascade
 )
 
 

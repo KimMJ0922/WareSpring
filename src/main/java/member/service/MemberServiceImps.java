@@ -1,6 +1,7 @@
 package member.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import member.dto.MemberDTO;
 import member.mapper.MemberMapper;
+import point.dto.PointDto;
 
 @Service
 public class MemberServiceImps implements MemberService{
@@ -148,5 +150,11 @@ public class MemberServiceImps implements MemberService{
 	public MemberDTO getMember(int no) {
 		// TODO Auto-generated method stub
 		return memberMapper.getMember(no);
+	}
+
+	@Override
+	public List<PointDto> pointHistory(String member_no) {
+		// TODO Auto-generated method stub
+		return memberMapper.pointHistory(member_no);
 	}
 }

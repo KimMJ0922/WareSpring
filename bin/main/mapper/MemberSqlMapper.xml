@@ -151,4 +151,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from member
 		where no = #{no}
 	</select>
+	<select id="pointHistory" parameterType="String" resultType="pdto">
+		select * from point_history where history_mno=#{member_no} order by point_no desc;
+	</select>
 </mapper>
