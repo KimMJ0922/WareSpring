@@ -1,6 +1,7 @@
 package board.data;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,4 +30,9 @@ public class BoardCardService implements BoardCardServiceInter {
 		return bcmapper.getAllDatas(board_no);
 	}
 
+	@Override
+	public List<BoardCardDto> getCardList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return bcmapper.getCardList(map);
+	}
 }

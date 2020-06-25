@@ -61,4 +61,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="buyedcheck" parameterType="HashMap" resultType="int">
 		select count(*) from buy where buy_bno=#{board_no} and buy_mno=#{member_no}
 	</select>
+	
+	<update id="updateBoard" parameterType="bdto">
+		update board set subject=#{subject}, requirepoint=#{requirepoint}, content=#{content} where board_no=#{board_no}
+	</update>
 </mapper>

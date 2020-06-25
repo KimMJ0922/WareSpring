@@ -2,6 +2,7 @@ package board.data;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public interface BoardServiceInter {
 	public void BoardInsert(BoardDto dto);
@@ -18,4 +19,5 @@ public interface BoardServiceInter {
 	public int currentPoint(String member_no);
 	public int buyedcheck(HashMap<String, Object> map);
 	public int getHistoryNum();
+	public void updateBoard(BoardDto dto);
 }	

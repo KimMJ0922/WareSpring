@@ -14,4 +14,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from board_card
 		where answer = #{search} and imgFile != ''
 	</select>
+	
+	<select id="getCardList" parameterType="Map" resultType="bcdto">
+		select 
+			cardset_no, 
+			question_no, 
+			question, 
+			answer,
+			imgFile,
+			if(
+				imgFile != '', 
+				concat('http://localhost:9000/card/img/',imgFile),
+				''
+			) as imgSrc
+		from board_card
+		where cardset_no = #{board_no}
+	</select>
 </mapper>

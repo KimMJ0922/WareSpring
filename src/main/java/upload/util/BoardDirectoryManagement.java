@@ -26,6 +26,15 @@ public class BoardDirectoryManagement {
 			file.delete();
 		}
 	}
+	
+	//폴더 삭제
+	public void deleteTempFolder(HttpServletRequest request, int no) {
+		String path = request.getSession().getServletContext().getRealPath("/");
+		File file = new File(path+"card/temp/"+no);       
+		if(file.exists()) {
+			file.delete();
+		}
+	}
 
 	// 파일 이름 바꾸면서 옮기기
 	public String moveTempToImgFolder(HttpServletRequest request, int memberNo, int cardSetNo, int idx, String img) {
@@ -133,6 +142,21 @@ public class BoardDirectoryManagement {
 		for (File f : fileList) {
 			if (f.getName().substring(0, 2).equals(board_no)) {
 				f.delete();
+			}
+		}
+	}
+	
+	//img폴더 안에 원본 사진 지우기
+	public void deleteImgFile(HttpServletRequest request, List<String> list) {
+		String path = request.getSession().getServletContext().getRealPath("/bcard/img/");
+		File file = new File(path);
+		File[] fileList = file.listFiles();
+		
+		for(String s : list) {
+			for(File f : fileList) {
+				if(s.equals(f.getName())) {
+					f.delete();
+				}
 			}
 		}
 	}
