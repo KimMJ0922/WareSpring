@@ -50,4 +50,10 @@ public class RecordServiceImps implements RecordService{
 		// TODO Auto-generated method stub
 		return rm.getLastList(map);
 	}
+	
+	@Override
+	public List<RecordDTO> getChartList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return rm.getChartList(map);
+	}
 }

@@ -16,4 +16,5 @@ public interface RecordMapper {
 	public void insertStudy(Map<String, Object> map);
 	public List<RecordDTO> getList(Map<String, Object> map);
 	public List<RecordDTO> getLastList(Map<String, Object> map);
+	public List<RecordDTO> getChartList(Map<String, Object> map);
 }

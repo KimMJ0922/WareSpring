@@ -19,5 +19,6 @@ public interface RecordService {
 	public List<RecordDTO> getList(Map<String, Object> map);
 	//최근 목록
 	public List<RecordDTO> getLastList(Map<String, Object> map);
-	
+	//차트 목록
+	public List<RecordDTO> getChartList(Map<String, Object> map);
 }

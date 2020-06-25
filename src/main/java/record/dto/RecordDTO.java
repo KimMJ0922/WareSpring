@@ -20,5 +20,5 @@ public class RecordDTO {
 	private String title;
 	private String comment;
 	private String name;
-	private String profile;
+	private String profile;  
 }
