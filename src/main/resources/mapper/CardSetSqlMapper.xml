@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   cs.open_scope,
 		   cs.update_scope,
 		   count(c.cardset_no) as cnt, 
-		   date_add(cs.createday, INTERVAL 1 DAY) as createday
+		   cs.createday
 		from cardset cs, card c
 		where cs.member_no = #{no} and cs.no = c.cardset_no
 		group by c.cardset_no
