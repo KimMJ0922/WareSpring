@@ -74,4 +74,10 @@ public class RecordServiceImps implements RecordService{
 		// TODO Auto-generated method stub
 		return rm.getLast(map);
 	}
+	
+	@Override
+	public List<DetailRecordDTO> getDetailRecordList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return rm.getDetailRecordList(map);
+	}
 }

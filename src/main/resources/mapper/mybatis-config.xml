@@ -7,8 +7,8 @@
          <typeAlias alias="bdto" type="board.data.BoardDto" />
          <typeAlias alias="csdto" type="card.dto.CardSetDTO" />
          <typeAlias alias="bcdto" type="board.data.BoardCardDto" />
-         <typeAlias alias="pdto" type="point.dto.PointDto" />
          <typeAlias alias="rdto" type="record.dto.RecordDTO" />
+         <typeAlias alias="pdto" type="point.dto.PointDto" />
          <typeAlias alias="ddto" type="record.dto.DetailRecordDTO" />
          <typeAlias alias="stdto" type="record.dto.StudyDTO" />
     </typeAliases>	

@@ -97,7 +97,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					   		)
 					   	) as profile
 				from record r,cardset c, member m 
-				where r.member_no = #{member_no} and r.cardset_no = #{cardset_no} and r.cardset_no = c.no and c.member_no = m.no
+				where r.member_no = #{member_no} and r.category = #{category} and r.cardset_no = #{cardset_no} and r.cardset_no = c.no and c.member_no = m.no
 				order by recordday desc) as r
 		group by r.cardset_no, r.method
 	</select>
@@ -120,7 +120,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					   		)
 					   	) as profile
 				from record r,cardset c, member m 
-				where r.member_no = #{member_no} and r.cardset_no = #{cardset_no} and r.cardset_no = c.no and c.member_no = m.no
+				where r.member_no = #{member_no} and r.category = #{category} and r.cardset_no = #{cardset_no} and r.cardset_no = c.no and c.member_no = m.no
 				order by recordday desc) as r
 		group by r.cardset_no
 	</select>
@@ -128,7 +128,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getChart" parameterType="Map" resultType="rdto">
 		select *
 		from record
-		where member_no = #{member_no} and cardset_no in (#{cardset_no})
+		where member_no = #{member_no} and category = #{category} and cardset_no in (#{cardset_no})
 		order by cardset_no asc, method desc, recordday asc
+	</select>
+	
+	<select id="getDetailRecordList" parameterType="Map" resultType="ddto">
+		select *
+		from detailrecord
+		where record_no = #{record_no}
 	</select>
 </mapper>

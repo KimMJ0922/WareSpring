@@ -27,4 +27,6 @@ public interface RecordService {
 	public List<RecordDTO> getLast(Map<String, Object> map);
 	//차트 목록
 	public List<RecordDTO> getChart(Map<String, Object> map);
+	//정답 오답 리스트
+	public List<DetailRecordDTO> getDetailRecordList(Map<String, Object> map);
 }

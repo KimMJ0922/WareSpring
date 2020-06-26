@@ -102,13 +102,19 @@ public class RecordController {
 		List<RecordDTO> diagram = rs.getDiagram(map);
 		List<RecordDTO> last = rs.getLast(map);
 		List<RecordDTO> chart = rs.getChart(map);
-		System.out.println(diagram);
-		System.out.println(last);
-		System.out.println(chart);
 		
 		map.put("last",last);
 		map.put("diagram",diagram);
 		map.put("chart",chart);
+		return map;
+	}
+	
+	@PostMapping("/getdetailrecordlist")
+	@ResponseBody
+	public Map<String,Object> getDetailRecordList(@RequestBody Map<String, Object> map){
+		List<DetailRecordDTO> dlist = rs.getDetailRecordList(map);
+		System.out.println("왔?");
+		map.put("dlist", dlist);
 		return map;
 	}
 	

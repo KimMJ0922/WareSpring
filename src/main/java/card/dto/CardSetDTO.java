@@ -19,7 +19,7 @@ public class CardSetDTO {
 	private String update_scope;
 	private String open_password;
 	private String update_password;
-	@JsonFormat(pattern = "yy-MM-dd")
+	@JsonFormat(pattern = "yy-MM-dd", timezone="Asia/Seoul")
 	private Timestamp createday;
 	private int cnt;
 }
