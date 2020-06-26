@@ -14,13 +14,13 @@ public class BoardDto {
 	private int requirepoint;
 	private String content;
 	private int readcount;
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
 	private Timestamp writeday;
 	private String email;
 	private String password;
 	private String birth;
 	private String name;
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
 	private Timestamp joinday;
 	private String emailcheck;
 	private String profile;

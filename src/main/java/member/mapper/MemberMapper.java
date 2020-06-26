@@ -1,10 +1,12 @@
 package member.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import member.dto.MemberDTO;
+import point.dto.PointDto;
 
 @Mapper
 public interface MemberMapper {
@@ -46,4 +48,7 @@ public interface MemberMapper {
 	public void deleteMember(Map<String, Object> map);
 	
 	public MemberDTO getMember(int no);
+	
+	//포인트 내역 조회
+	public List<PointDto> pointHistory(String member_no);
 }

@@ -1,8 +1,10 @@
 package member.service;
 
+import java.util.List;
 import java.util.Map;
 
 import member.dto.MemberDTO;
+import point.dto.PointDto;
 
 
 public interface MemberService{
@@ -46,4 +48,6 @@ public interface MemberService{
 	public void deleteMember(Map<String, Object> map);
 	//회원 정보 가져오기
 	public MemberDTO getMember(int no);
+	//포인트 내역 조회
+	public List<PointDto> pointHistory(String member_no);
 }

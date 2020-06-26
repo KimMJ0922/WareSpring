@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="BoardInsert" parameterType="bdto">
-		insert into board(no, subject, requirepoint, content, writeday) values(#{no}, #{subject}, #{requirepoint}, #{content}, now())
+		insert into board(no, subject, requirepoint, content, writeday) values(#{no}, #{subject}, #{requirepoint}, #{content}, sysdate())
 	</insert>
 	
 	<select id="getInsertNum" resultType="int" parameterType="String">
@@ -39,16 +39,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from board where board_no=#{board_no}
 	</delete>
 	
-	<insert id="buyBoard" parameterType="String">
-		insert into buy values(#{board_no}, #{member_no}, now())
+	<select id="getHistoryNum" resultType="int">
+		select max(point_no) from point_history
+	</select>
+	
+	<insert id="buyBoard" parameterType="HashMap">
+		insert into buy values(#{no}, #{board_no}, #{member_no}, sysdate())
 	</insert>
-	<insert id="pointHistoryOfBoard" parameterType="int">
-		insert into point_history values(#{requirepoint}, "-", now())
+	<insert id="pointHistoryOfBoard" parameterType="HashMap">
+		insert into point_history(history_mno, point_amount, category, history_day) values(#{member_no}, #{requirepoint}, #{category}, sysdate())
 	</insert>
 	<update id="updateMemberPoint" parameterType="HashMap">
 		update member set point=point-#{requirepoint} where no=#{member_no}
 	</update>
+	<update id="updatePlusMemberPoint" parameterType="HashMap">
+		update member set point=point+#{requirepoint} where no=#{no}
+	</update>
 	<select id="currentPoint" parameterType="String" resultType="int">
 		select point from member where no=#{member_no}
 	</select>
+	<select id="buyedcheck" parameterType="HashMap" resultType="int">
+		select count(*) from buy where buy_bno=#{board_no} and buy_mno=#{member_no}
+	</select>
+	
+	<update id="updateBoard" parameterType="bdto">
+		update board set subject=#{subject}, requirepoint=#{requirepoint}, content=#{content} where board_no=#{board_no}
+	</update>
 </mapper>

@@ -9,4 +9,5 @@ public class BoardCardDto {
 	private String question;
 	private String answer;
 	private String imgFile;
+	private String imgSrc;
 }

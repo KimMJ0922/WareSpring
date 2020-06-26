@@ -21,7 +21,6 @@ CREATE TABLE card (
 	question varchar(2000) not null,
 	answer varchar(2000) not null,
 	imgFile varchar(1000) not null,
-	category varchar(1000) not null,
 	
 	FOREIGN KEY (cardset_no)
 	REFERENCES board (board_no) on delete cascade
@@ -107,5 +106,27 @@ create table record(
 	question_no int(10),
 	method varchar(50),
 	
-
 );
+
+create table point_history(
+	point_no int(10) auto_increment primary key,
+	history_mno int(10) not null,
+	point_amount int(10) not null,
+	category varchar(10) not null,
+	history_day datetime not null
+)
+
+create table buy(
+	no int(10),
+	buy_bno int(10),
+	buy_mno int(10),
+	buy_day datetime not null,
+	
+	FOREIGN KEY (buy_bno)
+	REFERENCES board (board_no) on delete cascade,
+	FOREIGN KEY (buy_mno)
+	REFERENCES member (no) on delete cascade
+)
+
+
+

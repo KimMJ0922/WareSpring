@@ -35,6 +35,7 @@ import email.send.MailSendService;
 import member.dto.MemberDTO;
 import member.service.MemberEncryption;
 import member.service.MemberService;
+import point.dto.PointDto;
 import spring.waregg.controller.LocalIPAddress;
 import upload.util.SearchFile;
 import upload.util.SpringFileWrite;
@@ -339,5 +340,11 @@ public class MemberController {
     	sf.userProfileDelete(request, profile);
     	//테이블 레코드 지우기
     	memberService.deleteMember(map);
+    }
+    
+    //포인트 내역 조회
+    @GetMapping("/pointHistory")
+    public List<PointDto> pointHistory(@RequestParam String member_no){
+    	return memberService.pointHistory(member_no);
     }
 }
