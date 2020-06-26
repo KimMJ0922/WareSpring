@@ -21,7 +21,7 @@ CREATE TABLE card (
 	question varchar(2000) not null,
 	answer varchar(2000) not null,
 	imgFile varchar(1000) not null,
-	category varchar(1000) not null,
+
 	
 	FOREIGN KEY (cardset_no)
 	REFERENCES board (board_no) on delete cascade
@@ -89,17 +89,6 @@ CREATE TABLE card (
 	REFERENCES cardset (no) on delete cascade
 );
 
-create table log(
-	no int(10) primary key auto_increment,
-	member_no int(10),
-	cardset_no int(10),
-	action varchar(50),
-	
-	FOREIGN KEY (member_no)
-	REFERENCES member(no) on delete cascade,
-	FOREIGN KEY (cardset_no)
-	REFERENCES cardset (no) on delete cascade
-);
 //학습
 create table study(
 	no int(10) primary key auto_increment,

@@ -12,3 +12,4 @@ public class DetailRecordDTO {
 	private String type;
 	private String result;
 }
+
