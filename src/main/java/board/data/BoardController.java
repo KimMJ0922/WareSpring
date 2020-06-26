@@ -230,6 +230,7 @@ public class BoardController {
 	
 	@PostMapping("board/updatecardset")
 	public void updateCardSet(@RequestBody Map<String,Object> cardMap,HttpServletRequest request) {
+		System.out.println(cardMap);
 		//JSON Object로 변환
 		JSONObject jsonObject = new JSONObject(cardMap);
 		
@@ -244,22 +245,23 @@ public class BoardController {
 		//cardset 테이블에 넣을 map
 		BoardDto dto = new BoardDto();
 		
-		dto.setBoard_no(Integer.parseInt(obj2.get("no").toString()));
-		dto.setNo(obj2.get("member_no").toString());
+		dto.setBoard_no(Integer.parseInt(obj2.get("board_no").toString()));
+		dto.setNo(obj2.get("no").toString());
 		dto.setSubject(obj2.get("title").toString());
 		dto.setContent(obj2.get("comment").toString());
+		dto.setRequirepoint(Integer.parseInt(obj2.get("point").toString()));
 		
 		bservice.updateBoard(dto);
 		
 		//기존에 있는 사진 목록 가져오기
-		//List<String> imgList = bcservice.getImgList(dto.getNo());
+		List<String> imgList = bcservice.getImgList(dto.getBoard_no());
 		
 		//기존에 있는 이미지 목록 지우기
 		BoardDirectoryManagement dm = new BoardDirectoryManagement();
-		//dm.deleteImgFile(request, imgList);
+		dm.deleteImgFile(request, imgList);
 		
 		//테이블 레코드 지우기
-		//bcservice.deleteCard(dto.getNo());
+		bcservice.deleteCard(dto.getBoard_no());
 		
 		//이미지 바꾸기
 		JSONArray arr = (JSONArray) obj2.get("rows");
@@ -268,7 +270,7 @@ public class BoardController {
 			BoardCardDto cdto = new BoardCardDto();
 			JSONObject obj = (JSONObject)arr.get(i);
 			cdto.setQuestion_no(i+1);
-			cdto.setCardset_no(Integer.parseInt(dto.getNo()));
+			cdto.setCardset_no(dto.getBoard_no());
 			cdto.setQuestion(obj.get("question").toString());
 			cdto.setAnswer(obj.get("answer").toString());
 			String img = obj.get("img").toString();
@@ -278,11 +280,11 @@ public class BoardController {
 				cdto.setImgFile(img);
 			}else {
 				//이미지 파일 옮기면서 파일명 바꾸기
-				//String imgFileName = dm.moveTempToImgFolder(request, dto.getMember_no(), dto.getNo(), i+1, img);
+				String imgFileName = dm.moveTempToImgFolder(request, Integer.parseInt(dto.getNo()), dto.getBoard_no(), i+1, img);
 				
-				//cdto.setImgFile(imgFileName);
+				cdto.setImgFile(imgFileName);
 			}			
-			//bcservice.insertCard(cdto);
+			bcservice.insertCard(cdto);
 		}
 		
 		dm.deleteFile(request, Integer.parseInt(dto.getNo()));

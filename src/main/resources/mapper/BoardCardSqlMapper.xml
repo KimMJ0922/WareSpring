@@ -30,4 +30,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from board_card
 		where cardset_no = #{board_no}
 	</select>
+	<select id="getImgList" parameterType="Integer" resultType="String">
+		select imgFile
+		from board_card
+		where cardset_no = #{board_no}
+	</select>
+	
+	<delete id="deleteCard" parameterType="Integer">
+		delete
+		from board_card
+		where cardset_no = #{board_no}
+	</delete>
+	
+	<insert id="insertCard" parameterType="cdto">
+		insert into board_card(cardset_no, question_no, question, answer, imgFile) 
+		values (#{cardset_no},#{question_no},#{question},#{answer},#{imgFile})
+	</insert>
 </mapper>

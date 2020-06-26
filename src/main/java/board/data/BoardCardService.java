@@ -35,4 +35,22 @@ public class BoardCardService implements BoardCardServiceInter {
 		// TODO Auto-generated method stub
 		return bcmapper.getCardList(map);
 	}
+
+	@Override
+	public List<String> getImgList(int board_no) {
+		// TODO Auto-generated method stub
+		return bcmapper.getImgList(board_no);
+	}
+
+	@Override
+	public void deleteCard(int board_no) {
+		// TODO Auto-generated method stub
+		bcmapper.deleteCard(board_no);
+	}
+
+	@Override
+	public void insertCard(BoardCardDto dto) {
+		// TODO Auto-generated method stub
+		bcmapper.insertCard(dto);
+	}
 }
