@@ -137,4 +137,132 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from detailrecord
 		where record_no = #{record_no}
 	</select>
+	
+	<select id="getStudyList" parameterType="Map" resultType="stdto">
+		select *
+		from
+			(
+				select *
+				from study
+				where member_no = #{member_no}
+				order by studyday desc
+			) as s
+		group by s.cardset_no, category
+		limit 0,#{start}
+	</select>
+	
+	<select id="getStudyBoardList" parameterType="Map" resultType="stdto">
+		select 
+			s.title,
+			s.comment,
+			s.name,
+			s.profile,
+			st.no,
+			st.member_no,
+			st.cardset_no,
+			st.category,
+			st.studyday,
+			s.cnt
+		from
+			(
+				select 
+					r.*,
+					(select max(st.no) from study st where r.board_no = st.cardset_no) as no,
+					(select count(*) from board_card bc where r.board_no = bc.cardset_no) as cnt
+				from 
+					(
+						select
+							b.board_no as board_no,
+							b.subject as title,
+							b.content as comment,
+							m.name,
+							if(
+					   			INSTR(profile,'google')>0,
+					   			m.profile,
+					   		    if(
+					   				INSTR(m.profile,'kakao')>0,
+					   				m.profile,
+					   				if(
+					   					INSTR(m.profile,m.no)>0,
+					   					concat('http://localhost:9000/profile/users/',m.profile),
+					   					concat('http://localhost:9000/profile/default/',m.profile)
+					   				)
+					   		 )
+					   		) as profile
+						from 
+							board b,
+							member m
+						where 
+							b.no = m.no and
+							b.board_no in (
+								select 
+									s.cardset_no
+								from 
+									study s
+								where 
+									s.no in <foreach collection="boardNo" item="item"  open="(" close=")" separator=",">#{item}</foreach>
+							)
+					) as r
+			)as s,
+			study st
+		where
+			s.no = st.no
+	</select>
+	
+	<select id="getStudyCardSetList" parameterType="Map" resultType="stdto">
+		select
+			s.*,
+			t.name,
+			t.profile,
+			t.title,
+			t.comment,
+			t.cnt
+		from
+			(
+				select
+					t.*,
+					(select max(st.no) from study st where t.cardset_no = st.cardset_no) as no,
+					(select count(*) from card c where t.cardset_no = c.cardset_no) as cnt
+				from 
+					(
+						select 
+							c.no as cardset_no,
+							c.title,
+							c.comment,
+							c.open_scope,
+							c.update_scope,
+							m.name,
+							if(
+						   			INSTR(profile,'google')>0,
+						   			m.profile,
+						   		    if(
+						   				INSTR(m.profile,'kakao')>0,
+						   				m.profile,
+						   				if(
+						   					INSTR(m.profile,m.no)>0,
+						   					concat('http://localhost:9000/profile/users/',m.profile),
+						   					concat('http://localhost:9000/profile/default/',m.profile)
+						   				)
+						   		 )
+						   		) as profile
+							
+						from 
+							cardset c,
+							member m
+						where 
+							c.member_no = m.no and
+							c.no in(
+								select 
+									s.cardset_no
+								from 
+									study s
+								where 
+									s.no in <foreach collection="cardsetNo" item="item"  open="(" close=")" separator=",">#{item}</foreach>
+							)
+					) as t
+			) as t,
+			study s
+		where 
+			t.no = s.no
+	</select>
 </mapper>

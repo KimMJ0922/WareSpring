@@ -5,6 +5,7 @@ import java.util.Map;
 
 import record.dto.DetailRecordDTO;
 import record.dto.RecordDTO;
+import record.dto.StudyDTO;
 
 public interface RecordService {
 	//record 테이블에 값 넣기
@@ -29,4 +30,10 @@ public interface RecordService {
 	public List<RecordDTO> getChart(Map<String, Object> map);
 	//정답 오답 리스트
 	public List<DetailRecordDTO> getDetailRecordList(Map<String, Object> map);
+	//최근 학습한 목록 가져오기
+	public List<StudyDTO> getStudyList(Map<String, Object> map);
+	//최근 학습한 것 중 장터 목록
+	public List<StudyDTO> getStudyBoardList(Map<String, Object> map);
+	//최근 학습한 것 중 카드 세트 목록
+	public List<StudyDTO> getStudyCardSetList(Map<String, Object> map);
 }
