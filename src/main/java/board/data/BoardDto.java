@@ -28,4 +28,5 @@ public class BoardDto {
 	private String provider;
 	private int point;
 	private String ip;
+	private int cnt;
 }

@@ -2,7 +2,6 @@ package board.data;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,4 +22,6 @@ public interface BoardMapper {
 	public int buyedcheck(HashMap<String, Object> map);
 	public int getHistoryNum();
 	public void updateBoard(BoardDto dto);
+	public List<BoardDto> getSellBoardOfSet(HashMap<String, Integer> map);
+	public int getSellListCount(String no);
 }

@@ -290,4 +290,15 @@ public class BoardController {
 		dm.deleteFile(request, Integer.parseInt(dto.getNo()));
 		dm.deleteTempFolder(request, Integer.parseInt(dto.getNo()));
 	}
+	
+	@PostMapping("/board/sellList")
+	public List<BoardDto> sellList(@RequestBody HashMap<String, Integer> map){
+		return bservice.getSellBoardOfSet(map);
+	}
+	
+	@GetMapping("/board/sellListCount")
+	public int sellListCount(@RequestParam String no){
+		System.out.println(no);
+		return bservice.getSellListCount(no);
+	}
 }

@@ -2,7 +2,6 @@ package board.data;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -100,5 +99,17 @@ public class BoardService implements BoardServiceInter{
 	public void updateBoard(BoardDto dto) {
 		// TODO Auto-generated method stub
 		bmapper.updateBoard(dto);
+	}
+
+	@Override
+	public List<BoardDto> getSellBoardOfSet(HashMap<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return bmapper.getSellBoardOfSet(map);
+	}
+
+	@Override
+	public int getSellListCount(String no) {
+		// TODO Auto-generated method stub
+		return bmapper.getSellListCount(no);
 	}
 }

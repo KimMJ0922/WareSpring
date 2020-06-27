@@ -135,10 +135,6 @@ create table buy(
 	REFERENCES member (no) on delete cascade
 )
 
-
-
-
-
 //객관 주관 테스트 결과
 create table detailrecord(
 	record_no int(10),
