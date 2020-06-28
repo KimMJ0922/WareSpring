@@ -15,16 +15,6 @@ CREATE TABLE board
     PRIMARY KEY (board_no)
 );
 
-CREATE TABLE card (
-	cardset_no int(10) not null,
-	question_no int(10) not null,
-	question varchar(2000) not null,
-	answer varchar(2000) not null,
-	imgFile varchar(1000) not null,
-	
-	FOREIGN KEY (cardset_no)
-	REFERENCES board (board_no) on delete cascade
-);
 
 CREATE TABLE board_card (
 	cardset_no int(10) not null,
@@ -151,4 +141,27 @@ create table detailrecord(
 	
 	FOREIGN KEY (record_no)
 	REFERENCES record(no) on delete cascade
+)
+
+//폴더 
+create table folder(
+	no int(10) primary key auto_increment,
+	title varchar(500),
+	comment varchar(500),
+	member_no int(10),
+	createday datetime,
+	
+	FOREIGN KEY (member_no)
+	REFERENCES member(no) on delete cascade
+)
+
+//폴더 안에 리스트
+create table folderlist(
+	no int(10) primary key auto_increment,
+	folder_no int(10),
+	cardset_no int(10),
+	category varchar(50),
+	
+	FOREIGN KEY (folder_no)
+	REFERENCES folder(no) on delete cascade
 )

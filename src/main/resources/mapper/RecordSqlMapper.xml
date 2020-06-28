@@ -156,6 +156,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			s.title,
 			s.comment,
 			s.name,
+			s.provider,
 			s.profile,
 			st.no,
 			st.member_no,
@@ -167,7 +168,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			(
 				select 
 					r.*,
-					(select max(st.no) from study st where r.board_no = st.cardset_no) as no,
+					(select max(st.no) from study st where r.board_no = st.cardset_no and st.category = 'board') as no,
 					(select count(*) from board_card bc where r.board_no = bc.cardset_no) as cnt
 				from 
 					(
@@ -176,6 +177,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							b.subject as title,
 							b.content as comment,
 							m.name,
+							m.provider,
 							if(
 					   			INSTR(profile,'google')>0,
 					   			m.profile,
@@ -216,12 +218,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			t.profile,
 			t.title,
 			t.comment,
-			t.cnt
+			t.cnt,
+			t.provider,
+			t.update_scope,
+			t.open_scope
 		from
 			(
 				select
 					t.*,
-					(select max(st.no) from study st where t.cardset_no = st.cardset_no) as no,
+					(select max(st.no) from study st where t.cardset_no = st.cardset_no and st.category = 'cardset') as no,
 					(select count(*) from card c where t.cardset_no = c.cardset_no) as cnt
 				from 
 					(
@@ -232,6 +237,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 							c.open_scope,
 							c.update_scope,
 							m.name,
+							m.provider,
 							if(
 						   			INSTR(profile,'google')>0,
 						   			m.profile,

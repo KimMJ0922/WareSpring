@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="folder.mapper.FolderMapper">
+	<insert id="insertFolder" parameterType="Map">
+		insert into folder(title, comment, member_no, createday)
+		values(#{title}, #{comment}, #{member_no}, now())
+	</insert>
+	
+	<select id="getFolder" parameterType="Map" resultType="fdto">
+		select
+			f.*,
+			(
+				select
+					count(*) as cnt
+				from
+					folderlist fl
+				where 
+					f.no = fl.folder_no
+			) as cnt
+		from
+			folder f
+		where 
+			member_no = #{member_no}
+		order by 
+			<choose>
+		        <when test="sort == '최신순'">createday desc</when>
+		        <when test="sort == '오래된순'">createday asc</when>
+		        <when test="sort == '폴더명 오름차순'">title asc</when>
+		        <when test="sort == '폴더명 내림차순'">title desc</when>
+		        <otherwise>createday desc</otherwise>
+    		</choose>
+	</select>
+	
+	<update id="modifyFolder" parameterType="Map">
+		update
+			folder
+		set
+			title = #{title},
+			comment = #{comment}
+		where
+			no = #{no}
+	</update>
+	
+	<delete id="deleteFolder" parameterType="Map">
+		delete
+		from
+			folder
+		where
+			no = #{no}
+	</delete>
+	
+	<select id="getStudyList" parameterType="Map" resultType="stdto">
+		select
+			s.*
+		from
+			(
+				select
+					s.*
+				from
+					(
+						select
+							*
+						from 
+							study
+						where
+							member_no = #{member_no}
+						order by 
+							studyday desc
+					) as s
+				group by s.cardset_no,category
+			) as s
+		order by 
+			s.studyday desc
+	</select>
+	
+	<delete id="deleteList" parameterType="Map">
+		delete 
+		from
+			folderlist
+		where 
+			folder_no = #{folder_no}
+	</delete>
+	
+	<insert id="insertFolderList" parameterType="fldto">
+		insert into 
+			folderlist(folder_no, cardset_no, category)
+		values
+			(#{folder_no}, #{cardset_no}, #{category})
+	</insert>
+</mapper>

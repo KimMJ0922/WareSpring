@@ -11,6 +11,8 @@
          <typeAlias alias="pdto" type="point.dto.PointDto" />
          <typeAlias alias="ddto" type="record.dto.DetailRecordDTO" />
          <typeAlias alias="stdto" type="record.dto.StudyDTO" />
+         <typeAlias alias="fdto" type="folder.dto.FolderDTO" />
+         <typeAlias alias="fldto" type="folder.dto.FolderListDTO" />
     </typeAliases>	
 	<mappers>
 		<mapper resource="mapper/CardSqlMapper.xml" />
@@ -19,5 +21,6 @@
 		<mapper resource="mapper/CardSetSqlMapper.xml" />
 		<mapper resource="mapper/BoardCardSqlMapper.xml" />
 		<mapper resource="mapper/RecordSqlMapper.xml" />
+		<mapper resource="mapper/FolderSqlMapper.xml" />
 	</mappers>
 </configuration>

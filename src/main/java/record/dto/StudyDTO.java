@@ -21,4 +21,5 @@ public class StudyDTO {
 	private String title;
 	private String comment;
 	private int cnt;
+	private String provider;
 }

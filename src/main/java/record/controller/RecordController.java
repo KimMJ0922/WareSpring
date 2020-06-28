@@ -142,7 +142,7 @@ public class RecordController{
 				boardCnt++;
 			}
 		}
-		
+
 		List<StudyDTO> list = new ArrayList<StudyDTO>();
 		//각각 가져오기
 		if(boardNo.size() != 0) {
@@ -160,11 +160,10 @@ public class RecordController{
 			//하나로 합치기
 			list.addAll(cardsetList);
 		}
-	
+
 		//날짜순으로 정렬
 		Sorting sorting = new Sorting();
 		Collections.sort(list, sorting);
-
 		map.put("slist", list);
 		return map;
 	}
