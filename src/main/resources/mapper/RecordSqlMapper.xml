@@ -23,51 +23,101 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into study(member_no, cardset_no, studyday, category)
 		values (#{member_no}, #{cardset_no}, now(), #{category})
 	</insert>
-	
-	<select id="getList" parameterType="Map" resultType="rdto">
-		select r.*
-		from (
-				select r.*,c.title, c.comment, m.name, 
-						if(
-					   		INSTR(profile,'google')>0,
-					   		m.profile,
-					   		if(
-					   			INSTR(m.profile,'kakao')>0,
-					   			m.profile,
-					   			if(
-					   				INSTR(m.profile,m.no)>0,
-					   				concat('http://localhost:9000/profile/users/',m.profile),
-					   				concat('http://localhost:9000/profile/default/',m.profile)
-					   			)
-					   		)
-					   	) as profile
-				from record r,cardset c, member m 
-				where r.member_no = #{member_no} and r.cardset_no = c.no and c.member_no = m.no
-				order by recordday desc) as r
-		group by r.cardset_no, r.method
+	<select id="getAllList" parameterType="Map" resultType="rdto">
+		select
+			r.*
+		from
+			(
+				select
+					*
+				from
+					record
+				where member_no = #{member_no}
+				order by recordday
+			) as r
+		group by
+			r.cardset_no, r.category, r.method
 	</select>
 	
+	<select id="getCardSetRecordList" parameterType="Map" resultType="rdto">
+		select
+			r.*,
+			c.title,
+			c.comment,
+			m.name,
+			if(
+		   		INSTR(profile,'google')>0,
+		   		m.profile,
+		   		if(
+		   			INSTR(m.profile,'kakao')>0,
+		   			m.profile,
+		   			if(
+		   				INSTR(m.profile,m.no)>0,
+		   				concat('http://localhost:9000/profile/users/',m.profile),
+		   				concat('http://localhost:9000/profile/default/',m.profile)
+		   			)
+		   		)
+		   	) as profile
+		from
+			record r,
+			member m,
+			cardset c
+		where
+			r.cardset_no = c.no and
+			c.member_no = m.no and
+			r.no in
+					<foreach collection="cardSetNo" item="item"  open="(" close=")" separator=",">#{item}</foreach>
+					
+	</select>
+	
+	<select id="getBoardRecordList" parameterType="Map" resultType="rdto">
+		select
+			r.*,
+			b.subject as title,
+			b.content as comment,
+			m.name,
+			if(
+		   		INSTR(profile,'google')>0,
+		   		m.profile,
+		   		if(
+		   			INSTR(m.profile,'kakao')>0,
+		   			m.profile,
+		   			if(
+		   				INSTR(m.profile,m.no)>0,
+		   				concat('http://localhost:9000/profile/users/',m.profile),
+		   				concat('http://localhost:9000/profile/default/',m.profile)
+		   			)
+		   		)
+		   	) as profile
+		from
+			record r,
+			member m,
+			board b
+		where
+			r.cardset_no = b.board_no and
+			b.no = m.no and
+			r.no in 
+					<foreach collection="boardNo" item="item"  open="(" close=")" separator=",">#{item}</foreach>
+					
+	</select>
+	
+	
 	<select id="getLastList" parameterType="Map" resultType="rdto">
-		select r.*
-		from (
-				select r.*,c.title, c.comment, m.name, 
-						if(
-					   		INSTR(profile,'google')>0,
-					   		m.profile,
-					   		if(
-					   			INSTR(m.profile,'kakao')>0,
-					   			m.profile,
-					   			if(
-					   				INSTR(m.profile,m.no)>0,
-					   				concat('http://localhost:9000/profile/users/',m.profile),
-					   				concat('http://localhost:9000/profile/default/',m.profile)
-					   			)
-					   		)
-					   	) as profile
-				from record r,cardset c, member m 
-				where r.member_no = #{member_no} and r.cardset_no = c.no and c.member_no = m.no
-				order by recordday desc) as r
-		group by r.cardset_no
+		select
+			r.*
+		from
+			(
+				select
+					*
+				from
+					record
+				where
+					member_no = #{member_no}
+				order by
+					recordday desc
+			) as r
+		group by
+			r.cardset_no, r.category
 	</select>
 	
 	<select id="getChartList" parameterType="Map" resultType="rdto">
