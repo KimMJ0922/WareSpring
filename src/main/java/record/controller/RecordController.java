@@ -1,5 +1,9 @@
 package record.controller;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -15,11 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import record.dto.DetailRecordDTO;
 import record.dto.RecordDTO;
+import record.dto.StudyDTO;
 import record.service.RecordService;
 
 @RestController
 @CrossOrigin
-public class RecordController {
+public class RecordController{
 	@Autowired
 	private RecordService rs;
 	
@@ -102,9 +107,6 @@ public class RecordController {
 		List<RecordDTO> diagram = rs.getDiagram(map);
 		List<RecordDTO> last = rs.getLast(map);
 		List<RecordDTO> chart = rs.getChart(map);
-		System.out.println(diagram);
-		System.out.println(last);
-		System.out.println(chart);
 		
 		map.put("last",last);
 		map.put("diagram",diagram);
@@ -112,4 +114,70 @@ public class RecordController {
 		return map;
 	}
 	
+	@PostMapping("/getdetailrecordlist")
+	@ResponseBody
+	public Map<String,Object> getDetailRecordList(@RequestBody Map<String, Object> map){
+		List<DetailRecordDTO> dlist = rs.getDetailRecordList(map);
+
+		map.put("dlist", dlist);
+		return map;
+	}
+	
+	@PostMapping("/getstudylist")
+	@ResponseBody
+	public Map<String,Object> getStudyList(@RequestBody Map<String, Object> map){
+		List<StudyDTO> slist = rs.getStudyList(map);
+		List<Integer> cardsetNo = new ArrayList<Integer>();
+		List<Integer> boardNo = new ArrayList<Integer>();
+		int cardsetCnt = 0;
+		int boardCnt = 0;
+		
+		//카드 세트와 장터 번호 나누기
+		for(StudyDTO sdto : slist) {
+			if(sdto.getCategory().equals("cardset")) {
+				cardsetNo.add(cardsetCnt, sdto.getNo());
+				cardsetCnt++;
+			}else {
+				boardNo.add(boardCnt, sdto.getNo());
+				boardCnt++;
+			}
+		}
+
+		List<StudyDTO> list = new ArrayList<StudyDTO>();
+		//각각 가져오기
+		if(boardNo.size() != 0) {
+			//list 형태를 파라미터로 사용하기 위해선 map이나 hashmap에 넣고 보내야함.
+			map.put("boardNo", boardNo);
+			List<StudyDTO> boardList = rs.getStudyBoardList(map);
+			//하나로 합치기
+			list.addAll(boardList);
+		}
+		
+		if(cardsetNo.size() != 0) {
+			//list 형태를 파라미터로 사용하기 위해선 map이나 hashmap에 넣고 보내야함.
+			map.put("cardsetNo", cardsetNo);
+			List<StudyDTO> cardsetList = rs.getStudyCardSetList(map);
+			//하나로 합치기
+			list.addAll(cardsetList);
+		}
+
+		//날짜순으로 정렬
+		Sorting sorting = new Sorting();
+		Collections.sort(list, sorting);
+		map.put("slist", list);
+		return map;
+	}
+	
+	class Sorting implements Comparator<StudyDTO>{
+		@Override
+		public int compare(StudyDTO o1, StudyDTO o2) {
+			// TODO Auto-generated method stub
+			int no1 = o1.getNo();
+			int no2 = o2.getNo();
+            
+            if(no2 == no1) return 0;
+            else if(no2 > no1) return 1;
+            else return -1;
+		}
+	}
 }

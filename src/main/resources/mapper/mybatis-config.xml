@@ -7,11 +7,13 @@
          <typeAlias alias="bdto" type="board.data.BoardDto" />
          <typeAlias alias="csdto" type="card.dto.CardSetDTO" />
          <typeAlias alias="bcdto" type="board.data.BoardCardDto" />
-         <typeAlias alias="pdto" type="point.dto.PointDto" />
          <typeAlias alias="rdto" type="record.dto.RecordDTO" />
+         <typeAlias alias="pdto" type="point.dto.PointDto" />
          <typeAlias alias="ddto" type="record.dto.DetailRecordDTO" />
          <typeAlias alias="stdto" type="record.dto.StudyDTO" />
          <typeAlias alias="buydto" type="Buy.dto.BuyDto" />
+         <typeAlias alias="fdto" type="folder.dto.FolderDTO" />
+         <typeAlias alias="fldto" type="folder.dto.FolderListDTO" />
     </typeAliases>	
 	<mappers>
 		<mapper resource="mapper/CardSqlMapper.xml" />
@@ -20,5 +22,6 @@
 		<mapper resource="mapper/CardSetSqlMapper.xml" />
 		<mapper resource="mapper/BoardCardSqlMapper.xml" />
 		<mapper resource="mapper/RecordSqlMapper.xml" />
+		<mapper resource="mapper/FolderSqlMapper.xml" />
 	</mappers>
 </configuration>

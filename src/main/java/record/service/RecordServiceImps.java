@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import record.dto.DetailRecordDTO;
 import record.dto.RecordDTO;
+import record.dto.StudyDTO;
 import record.mapper.RecordMapper;
 
 @Service
@@ -73,5 +74,29 @@ public class RecordServiceImps implements RecordService{
 	public List<RecordDTO> getLast(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return rm.getLast(map);
+	}
+	
+	@Override
+	public List<DetailRecordDTO> getDetailRecordList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return rm.getDetailRecordList(map);
+	}
+	
+	@Override
+	public List<StudyDTO> getStudyList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return rm.getStudyList(map);
+	}
+	
+	@Override
+	public List<StudyDTO> getStudyBoardList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return rm.getStudyBoardList(map);
+	}
+	
+	@Override
+	public List<StudyDTO> getStudyCardSetList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return rm.getStudyCardSetList(map);
 	}
 }

@@ -1,6 +1,6 @@
 package record.dto;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -14,9 +14,9 @@ public class RecordDTO {
 	private String category;
 	private int rightcnt;
 	private int wrongcnt;
-	private String method;
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone="Asia/Seoul")
 	private Timestamp recordday;
+	private String method;
 	private String title;
 	private String comment;
 	private String name;
