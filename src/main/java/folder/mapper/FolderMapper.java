@@ -19,4 +19,5 @@ public interface FolderMapper {
 	public List<StudyDTO> getStudyList(Map<String, Object> map);
 	public void deleteList(Map<String, Object> map);
 	public void insertFolderList(FolderListDTO fldto);
+	public List<FolderListDTO> getFolderCardList(Map<String, Object> map);
 }

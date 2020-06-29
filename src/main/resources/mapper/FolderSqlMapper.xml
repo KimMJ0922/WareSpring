@@ -89,4 +89,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		values
 			(#{folder_no}, #{cardset_no}, #{category})
 	</insert>
+	
+	<select id="getFolderCardList" parameterType="Map" resultType="fldto">
+		select 
+			fl.*
+		from 
+			folderlist fl,
+			folder f
+		where
+			f.member_no = #{member_no} and
+			f.no = fl.folder_no
+	
+	</select>
 </mapper>

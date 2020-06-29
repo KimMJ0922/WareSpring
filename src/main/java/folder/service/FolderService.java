@@ -27,4 +27,6 @@ public interface FolderService {
 	public void deleteList(Map<String, Object> map);
 	//리스트 insert
 	public void insertFolderList(FolderListDTO fldto);
+	//폴더 카드 목록 가져오기
+	public List<FolderListDTO> getFolderCardList(Map<String, Object> map);
 }

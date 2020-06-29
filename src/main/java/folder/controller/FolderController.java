@@ -59,8 +59,7 @@ public class FolderController {
 	@PostMapping("/insertstudylist")
 	public void insertStudyList(@RequestBody Map<String,Object> map) {
 		//insert하기 전 목록 지우기
-		fs.deleteFolder(map);
-		
+		fs.deleteList(map);
 		//하나씩 꺼내서 넣기
 		//JSON Object로 변환
 		JSONObject jsonObject = new JSONObject(map);
@@ -83,5 +82,13 @@ public class FolderController {
 			
 			fs.insertFolderList(fldto);
 		}
+	}
+	
+	@PostMapping("/getfoldercardlist")
+	@ResponseBody
+	public Map<String, Object> getFolderCardList(@RequestBody Map<String,Object> map){
+		List<FolderListDTO> fllist = fs.getFolderCardList(map);
+		map.put("fllist", fllist);
+		return map;
 	}
 }

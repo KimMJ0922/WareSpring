@@ -55,12 +55,18 @@ public class FolderServiceImps implements FolderService{
 	@Override
 	public void deleteList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		fm.deleteFolder(map);
+		fm.deleteList(map);
 	}
 	
 	@Override
 	public void insertFolderList(FolderListDTO fldto) {
 		// TODO Auto-generated method stub
 		fm.insertFolderList(fldto);
+	}
+	
+	@Override
+	public List<FolderListDTO> getFolderCardList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return fm.getFolderCardList(map);
 	}
 }
