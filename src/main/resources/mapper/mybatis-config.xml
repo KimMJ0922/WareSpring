@@ -11,6 +11,7 @@
          <typeAlias alias="rdto" type="record.dto.RecordDTO" />
          <typeAlias alias="ddto" type="record.dto.DetailRecordDTO" />
          <typeAlias alias="stdto" type="record.dto.StudyDTO" />
+         <typeAlias alias="buydto" type="Buy.dto.BuyDto" />
     </typeAliases>	
 	<mappers>
 		<mapper resource="mapper/CardSqlMapper.xml" />

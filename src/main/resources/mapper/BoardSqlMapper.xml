@@ -79,10 +79,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select count(*) from board where no=#{no}
 	</select>
 	
-	<select id="purchaseList" parameterType="String" resultType="Map">
-		select b.board_no, b.no, subject, content, buy_mno, date_format(b.writeday, '%Y-%m-%d') as buy_day,(
-			select count(*) from board_card bc where b.board_no=bc.cardset_no
-		) as cnt from board b, buy bu where board_no=buy_bno and buy_mno=#{no}
-		group by buy_bno order by buy_day desc, board_no asc;
+	<select id="purchaseList" parameterType="HashMap" resultType="buydto">
+		select b.board_no, b.no, subject, content, buy_mno, date_format(b.writeday, '%Y-%m-%d') as buy_day,
+		(select count(*) from board_card bc where b.board_no=bc.cardset_no) as cnt 
+		from board b, buy bu 
+		where board_no=buy_bno and buy_mno=#{no}
+		group by buy_bno 
+		order by buy_day desc, board_no asc limit #{start},5;
+	</select>
+	<select id="getPurchaseListCount" parameterType="String" resultType="Integer">
+		select count(*) from buy where buy_mno=#{no}
 	</select>
 </mapper>

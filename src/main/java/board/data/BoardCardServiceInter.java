@@ -11,4 +11,6 @@ public interface BoardCardServiceInter {
 	public List<String> getImgList(int board_no);
 	public void deleteCard(int board_no);
 	public void insertCard(BoardCardDto dto);
+	public int getCardSetCount(Map<String, Object> map);
+	public List<BoardCardDto> getTestCardList(Map<String, Object> map);
 }

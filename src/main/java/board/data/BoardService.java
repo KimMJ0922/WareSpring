@@ -2,9 +2,12 @@ package board.data;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import Buy.dto.BuyDto;
 
 @Service
 public class BoardService implements BoardServiceInter{
@@ -36,7 +39,7 @@ public class BoardService implements BoardServiceInter{
 	}
 
 	@Override
-	public List<BoardDto> getData(String board_no) {
+	public BoardDto getData(String board_no) {
 		// TODO Auto-generated method stub
 		return bmapper.getData(board_no);
 	}
@@ -111,5 +114,17 @@ public class BoardService implements BoardServiceInter{
 	public int getSellListCount(String no) {
 		// TODO Auto-generated method stub
 		return bmapper.getSellListCount(no);
+	}
+
+	@Override
+	public List<BuyDto> purchaseList(HashMap<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return bmapper.purchaseList(map);
+	}
+
+	@Override
+	public int getPurchaseListCount(String no) {
+		// TODO Auto-generated method stub
+		return bmapper.getPurchaseListCount(no);
 	}
 }

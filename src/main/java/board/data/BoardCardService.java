@@ -53,4 +53,16 @@ public class BoardCardService implements BoardCardServiceInter {
 		// TODO Auto-generated method stub
 		bcmapper.insertCard(dto);
 	}
+
+	@Override
+	public int getCardSetCount(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return bcmapper.getCardSetCount(map);
+	}
+
+	@Override
+	public List<BoardCardDto> getTestCardList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return bcmapper.getTestCardList(map);
+	}
 }
