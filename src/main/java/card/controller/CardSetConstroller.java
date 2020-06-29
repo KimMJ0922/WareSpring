@@ -1,7 +1,5 @@
 package card.controller;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,13 +24,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import card.dto.CardDTO;
 import card.dto.CardSetDTO;
-import card.mapper.CardMapper;
 import card.service.CardService;
 import card.service.CardSetService;
-import member.service.MemberEncryption;
 import spring.waregg.controller.LocalIPAddress;
 import upload.util.DirectoryManagement;
-import upload.util.SearchFile;
 import upload.util.SpringFileWrite;
 
 @RestController

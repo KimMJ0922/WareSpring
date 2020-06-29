@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			imgFile,
 			if(
 				imgFile != '', 
-				concat('http://localhost:9000/card/img/',imgFile),
+				concat('http://localhost:9000/bcard/img/',imgFile),
 				''
 			) as imgSrc
 		from board_card
@@ -42,8 +42,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where cardset_no = #{board_no}
 	</delete>
 	
-	<insert id="insertCard" parameterType="cdto">
+	<insert id="insertCard" parameterType="bcdto">
 		insert into board_card(cardset_no, question_no, question, answer, imgFile) 
 		values (#{cardset_no},#{question_no},#{question},#{answer},#{imgFile})
 	</insert>
+	
+	<select id="getCardSetCount" parameterType="Map" resultType="Integer">
+		select count(*)
+		from board_card
+		where cardset_no = #{no}
+	</select>
+	
+	<select id="getTestCardList" parameterType="Map" resultType="bcdto">
+		select 
+			cardset_no, 
+			question_no, 
+			question, 
+			answer,
+			imgFile,
+			if(
+				imgFile != '', 
+				concat('http://localhost:9000/bcard/img/',imgFile),
+				''
+			) as imgSrc
+		from board_card
+		where cardset_no = #{no}
+		order by rand()
+	</select>
 </mapper>

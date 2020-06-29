@@ -7,6 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import Buy.dto.BuyDto;
+
 @Service
 public class BoardService implements BoardServiceInter{
 	@Autowired
@@ -37,7 +39,7 @@ public class BoardService implements BoardServiceInter{
 	}
 
 	@Override
-	public List<BoardDto> getData(String board_no) {
+	public BoardDto getData(String board_no) {
 		// TODO Auto-generated method stub
 		return bmapper.getData(board_no);
 	}
@@ -100,5 +102,29 @@ public class BoardService implements BoardServiceInter{
 	public void updateBoard(BoardDto dto) {
 		// TODO Auto-generated method stub
 		bmapper.updateBoard(dto);
+	}
+
+	@Override
+	public List<BoardDto> getSellBoardOfSet(HashMap<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return bmapper.getSellBoardOfSet(map);
+	}
+
+	@Override
+	public int getSellListCount(String no) {
+		// TODO Auto-generated method stub
+		return bmapper.getSellListCount(no);
+	}
+
+	@Override
+	public List<BuyDto> purchaseList(HashMap<String, Integer> map) {
+		// TODO Auto-generated method stub
+		return bmapper.purchaseList(map);
+	}
+
+	@Override
+	public int getPurchaseListCount(String no) {
+		// TODO Auto-generated method stub
+		return bmapper.getPurchaseListCount(no);
 	}
 }
