@@ -6,6 +6,7 @@
          <typeAlias alias="mdto" type="member.dto.MemberDTO" />
          <typeAlias alias="bdto" type="board.data.BoardDto" />
          <typeAlias alias="csdto" type="card.dto.CardSetDTO" />
+         <typeAlias alias="shdto" type="card.dto.SearchDTO" />
          <typeAlias alias="bcdto" type="board.data.BoardCardDto" />
          <typeAlias alias="rdto" type="record.dto.RecordDTO" />
          <typeAlias alias="pdto" type="point.dto.PointDto" />

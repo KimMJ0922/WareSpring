@@ -90,15 +90,7 @@ public class RecordController{
 	
 	@PostMapping("/getdiagramlist")
 	@ResponseBody
-	public Map<String,Object> getDiagramList(@RequestBody Map<String, Object> map){
-//		List<RecordDTO> rlist = rs.getList(map);
-//		List<RecordDTO> lastList = rs.getLastList(map);
-//		List<RecordDTO> chartList = rs.getChartList(map);
-//		
-//		map.put("lastList",lastList);
-//		map.put("rlist",rlist);
-//		map.put("chartList",chartList);
-		
+	public Map<String,Object> getDiagramList(@RequestBody Map<String, Object> map){		
 		List<RecordDTO> allList = rs.getAllList(map);
 		List<Integer> boardNo = new ArrayList<Integer>();
 		List<Integer> cardSetNo = new ArrayList<Integer>();
