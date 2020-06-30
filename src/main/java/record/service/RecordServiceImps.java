@@ -99,4 +99,22 @@ public class RecordServiceImps implements RecordService{
 		// TODO Auto-generated method stub
 		return rm.getStudyCardSetList(map);
 	}
+	
+	@Override
+	public List<RecordDTO> getAllList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return rm.getAllList(map);
+	}
+	
+	@Override
+	public List<RecordDTO> getBoardRecordList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return rm.getBoardRecordList(map);
+	}
+	
+	@Override
+	public List<RecordDTO> getCardSetRecordList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return rm.getCardSetRecordList(map);
+	}
 }

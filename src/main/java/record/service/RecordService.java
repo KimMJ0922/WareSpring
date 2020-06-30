@@ -36,4 +36,10 @@ public interface RecordService {
 	public List<StudyDTO> getStudyBoardList(Map<String, Object> map);
 	//최근 학습한 것 중 카드 세트 목록
 	public List<StudyDTO> getStudyCardSetList(Map<String, Object> map);
+	//전체 리스트 가져오기
+	public List<RecordDTO> getAllList(Map<String, Object> map);
+	//카드 세트 관련 정보
+	public List<RecordDTO> getCardSetRecordList(Map<String, Object> map);
+	//장터 관련 정보
+	public List<RecordDTO> getBoardRecordList(Map<String, Object> map);
 }

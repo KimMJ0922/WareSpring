@@ -90,14 +90,64 @@ public class RecordController{
 	
 	@PostMapping("/getdiagramlist")
 	@ResponseBody
-	public Map<String,Object> getDiagramList(@RequestBody Map<String, Object> map){
-		List<RecordDTO> rlist = rs.getList(map);
+	public Map<String,Object> getDiagramList(@RequestBody Map<String, Object> map){		
+		List<RecordDTO> allList = rs.getAllList(map);
+		List<Integer> boardNo = new ArrayList<Integer>();
+		List<Integer> cardSetNo = new ArrayList<Integer>();
+
+		for(RecordDTO dto : allList) {
+			if(dto.getCategory().equals("cardset")) {
+				cardSetNo.add(dto.getNo());
+			}else {
+				boardNo.add(dto.getNo());
+			}
+		}
+		
+		map.put("cardSetNo", cardSetNo);
+		map.put("boardNo", boardNo);
+		
+		allList.clear();
+		
+		if(cardSetNo.size() != 0) {
+			allList.addAll(rs.getCardSetRecordList(map));
+		}
+		
+		if(boardNo.size() != 0) {
+			allList.addAll(rs.getBoardRecordList(map));
+		}
+		
+		//최근꺼
 		List<RecordDTO> lastList = rs.getLastList(map);
+		cardSetNo.clear();
+		boardNo.clear();
+		
+		for(RecordDTO dto : lastList) {
+			if(dto.getCategory().equals("cardset")) {
+				cardSetNo.add(dto.getNo());
+			}else {
+				boardNo.add(dto.getNo());
+			}
+		}
+		
+		map.put("cardSetNo", cardSetNo);
+		map.put("boardNo", boardNo);
+		
+		lastList.clear();
+		
+		if(cardSetNo.size() != 0) {
+			lastList.addAll(rs.getCardSetRecordList(map));
+		}
+		
+		if(boardNo.size() != 0) {
+			lastList.addAll(rs.getBoardRecordList(map));
+		}
+		
 		List<RecordDTO> chartList = rs.getChartList(map);
 		
 		map.put("lastList",lastList);
-		map.put("rlist",rlist);
+		map.put("rlist",allList);
 		map.put("chartList",chartList);
+		
 		return map;
 	}
 	

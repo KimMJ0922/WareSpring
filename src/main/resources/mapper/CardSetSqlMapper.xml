@@ -65,4 +65,33 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			update_scope = #{update_scope}, update_password = #{update_password}
 		where no = #{no}
 	</update>
+	
+	<select id="getCardSetSearchList" parameterType="Map" resultType="shdto">
+		select
+			c.*,
+			m.name,
+			m.provider,
+			if(
+		   		INSTR(profile,'google')>0,
+		   		m.profile,
+		   		if(
+		   			INSTR(m.profile,'kakao')>0,
+		   			m.profile,
+		   			if(
+		   				INSTR(m.profile,m.no)>0,
+		   				concat('http://localhost:9000/profile/users/',m.profile),
+		   				concat('http://localhost:9000/profile/default/',m.profile)
+		   			)
+		   		)
+		   	) as profile
+		from
+			cardset c,
+			member m
+		where
+			c.member_no = m.no and
+			c.title like concat(#{searchText},'%')
+		order by 
+			c.createday desc
+		limit 0, #{start}
+	</select>
 </mapper>

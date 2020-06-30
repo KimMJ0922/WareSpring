@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import card.dto.CardDTO;
 import card.dto.CardSetDTO;
+import card.dto.SearchDTO;
 import card.service.CardService;
 import card.service.CardSetService;
 import spring.waregg.controller.LocalIPAddress;
@@ -246,5 +247,15 @@ public class CardSetConstroller {
 		
 		dm.deleteFile(request, dto.getMember_no());
 		dm.deleteTempFolder(request, dto.getMember_no());
+	}
+	
+	
+	//검색
+	@PostMapping("/getcardsetsearchlist")
+	@ResponseBody
+	public Map<String, Object> getCardSetSearchList(@RequestBody Map<String,Object> map){
+		List<SearchDTO> slist = cardSetService.getCardSetSearchList(map);
+		map.put("slist", slist);
+		return map;
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import card.dto.CardDTO;
 import card.dto.CardSetDTO;
+import card.dto.SearchDTO;
 
 public interface CardSetService {
 	//카드세트에 값 넣기
@@ -25,4 +26,6 @@ public interface CardSetService {
 	public boolean updatePassCheck(Map<String,Object> map);
 	//카드 세트 업데이트
 	public void updateCardSet(CardSetDTO dto);
+	//검색한 것 가져오기
+	public List<SearchDTO> getCardSetSearchList(Map<String,Object> map);
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import card.dto.CardSetDTO;
+import card.dto.SearchDTO;
 import card.mapper.CardSetMapper;
 
 @Service
@@ -67,5 +68,11 @@ public class CardSetServiceImps implements CardSetService{
 	public void updateCardSet(CardSetDTO dto) {
 		// TODO Auto-generated method stub
 		cardSetMapper.updateCardSet(dto);
+	}
+	
+	@Override
+	public List<SearchDTO> getCardSetSearchList(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return cardSetMapper.getCardSetSearchList(map);
 	}
 }

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import card.dto.CardDTO;
 import card.dto.CardSetDTO;
+import card.dto.SearchDTO;
 
 @Mapper
 public interface CardSetMapper {
@@ -21,4 +22,5 @@ public interface CardSetMapper {
 	public void deleteCardSet(Map<String,Object> map);
 	public int updatePassCheck(Map<String,Object> map);
 	public void updateCardSet(CardSetDTO dto);
+	public List<SearchDTO> getCardSetSearchList(Map<String,Object> map);
 }

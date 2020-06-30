@@ -25,4 +25,7 @@ public interface RecordMapper {
 	public List<StudyDTO> getStudyList(Map<String, Object> map);
 	public List<StudyDTO> getStudyBoardList(Map<String, Object> map);
 	public List<StudyDTO> getStudyCardSetList(Map<String, Object> map);
+	public List<RecordDTO> getAllList(Map<String, Object> map);
+	public List<RecordDTO> getCardSetRecordList(Map<String, Object> map);
+	public List<RecordDTO> getBoardRecordList(Map<String, Object> map);
 }
