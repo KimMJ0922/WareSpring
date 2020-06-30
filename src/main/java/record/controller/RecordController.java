@@ -230,4 +230,17 @@ public class RecordController{
             else return -1;
 		}
 	}
+	
+	class RecordSorting implements Comparator<RecordDTO>{
+		@Override
+		public int compare(RecordDTO o1, RecordDTO o2) {
+			// TODO Auto-generated method stub
+			int no1 = o1.getNo();
+			int no2 = o2.getNo();
+            
+            if(no2 == no1) return 0;
+            else if(no2 > no1) return 1;
+            else return -1;
+		}
+	}
 }

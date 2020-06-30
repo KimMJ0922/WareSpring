@@ -254,6 +254,7 @@ public class CardSetConstroller {
 	@PostMapping("/getcardsetsearchlist")
 	@ResponseBody
 	public Map<String, Object> getCardSetSearchList(@RequestBody Map<String,Object> map){
+		System.out.println(map);
 		List<SearchDTO> slist = cardSetService.getCardSetSearchList(map);
 		map.put("slist", slist);
 		return map;

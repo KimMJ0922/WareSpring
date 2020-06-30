@@ -83,15 +83,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   				concat('http://localhost:9000/profile/default/',m.profile)
 		   			)
 		   		)
-		   	) as profile
+		   	) as profile,
+		   	(
+		   		select 
+		   			count(*)
+		   		from
+		   			card cd
+		   		where
+		   			c.no = cd.cardset_no
+		   	) as cnt
 		from
 			cardset c,
 			member m
 		where
 			c.member_no = m.no and
-			c.title like concat(#{searchText},'%')
-		order by 
-			c.createday desc
-		limit 0, #{start}
+			<choose>
+		        <when test="division == '제목'">
+		        	<choose>
+				        <when test="include == '검색단어'">
+				        	c.title = #{searchText}
+				        </when>
+				        <when test="include == '검색단어포함'">
+				        	c.title like concat('%',#{searchText},'%')
+				        </when>
+		    		</choose>
+		        </when>
+		        <when test="division == '만든이'">
+		        	<choose>
+				        <when test="include == '검색단어'">
+				        	m.name = #{searchText}
+				        </when>
+				        <when test="include == '검색단어포함'">
+				        	m.name like concat('%',#{searchText},'%')
+				        </when>
+		    		</choose>
+		        </when>
+    		</choose>
+		order by
+			<choose>
+		        <when test="sort == '오래된순'">c.createday asc</when>
+		        <when test="sort == '최신순'">c.createday desc</when>
+    		</choose>
 	</select>
 </mapper>
