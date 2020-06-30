@@ -29,14 +29,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from
 			(
 				select
-					*
+					r.*
 				from
-					record
-				where member_no = #{member_no}
-				order by recordday
+					(
+						select
+							*
+						from
+							record
+						where member_no = #{member_no}
+						order by recordday desc
+					) as r
+				group by
+					r.cardset_no, r.category, r.method
 			) as r
-		group by
-			r.cardset_no, r.category, r.method
+		order by recordday desc 
 	</select>
 	
 	<select id="getCardSetRecordList" parameterType="Map" resultType="rdto">
@@ -67,7 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			c.member_no = m.no and
 			r.no in
 					<foreach collection="cardSetNo" item="item"  open="(" close=")" separator=",">#{item}</foreach>
-					
+		order by r.recordday desc
 	</select>
 	
 	<select id="getBoardRecordList" parameterType="Map" resultType="rdto">
@@ -98,7 +104,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			b.no = m.no and
 			r.no in 
 					<foreach collection="boardNo" item="item"  open="(" close=")" separator=",">#{item}</foreach>
-					
+			order by r.recordday desc
 	</select>
 	
 	
