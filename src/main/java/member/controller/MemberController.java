@@ -105,7 +105,7 @@ public class MemberController {
     	//해당 이메일 업데이트
     	memberService.updateEmailCheck(email);
     	//업데이트 후 로그인 페이지로 이동
-    	URI redirectUri = new URI("http://localhost:3000/signin");
+    	URI redirectUri = new URI("http://localhost:3000/");
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setLocation(redirectUri);
         return new ResponseEntity<>(httpHeaders, HttpStatus.SEE_OTHER);
