@@ -97,6 +97,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			member m
 		where
 			c.member_no = m.no and
+			c.open_scope != 'private' and
 			<choose>
 		        <when test="division == '제목'">
 		        	<choose>
